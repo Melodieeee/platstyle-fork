@@ -56,17 +56,17 @@ public class UserController {
         }
     }
     @GetMapping(path = "/user/account")
-    public String account(){ return "/user/account";}
+    public String account(){ return "user/account";}
 
     @GetMapping(path = "/user/support")
-    public String support(){ return "/user/support";}
+    public String support(){ return "user/support";}
 
     @GetMapping(path = "/user/upload")
-    public String upload(){ return "/user/upload";}
+    public String upload(){ return "user/upload";}
 
     @GetMapping(path = "/user/cart")
-    public String order(){ return "/user/cart";}
+    public String order(){ return "user/cart";}
 
     @GetMapping(path = "/user/checkout")
-    public String checkout(){ return "/user/checkout";}
+    public String checkout(){ return "user/checkout";}
 }

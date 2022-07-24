@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 @AllArgsConstructor
 public class AdminController {
     @GetMapping(path = "/admin/supportManagement")
-    public String supportManagement(){ return "/admin/supportManagement";}
+    public String supportManagement(){ return "admin/supportManagement";}
 
     @GetMapping(path = "/admin/userManagement")
-    public String userManagement(){ return "/admin/userManagement";}
+    public String userManagement(){ return "admin/userManagement";}
 }

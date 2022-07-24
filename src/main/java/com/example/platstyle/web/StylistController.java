@@ -9,12 +9,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 @AllArgsConstructor
 public class StylistController {
     @GetMapping(path = "/stylist/profile")
-    public String profile(){ return "/stylist/profile";}
+    public String profile(){ return "stylist/profile";}
 
     @GetMapping(path = "/stylist/paymentRelease")
-    public String paymentRelease(){ return "/stylist/paymentRelease";}
+    public String paymentRelease(){ return "stylist/paymentRelease";}
 
     @GetMapping(path = "/stylist/store")
-    public String store(){ return "/stylist/store";}
+    public String store(){ return "stylist/store";}
 
 }

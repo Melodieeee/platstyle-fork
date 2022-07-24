@@ -14,12 +14,17 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long uid;
-    private String Fname;
-    private String Lname;
+    private String firstName;
+    private String lastName;
+    private String password;
     @Temporal(TemporalType.DATE)
     @DateTimeFormat(pattern="yyyy-MM-dd")
     private Date registerDate;
+    @Column(name="EMAIL", length=50, nullable=false, unique=true)
     private String email;
-    private int gender;
-    private double phone;
+    @Column(name="GENDER", length=10)
+    private String   gender;
+    private String phone;
+    private String roles;
+
 }

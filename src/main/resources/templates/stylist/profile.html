@@ -1,0 +1,245 @@
+<!doctype html>
+<html class="easy-sidebar-active" lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Stylist Profile | PlatStyles</title>
+
+    <div th:replace="fragments/header :: header-css"/>
+
+</head>
+
+<body>
+<main>
+    <div th:replace="fragments/header :: header"/>
+    <!--Content Start-->
+    <div class="container">
+        <div class="h2">Profile</div>
+        <div class="row gutters">
+            <!--Personal details-->
+            <div class="container col-xl-6 col-md-6 col-sm-12">
+                <div class="container mb-5">
+                    <div class="row gutters">
+                        <div class="user-img">
+                            <img src="https://bootdey.com/img/Content/avatar/avatar7.png" class="img-thumbnail mx-auto d-block" alt="..." width="200" height="200">
+                        </div>
+                        <h6 class="mb-2 text-primary">Personal Details</h6>
+                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                            <div class="form-group">
+                                <label for="firstName">First Name</label>
+                                <input type="text" class="form-control" id="firstName" placeholder="Enter first name">
+                            </div>
+                        </div>
+                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                            <div class="form-group">
+                                <label for="lastName">Last Name</label>
+                                <input type="text" class="form-control" id="lastName" placeholder="Enter last name">
+                            </div>
+                        </div>
+                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                            <div class="form-group">
+                                <label for="phone">Phone</label>
+                                <input type="text" class="form-control" id="phone" placeholder="Enter phone number">
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="form-group">
+                                <label for="email">Email</label>
+                                <input type="email" class="form-control" id="email" placeholder="Enter email ID">
+                            </div>
+                        </div>
+                        <div class="d-grid gap-2 col-md-12 mx-auto pt-4">
+                            <a href="forgotpassword.html" class="btn btn-outline-secondary" role="button">Reset password</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!--Time Slot-->
+            <div class="container col-xl-6 col-md-6 col-sm-12">
+                <div class="h4 p-3">Time Slot</div>
+                <div class="container m-3">
+                    <div class="d-flex bd-highlight mb-2">
+                        <div class="me-auto p-2 bd-highlight">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                <label class="form-check-label" for="flexCheckDefault">
+                                    Monday
+                                </label>
+                            </div>
+                        </div>
+                        <div class="p-2 bd-highlight">
+                            <div class="form-group">
+                                <input type="time" class="form-control" id="fName">
+                            </div>
+                        </div>
+                        <div class="p-2 bd-highlight">
+                            <div class="form-group">
+                                <input type="time" class="form-control" id="fName">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="d-flex bd-highlight mb-2">
+                        <div class="me-auto p-2 bd-highlight">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                <label class="form-check-label" for="flexCheckDefault">
+                                    Tuesday
+                                </label>
+                            </div>
+                        </div>
+                        <div class="p-2 bd-highlight">
+                            <div class="form-group">
+                                <input type="time" class="form-control" id="fName">
+                            </div>
+                        </div>
+                        <div class="p-2 bd-highlight">
+                            <div class="form-group">
+                                <input type="time" class="form-control" id="fName">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="d-flex bd-highlight mb-2">
+                        <div class="me-auto p-2 bd-highlight">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                <label class="form-check-label" for="flexCheckDefault">
+                                    Wednesday
+                                </label>
+                            </div>
+                        </div>
+                        <div class="p-2 bd-highlight">
+                            <div class="form-group">
+                                <input type="time" class="form-control" id="fName">
+                            </div>
+                        </div>
+                        <div class="p-2 bd-highlight">
+                            <div class="form-group">
+                                <input type="time" class="form-control" id="fName">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="d-flex bd-highlight mb-2">
+                        <div class="me-auto p-2 bd-highlight">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                <label class="form-check-label" for="flexCheckDefault">
+                                    Thursday
+                                </label>
+                            </div>
+                        </div>
+                        <div class="p-2 bd-highlight">
+                            <div class="form-group">
+                                <input type="time" class="form-control" id="fName">
+                            </div>
+                        </div>
+                        <div class="p-2 bd-highlight">
+                            <div class="form-group">
+                                <input type="time" class="form-control" id="fName">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="d-flex bd-highlight mb-2">
+                        <div class="me-auto p-2 bd-highlight">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                <label class="form-check-label" for="flexCheckDefault">
+                                    Friday
+                                </label>
+                            </div>
+                        </div>
+                        <div class="p-2 bd-highlight">
+                            <div class="form-group">
+                                <input type="time" class="form-control" id="fName">
+                            </div>
+                        </div>
+                        <div class="p-2 bd-highlight">
+                            <div class="form-group">
+                                <input type="time" class="form-control" id="fName">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="d-flex bd-highlight mb-2">
+                        <div class="me-auto p-2 bd-highlight">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                <label class="form-check-label" for="flexCheckDefault">
+                                    Saturday
+                                </label>
+                            </div>
+                        </div>
+                        <div class="p-2 bd-highlight">
+                            <div class="form-group">
+                                <input type="time" class="form-control" id="fName">
+                            </div>
+                        </div>
+                        <div class="p-2 bd-highlight">
+                            <div class="form-group">
+                                <input type="time" class="form-control" id="fName">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="d-flex bd-highlight mb-2">
+                        <div class="me-auto p-2 bd-highlight">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                <label class="form-check-label" for="flexCheckDefault">
+                                    Sunday
+                                </label>
+                            </div>
+                        </div>
+                        <div class="p-2 bd-highlight">
+                            <div class="form-group">
+                                <input type="time" class="form-control" id="fName">
+                            </div>
+                        </div>
+                        <div class="p-2 bd-highlight">
+                            <div class="form-group">
+                                <input type="time" class="form-control" id="fName">
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+
+            <!--Compelete btn-->
+            <div class="container">
+                <div class="row gutters">
+                    <div class="d-grid gap-2 col-md-6 mx-auto pt-4">
+                        <a href="/" class="btn btn-outline-success" role="button">Save</a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+
+    <!--Content End-->
+    <!--Footer-->
+    <div th:replace="fragments/footer :: footer"/>
+</main>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.0/jquery.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+<script src="../js/sidebars.js" th:href="@{../js/sidebars.js}"></script>
+<script>
+    //easy-sidebar-toggle-right
+    $('.easy-sidebar-toggle').click(function(e) {
+        e.preventDefault();
+        //$('body').toggleClass('toggled-right');
+        $('body').toggleClass('toggled');
+        //$('.navbar.easy-sidebar-right').removeClass('toggled-right');
+        $('.navbar.easy-sidebar').removeClass('toggled');
+    });
+</script>
+</body>
+</html>

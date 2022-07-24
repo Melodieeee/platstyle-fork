@@ -1,0 +1,285 @@
+<!doctype html>
+<html class="easy-sidebar-active" lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Payment Release | PlatStyles</title>
+    <link rel="stylesheet" href="../css/orderstatus.css">
+    <div th:replace="fragments/header :: header-css"/>
+    <link rel="stylesheet" href="../css/font-awesome.min.css" />
+    <link rel="stylesheet" href="../css/style.css" th:href="@{../css/style.css}" />
+    <link rel="stylesheet" href="../css/easy-sidebar.css" th:href="@{../css/easy-sidebar.css}">
+    <script>document.getElementsByTagName("html")[0].className += " js";</script>
+
+</head>
+
+<body>
+<main>
+
+    <div th:replace="fragments/header :: header"/>
+    <!--Content Start-->
+    <div class="container-fluid my-3">
+        <section class="cd-h-timeline js-cd-h-timeline margin-bottom-md">
+            <div class="cd-h-timeline__container container">
+                <div class="cd-h-timeline__dates">
+                    <div class="cd-h-timeline__line">
+                        <ol>
+                            <li><a href="#0" data-date="16/01/2014" class="cd-h-timeline__date cd-h-timeline__date--selected">Appointment Requesting</a></li>
+                            <li><a href="#0" data-date="28/02/2014" class="cd-h-timeline__date">Order Accepted by Stylist</a></li>
+                            <li><a href="#0" data-date="20/04/2014" class="cd-h-timeline__date">Stylist Arrived</a></li>
+                            <li><a href="#0" data-date="20/05/2014" class="cd-h-timeline__date">Price Evaluation</a></li>
+                            <li><a href="#0" data-date="09/07/2014" class="cd-h-timeline__date">Price Confirmed</a></li>
+                            <li><a href="#0" data-date="30/08/2014" class="cd-h-timeline__date">Get Serviced</a></li>
+                            <li><a href="#0" data-date="15/09/2014" class="cd-h-timeline__date">Service Completed</a></li>
+                            <li><a href="#0" data-date="01/11/2014" class="cd-h-timeline__date">Feedback</a></li>
+                        </ol>
+
+                        <span class="cd-h-timeline__filling-line" aria-hidden="true"></span>
+                    </div> <!-- .cd-h-timeline__line -->
+                </div> <!-- .cd-h-timeline__dates -->
+
+                <ul>
+                    <li><a href="#0" class="text-replace cd-h-timeline__navigation cd-h-timeline__navigation--prev cd-h-timeline__navigation--inactive">Prev</a></li>
+                    <li><a href="#0" class="text-replace cd-h-timeline__navigation cd-h-timeline__navigation--next">Next</a></li>
+                </ul>
+            </div> <!-- .cd-h-timeline__container -->
+
+            <div class="cd-h-timeline__events">
+                <ol>
+                    <li class="cd-h-timeline__event cd-h-timeline__event--selected text-component">
+                        <div class="cd-h-timeline__event-content container">
+                            <h2 class="cd-h-timeline__event-title">Appointment Requesting</h2>
+                            <em class="cd-h-timeline__event-date">time</em>
+                            <p class="cd-h-timeline__event-description color-contrast-medium">
+                                Please wait for your stylist to accept your order.
+                            </p>
+                        </div>
+                    </li>
+
+                    <li class="cd-h-timeline__event text-component">
+                        <div class="cd-h-timeline__event-content container">
+                            <h2 class="cd-h-timeline__event-title">Order Accepted by Stylist</h2>
+                            <em class="cd-h-timeline__event-date">time</em>
+                            <p class="cd-h-timeline__event-description color-contrast-medium">
+                                We have received your advanced payment. Please waht for your stlist's arrival on
+                                <span>May 30th at 06:00 p.m.</span>
+                            </p>
+                        </div>
+                    </li>
+
+                    <li class="cd-h-timeline__event text-component">
+                        <div class="cd-h-timeline__event-content container">
+                            <h2 class="cd-h-timeline__event-title">Stylist Arrived</h2>
+                            <em class="cd-h-timeline__event-date">time</em>
+                            <p class="cd-h-timeline__event-description color-contrast-medium bf-arrival-confirm">
+                                Please confirm your stylist's arrival.
+                            </p>
+                            <p class="cd-h-timeline__event-description color-contrast-medium af-arrival-confirm">
+                                Sylist's arrival was confirmed.
+                            </p>
+                            <button type="submit" class="btn btn-primary">Confirm</button>
+                        </div>
+                    </li>
+
+                    <li class="cd-h-timeline__event text-component">
+                        <div class="cd-h-timeline__event-content container">
+                            <h2 class="cd-h-timeline__event-title">Price Evaluation</h2>
+
+                            <em class="cd-h-timeline__event-date">
+                                <span>Orginal Total of Your Order: $70 </span>
+                            </em>
+                            <!-- Button trigger modal -->
+                            <button type="button" class="btn btn-outline-secondary btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                see details
+                            </button>
+
+
+
+                            <!-- price table -->
+                            <div class="cd-h-timeline__event-description color-contrast-medium container my-5">
+                                <table class="table table-striped">
+
+                                    <tbody>
+                                    <tr>
+                                        <td colspan="4">Final Price: </td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">1</th>
+                                        <td>Haircut</td>
+                                        <td>Medium</td>
+                                        <td>$20</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">2</th>
+                                        <td>Hair perm</td>
+                                        <td>Medium</td>
+                                        <td>$70</td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="3">Total</td>
+                                        <td>$90</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <!-- confirm btn -->
+                            <button type="submit" class="btn btn-primary btn-sm">Confirm this price</button>
+                        </div>
+                    </li>
+
+                    <li class="cd-h-timeline__event text-component">
+                        <div class="cd-h-timeline__event-content container">
+                            <h2 class="cd-h-timeline__event-title">Price confirmed</h2>
+                            <em class="cd-h-timeline__event-date">Total: $90</em>
+                            <p class="cd-h-timeline__event-description color-contrast-medium">
+                                The final price is confirmed.
+                            </p>
+                        </div>
+                    </li>
+
+                    <li class="cd-h-timeline__event text-component">
+                        <div class="cd-h-timeline__event-content container">
+                            <h2 class="cd-h-timeline__event-title">Get Service</h2>
+
+                            <p class="cd-h-timeline__event-description color-contrast-medium">
+                                New hairstyle is on the way ...
+                            </p>
+                        </div>
+                    </li>
+
+                    <li class="cd-h-timeline__event text-component">
+                        <div class="cd-h-timeline__event-content container">
+                            <h2 class="cd-h-timeline__event-title">Service Completed</h2>
+                            <em class="cd-h-timeline__event-date">time</em>
+                            <p class="cd-h-timeline__event-description color-contrast-medium border-bottom pb-5 mb-5">
+                                Please enter the tip amount and confirm the completion of service in 5 mins. We will process your order and
+                                charge the balance  in <span>#sec-count-down</span> secs.
+                            </p>
+                            <!-- Completed? select -->
+                            <div class="container">
+                                <button class="btn btn-outline-secondary dropdown-toggle cardType" type="button" data-bs-toggle="dropdown" aria-expanded="false">Is the Servic Completed?</button>
+                                <ul class="dropdown-menu">
+                                    <li value="completed"><a class="dropdown-item" >Yes</a></li>
+                                    <li value="incom[leted"><a class="dropdown-item" >No</a></li>
+                                </ul>
+                            </div>
+                            <!-- tip -->
+                            <div class="container col pt-3">
+                                <label for="inputTip" class="form-label">Tip your stylist:</label>
+                                <input type="text" id="tip" class="form-control" aria-describedby="tipHelpBlock" placeholder="$xx.xx">
+                            </div>
+
+                            <!-- submit-->
+                            <div class="container col">
+                                <button type="submit" class="btn btn-primary saveCard mt-5">
+                                    Submit
+                                </button>
+                            </div>
+                        </div>
+                    </li>
+
+                    <li class="cd-h-timeline__event text-component">
+                        <div class="cd-h-timeline__event-content container">
+                            <h2 class="cd-h-timeline__event-title">Rate Your Stylist</h2>
+                            <em class="cd-h-timeline__event-date">#time</em>
+                            <p class="cd-h-timeline__event-description color-contrast-medium">
+                                Thank you for using PlatStyle! Hope you like your new hairstyle!
+                            </p>
+
+                            <div class="rating-box">
+                                <label for="rating-value" class="form-label">Rating:</label>
+                                <div class="rating">
+                                    <span class="fa fa-star"></span>
+                                    <span class="fa-regular fa-star"></span>
+                                    <span class="fa-regular fa-star"></span>
+                                    <span class="fa-regular fa-star"></span>
+                                    <span class="fa-regular fa-star"></span>
+                                </div>
+
+                                <h4 id="rating-value"></h4>
+                            </div>
+
+                            <!-- input feedback -->
+                            <div class="">
+                                <label for="inputReviews" class="form-label">Write your reviews:</label>
+
+                                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="What you want to tell your stylist..."></textarea>
+                            </div>
+
+                            <!-- submit-->
+                            <div class="">
+                                <button type="submit" class="btn btn-primary saveCard mt-5">
+                                    Submit
+                                </button>
+                            </div>
+
+                        </div>
+                    </li>
+
+                </ol>
+            </div> <!-- .cd-h-timeline__events -->
+        </section>
+
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="false">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Order details</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <table class="table table-striped">
+
+                            <tbody>
+                            <tr>
+                                <td colspan="4">Order Items: </td>
+                            </tr>
+                            <tr>
+                                <th scope="row">1</th>
+                                <td>Haircut</td>
+                                <td>Short</td>
+                                <td>$30</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">2</th>
+                                <td>Hair perm</td>
+                                <td>Medium</td>
+                                <td>$40</td>
+                            </tr>
+                            <tr>
+                                <td colspan="3">Total</td>
+                                <td>$70</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--Content End-->
+    <!--Footer-->
+    <div th:replace="fragments/footer :: footer"/>
+</main>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.0/jquery.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+    <script src="../js/sidebars.js" th:href="@{../js/sidebars.js}"></script>
+    <script src="../js/util.js"></script> <!-- util functions included in the CodyHouse framework -->
+    <script src="../js/swipe-content.js"></script> <!-- A Vanilla JavaScript plugin to detect touch interactions -->
+    <script src="../js/main.js"></script>
+    <script src="../js/rating.js"></script>
+    <script>
+        //easy-sidebar-toggle-right
+        $('.easy-sidebar-toggle').click(function(e) {
+            e.preventDefault();
+            //$('body').toggleClass('toggled-right');
+            $('body').toggleClass('toggled');
+            //$('.navbar.easy-sidebar-right').removeClass('toggled-right');
+            $('.navbar.easy-sidebar').removeClass('toggled');
+        });
+    </script>
+</body>
+</html>

@@ -50,7 +50,7 @@ public class UserController {
             Date date = Date.from(localDate.atStartOfDay(defaultZoneId).toInstant());
             user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
             user.setRegisterDate(date);
-            user.setRoles("user");
+            user.setRoles("ROLE_ADMIN");
             userRepository.save(user);
             return "redirect:/";
         }

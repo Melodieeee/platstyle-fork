@@ -39,9 +39,14 @@
                     <input type="search" class="form-control form-control-dark text-white bg-dark" placeholder="Search..." aria-label="Search">
                 </form>
 
-                <div class="text-end">
-                    <a class="btn btn-warning m-3" href="signup" role="button">Sign-up</a>
-                    <a class="btn btn-outline-light" href="login" role="button">Login</a>
+                <div th:switch="${#authentication}? ${#authorization.expression('isAuthenticated()')} : ${false}">
+                    <div class="text-end" th:case="${false}">
+                        <a class="btn btn-warning m-3" href="signup" role="button" >Sign-up</a>
+                        <a class="btn btn-outline-light" href="login" role="button" >Login</a>
+                    </div>
+                    <div class="text-end" th:case="${true}">
+                        <a class="btn btn-outline-light" href="/user/account" role="button" >Account</a>
+                    </div>
                 </div>
             </div>
         </div>

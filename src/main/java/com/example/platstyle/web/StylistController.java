@@ -17,4 +17,7 @@ public class StylistController {
     @GetMapping(path = "/stylist/store")
     public String store(){ return "stylist/store";}
 
+    @GetMapping(path = "/stylist/portfolio")
+    public String portfolio(){ return "stylist/portfolio";}
+
 }

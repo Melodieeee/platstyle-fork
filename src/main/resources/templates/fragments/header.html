@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -91,9 +91,9 @@
                             </a>
                         </li>
                         <li>
-                            <a href="/stylist/profolio" class="nav-link link-dark">
-                                <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="/stylist/profolio"/></svg>
-                                Profolio
+                            <a href="/stylist/portfolio" class="nav-link link-dark">
+                                <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="/stylist/portfolio"/></svg>
+                                Portfolio
                             </a>
                         </li>
                         <li>
@@ -114,13 +114,13 @@
                                 Payment Release
                             </a>
                         </li>
-                        <li>
+                        <li sec:authorize="hasRole('ADMIN')">
                             <a href="/admin/supportManagement" class="nav-link link-dark">
                                 <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="/admin/supportManagement"/></svg>
                                 Support Management
                             </a>
                         </li>
-                        <li>
+                        <li sec:authorize="hasRole('ADMIN')">
                             <a href="/admin/userManagement" class="nav-link link-dark">
                                 <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="/admin/userManagement"/></svg>
                                 User Management

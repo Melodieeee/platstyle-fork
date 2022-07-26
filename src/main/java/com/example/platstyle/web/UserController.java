@@ -60,28 +60,40 @@ public class UserController {
             return "redirect:/";
         }
     }
+    @GetMapping(path = "/user/")
+    public String home() {
+        return "user/home";
+    }
     @GetMapping(path = "/user/account")
     public String account(Model model, Principal principal){
         User user = userRepository.findByEmail(principal.getName()).orElse(null);
+        Customer customer = customerRepository.findById(user.getUid()).orElse(null);
         if(user==null) throw new RuntimeException("User does not exist");
+        if(customer==null) customer = new Customer();
         model.addAttribute("user", user);
+        model.addAttribute("customer", customer);
         return "user/account";
     }
 
     @PostMapping(path="/save")
-    public String save(Model model, User user, Customer customer , BindingResult bindingResult) {
+    public String save(Model model, User user, Customer customer, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "user/account";
         } else {
+            Optional<User> opor_user = userRepository.findByEmail(user.getEmail());
+            User or_user = opor_user.get();
+            user.setGender(or_user.getGender());
+            user.setPassword(or_user.getPassword());
+            user.setRegisterDate(or_user.getRegisterDate());
+            user.setRoles(or_user.getRoles());
+            System.out.println(user.getUid());
             userRepository.save(user);
+            customer.setUid(user.getUid());
             customerRepository.save(customer);
             return "redirect:/";
         }
 
     }
-
-
-
 
     @GetMapping(path = "/user/support")
     public String support(){ return "user/support";}

@@ -13,49 +13,55 @@
 
     <div th:replace="fragments/header :: header"/>
     <!--Content Start-->
-    <form th:action="@{/save}" method="post">
+
         <div class="container w-50 min-vh-10">
             <div class="container mb-5">
                 <div class="user-img">
                     <img src="https://bootdey.com/img/Content/avatar/avatar7.png" class="img-thumbnail mx-auto d-block" alt="..." width="250" height="250">
                 </div>
             </div>
-
+            <form th:action="@{/save}"  method="post">
             <div class="row gutters">
                 <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                     <h6 class="mb-2 text-primary">Personal Details</h6>
                 </div>
-
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                    <div class="form-group">
+                        <label for="fName">ID</label>
+                        <input type="text" class="form-control " th:field="*{user.uid}"  id="uid" placeholder="Enter UID">
+                    </div>
+                </div>
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                    <div class="form-group">
+                        <label for="eMail">Email</label>
+                        <input type="email" class="form-control" th:field="*{user.email}" th:value="*{user.email}" id="eMail" placeholder="Enter email ID">
+                    </div>
+                </div>
                 <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                     <div class="form-group">
                         <label for="fName">First Name</label>
-                        <input type="text" class="form-control" th:value="*{user.firstName}" id="fName" placeholder="Enter first name" >
+                        <input type="text" class="form-control" th:field="*{user.firstName}" th:value="*{user.firstName}" id="fName" placeholder="Enter first name" >
                     </div>
                 </div>
                 <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                     <div class="form-group">
                         <label for="lName">Last Name</label>
-                        <input type="text" class="form-control" th:value="*{user.lastName}" id="lname" placeholder="Enter last name">
+                        <input type="text" class="form-control" th:field="*{user.lastName}" th:value="*{user.lastName}" id="lname" placeholder="Enter last name">
                     </div>
                 </div>
                 <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                     <div class="form-group">
                         <label for="phone">Phone</label>
-                        <input type="text" class="form-control" th:value="*{user.phone}" id="phone" placeholder="Enter phone number">
+                        <input type="text" class="form-control" th:field="*{user.phone}" th:value="*{user.phone}" id="phone" placeholder="Enter phone number">
                     </div>
                 </div>
                 <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                     <div class="form-group">
                         <label for="btd">Birthday</label>
-                        <input type="date" class="form-control" id="btd">
+                        <input type="date" class="form-control" th:field="*{customer.birthday}" id="btd">
                     </div>
                 </div>
-                <div class="col-12">
-                    <div class="form-group">
-                        <label for="eMail">Email</label>
-                        <input type="email" class="form-control" th:value="*{user.email}" id="eMail" placeholder="Enter email ID">
-                    </div>
-                </div>
+
                 <div class="d-grid gap-2 col-md-6 mx-auto pt-4">
                     <a href="forgotpassword.html" class="btn btn-outline-secondary" role="button">Reset password</a>
                 </div>
@@ -72,51 +78,52 @@
                 <div class="col-xl-12 col-lg-12 col-md-12 col-sm-6 col-12">
                     <div class="form-group">
                         <label for="Street">Street Address</label>
-                        <input type="text" class="form-control" id="Street" placeholder="Enter street address">
+                        <input type="text" class="form-control" th:field="*{customer.street}" id="Street" placeholder="Enter street address">
                     </div>
                 </div>
                 <div class="col-xl-12 col-lg-12 col-md-12 col-sm-6 col-12">
                     <div class="form-group">
                         <label for="Street">Street Address 2</label>
-                        <input type="text" class="form-control" id="Street2" placeholder="Enter street address 2">
+                        <input type="text" class="form-control" th:field="*{customer.street2}" id="Street2" placeholder="Enter street address 2">
                     </div>
                 </div>
                 <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                     <div class="form-group">
                         <label for="city">City</label>
-                        <input type="text" class="form-control" id="city" placeholder="Enter your city">
+                        <input type="text" class="form-control" th:field="*{customer.city}" id="city" placeholder="Enter your city">
                     </div>
                 </div>
                 <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                     <label for="state">Province</label>
-                    <select class="form-select" id="state" aria-label="Select province/State">
-                        <option selected></option>
-                        <option value="1">Alberta</option>
-                        <option value="2">British Columbia</option>
-                        <option value="3">Ontario</option>
-                        <option value="4">Quebec</option>
-                        <option value="5">Nova Scotia</option>
-                        <option value="6">New Brunswick</option>
-                        <option value="7">Manitoba</option>
-                        <option value="8">Prince Edward Island</option>
-                        <option value="9">Saskatchewan</option>
-                        <option value="10">Newfoundland and Labrador</option>
+                    <select class="form-select" th:field="*{customer.province}" id="state" aria-label="Select province/State">
+                        <option th:value="''" th:text="''"></option>
+                        <option th:value="'Alberta'" th:text="'Alberta'"></option>
+                        <option th:value="'British Columbia'" th:text="'British Columbia'"></option>
+                        <option th:value="'Ontario'" th:text="'Ontario'"></option>
+                        <option th:value="'Quebec'" th:text="'Quebec'"></option>
+                        <option th:value="'Nova Scotia'" th:text="'Nova Scotia'"></option>
+                        <option th:value="'New Brunswick'" th:text="'New Brunswick'"></option>
+                        <option th:value="'Manitoba'" th:text="'Manitoba'"></option>
+                        <option th:value="'Prince Edward Island'" th:text="'Prince Edward Island'"></option>
+                        <option th:value="'Saskatchewan'" th:text="'Saskatchewan'"></option>
+                        <option th:value="'Newfoundland and Labrador'" th:text="'Newfoundland and Labrador'"></option>
                     </select>
                 </div>
                 <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                     <div class="form-group">
                         <label for="zIp">Postal</label>
-                        <input type="text" class="form-control" id="zip" placeholder="Postal">
+                        <input type="text" class="form-control" th:field="*{customer.postal}" id="zip" placeholder="Postal">
                     </div>
                 </div>
             </div>
             <div class="row gutters">
                 <div class="d-grid gap-2 col-md-6 mx-auto pt-4">
-                    <a href="/" class="btn btn-outline-success" role="button">Save</a>
+                    <button class="btn btn btn-outline-success" type="submit">Save</button>
                 </div>
             </div>
+            </form>
         </div>
-    </form>
+
 
 
 

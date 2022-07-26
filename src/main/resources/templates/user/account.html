@@ -27,18 +27,6 @@
                 </div>
                 <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                     <div class="form-group">
-                        <label for="fName">ID</label>
-                        <input type="text" class="form-control " th:field="*{user.uid}"  id="uid" placeholder="Enter UID">
-                    </div>
-                </div>
-                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                    <div class="form-group">
-                        <label for="eMail">Email</label>
-                        <input type="email" class="form-control" th:field="*{user.email}" th:value="*{user.email}" id="eMail" placeholder="Enter email ID">
-                    </div>
-                </div>
-                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                    <div class="form-group">
                         <label for="fName">First Name</label>
                         <input type="text" class="form-control" th:field="*{user.firstName}" th:value="*{user.firstName}" id="fName" placeholder="Enter first name" >
                     </div>
@@ -61,7 +49,12 @@
                         <input type="date" class="form-control" th:field="*{customer.birthday}" id="btd">
                     </div>
                 </div>
-
+                <div class="col-12">
+                    <div class="form-group">
+                        <label for="eMail">Email</label>
+                        <input type="email" class="form-control" th:field="*{user.email}" th:value="*{user.email}" id="eMail" placeholder="Enter email ID">
+                    </div>
+                </div>
                 <div class="d-grid gap-2 col-md-6 mx-auto pt-4">
                     <a href="forgotpassword.html" class="btn btn-outline-secondary" role="button">Reset password</a>
                 </div>

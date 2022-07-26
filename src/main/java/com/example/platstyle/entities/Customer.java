@@ -26,4 +26,5 @@ public class Customer {
     @Temporal(TemporalType.DATE)
     @DateTimeFormat(pattern="yyyy-MM-dd")
     private Date birthday;
+    private String photo;
 }

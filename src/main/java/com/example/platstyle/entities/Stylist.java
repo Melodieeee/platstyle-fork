@@ -19,6 +19,12 @@ public class Stylist {
     private String phone;
     @Column(name="EMAIL", length=50)
     private String email;
+    @Column(name="IDENTITYDOCUMENT", length=50)
+    private String identityDocument;
+    @Column(name="WORKPERMIT", length=50)
+    private String workPermit;
+    private String photo;
+    private boolean verify;
     @Column(columnDefinition = "double default 0")
     private double balance;
 }

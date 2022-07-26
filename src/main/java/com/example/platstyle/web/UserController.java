@@ -5,6 +5,9 @@ import com.example.platstyle.entities.User;
 import com.example.platstyle.respositories.CustomerRepository;
 import com.example.platstyle.respositories.UserRepository;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.BeanUtils;
+import org.springframework.beans.BeanWrapper;
+import org.springframework.beans.BeanWrapperImpl;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,7 +22,9 @@ import java.security.Principal;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Optional;
+import java.util.Set;
 
 @Controller
 @AllArgsConstructor
@@ -81,14 +86,10 @@ public class UserController {
             return "user/account";
         } else {
             Optional<User> opor_user = userRepository.findByEmail(user.getEmail());
-            User or_user = opor_user.get();
-            user.setGender(or_user.getGender());
-            user.setPassword(or_user.getPassword());
-            user.setRegisterDate(or_user.getRegisterDate());
-            user.setRoles(or_user.getRoles());
-            System.out.println(user.getUid());
-            userRepository.save(user);
-            customer.setUid(user.getUid());
+            User existing = opor_user.get();
+            copyNonNullProperties(user, existing);
+            userRepository.save(existing);
+            customer.setUid(existing.getUid());
             customerRepository.save(customer);
             return "redirect:/";
         }
@@ -106,6 +107,23 @@ public class UserController {
 
     @GetMapping(path = "/user/checkout")
     public String checkout(){ return "user/checkout";}
+
+    public static void copyNonNullProperties(Object src, Object target) {
+        BeanUtils.copyProperties(src, target, getNullPropertyNames(src));
+    }
+
+    public static String[] getNullPropertyNames (Object source) {
+        final BeanWrapper src = new BeanWrapperImpl(source);
+        java.beans.PropertyDescriptor[] pds = src.getPropertyDescriptors();
+
+        Set<String> emptyNames = new HashSet<String>();
+        for(java.beans.PropertyDescriptor pd : pds) {
+            Object srcValue = src.getPropertyValue(pd.getName());
+            if (srcValue == null) emptyNames.add(pd.getName());
+        }
+        String[] result = new String[emptyNames.size()];
+        return emptyNames.toArray(result);
+    }
 
 
 }

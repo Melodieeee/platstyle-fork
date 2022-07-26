@@ -1,6 +1,8 @@
 package com.example.platstyle.web;
 
+import com.example.platstyle.entities.Customer;
 import com.example.platstyle.entities.User;
+import com.example.platstyle.respositories.CustomerRepository;
 import com.example.platstyle.respositories.UserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -13,14 +15,17 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.context.request.WebRequest;
 
 import javax.servlet.http.HttpSession;
+import java.security.Principal;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Date;
+import java.util.Optional;
 
 @Controller
 @AllArgsConstructor
 public class UserController {
     private UserRepository userRepository;
+    private CustomerRepository customerRepository;
 
     @GetMapping(path = "/")
     public String students() {
@@ -56,7 +61,27 @@ public class UserController {
         }
     }
     @GetMapping(path = "/user/account")
-    public String account(){ return "user/account";}
+    public String account(Model model, Principal principal){
+        User user = userRepository.findByEmail(principal.getName()).orElse(null);
+        if(user==null) throw new RuntimeException("User does not exist");
+        model.addAttribute("user", user);
+        return "user/account";
+    }
+
+    @PostMapping(path="/save")
+    public String save(Model model, User user, Customer customer , BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return "user/account";
+        } else {
+            userRepository.save(user);
+            customerRepository.save(customer);
+            return "redirect:/";
+        }
+
+    }
+
+
+
 
     @GetMapping(path = "/user/support")
     public String support(){ return "user/support";}
@@ -69,4 +94,8 @@ public class UserController {
 
     @GetMapping(path = "/user/checkout")
     public String checkout(){ return "user/checkout";}
+
+
 }
+
+

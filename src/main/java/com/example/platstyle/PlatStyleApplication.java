@@ -1,13 +1,10 @@
 package com.example.platstyle;
 
-import com.example.platstyle.entities.User;
-import com.example.platstyle.respositories.UserRepository;
+import com.example.platstyle.repositories.UserRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
-
-import java.util.Date;
 
 @SpringBootApplication
 public class PlatStyleApplication {

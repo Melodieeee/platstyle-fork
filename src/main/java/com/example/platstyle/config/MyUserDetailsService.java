@@ -1,7 +1,7 @@
 package com.example.platstyle.config;
 
 import com.example.platstyle.entities.User;
-import com.example.platstyle.respositories.UserRepository;
+import com.example.platstyle.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

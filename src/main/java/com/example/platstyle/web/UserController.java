@@ -2,8 +2,8 @@ package com.example.platstyle.web;
 
 import com.example.platstyle.entities.Customer;
 import com.example.platstyle.entities.User;
-import com.example.platstyle.respositories.CustomerRepository;
-import com.example.platstyle.respositories.UserRepository;
+import com.example.platstyle.repositories.CustomerRepository;
+import com.example.platstyle.repositories.UserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.BeanWrapper;

@@ -1,4 +1,4 @@
-package com.example.platstyle.respositories;
+package com.example.platstyle.repositories;
 
 import com.example.platstyle.entities.User;
 import org.springframework.data.jpa.repository.JpaRepository;

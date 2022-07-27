@@ -65,9 +65,9 @@ public class UserController {
             return "redirect:/";
         }
     }
-    @GetMapping(path = "/user/")
+    @GetMapping(path = "/user/shop")
     public String home() {
-        return "user/home";
+        return "user/shop";
     }
     @GetMapping(path = "/user/account")
     public String account(Model model, Principal principal){

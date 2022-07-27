@@ -19,6 +19,8 @@ public class Stylist {
     private String phone;
     @Column(name="EMAIL", length=50)
     private String email;
+    @Column(name="CITY", length=50)
+    private String city;
     @Column(name="IDENTITYDOCUMENT", length=50)
     private String identityDocument;
     @Column(name="WORKPERMIT", length=50)

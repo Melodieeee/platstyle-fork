@@ -20,10 +20,10 @@ public class Timeslot {
     private Long tid;
     @Column(name="WEEK", length=10)
     private String week;
-    @DateTimeFormat(pattern = "HH:mm:ss")
-    private Date startTime;
-    @DateTimeFormat(pattern = "HH:mm:ss")
-    private Date endTime;
+    @Column(name="STARTTIME", length=10)
+    private String startTime;
+    @Column(name="ENDTIME", length=10)
+    private String endTime;
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "uid", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)

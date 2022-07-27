@@ -23,29 +23,29 @@
                         <div class="user-img">
                             <img src="https://bootdey.com/img/Content/avatar/avatar7.png" class="img-thumbnail mx-auto d-block" alt="..." width="200" height="200">
                         </div>
-                        <h6 class="mb-2 text-primary">Personal Details</h6>
+                        <h6 class="mb-2 text-primary">Store Details</h6>
                         <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                             <div class="form-group">
-                                <label for="firstName">First Name</label>
-                                <input type="text" class="form-control" id="firstName" placeholder="Enter first name">
+                                <label for="storeName">Store name</label>
+                                <input type="text" class="form-control" th:field="*{stylist.name}" id="storeName" placeholder="Enter store name">
                             </div>
                         </div>
                         <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                             <div class="form-group">
-                                <label for="lastName">Last Name</label>
-                                <input type="text" class="form-control" id="lastName" placeholder="Enter last name">
+                                <label for="city">City</label>
+                                <input type="text" class="form-control" th:field="*{stylist.city}" id="city" placeholder="Enter city">
                             </div>
                         </div>
                         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                             <div class="form-group">
                                 <label for="phone">Phone</label>
-                                <input type="text" class="form-control" id="phone" placeholder="Enter phone number">
+                                <input type="text" class="form-control" th:field="*{stylist.phone}" id="phone" placeholder="Enter phone number">
                             </div>
                         </div>
                         <div class="col-12">
                             <div class="form-group">
                                 <label for="email">Email</label>
-                                <input type="email" class="form-control" id="email" placeholder="Enter email ID">
+                                <input type="email" class="form-control" th:field="*{stylist.email}" id="email" placeholder="Enter email ID">
                             </div>
                         </div>
                         <div class="d-grid gap-2 col-md-12 mx-auto pt-4">
@@ -59,23 +59,24 @@
             <div class="container col-xl-6 col-md-6 col-sm-12">
                 <div class="h4 p-3">Time Slot</div>
                 <div class="container m-3">
+                    <form id="timeSlotForm">
                     <div class="d-flex bd-highlight mb-2">
                         <div class="me-auto p-2 bd-highlight">
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                                <label class="form-check-label" for="flexCheckDefault">
+                                <input class="form-check-input" type="checkbox" value="Monday" name="week" id="checkMonday">
+                                <label class="form-check-label" for="checkMonday">
                                     Monday
                                 </label>
                             </div>
                         </div>
                         <div class="p-2 bd-highlight">
                             <div class="form-group">
-                                <input type="time" class="form-control" id="fName">
+                                <input type="time" class="form-control" name="MondayStart" id="MondayStart" disabled>
                             </div>
                         </div>
                         <div class="p-2 bd-highlight">
                             <div class="form-group">
-                                <input type="time" class="form-control" id="fName">
+                                <input type="time" class="form-control" name="MondayEnd" id="MondayEnd" disabled>
                             </div>
                         </div>
                     </div>
@@ -83,20 +84,20 @@
                     <div class="d-flex bd-highlight mb-2">
                         <div class="me-auto p-2 bd-highlight">
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                                <label class="form-check-label" for="flexCheckDefault">
+                                <input class="form-check-input" type="checkbox" value="Tuesday" name="week" id="checkTuesday">
+                                <label class="form-check-label" for="checkTuesday">
                                     Tuesday
                                 </label>
                             </div>
                         </div>
                         <div class="p-2 bd-highlight">
                             <div class="form-group">
-                                <input type="time" class="form-control" id="fName">
+                                <input type="time" class="form-control" name="TuesdayStart" id="TuesdayStart" disabled>
                             </div>
                         </div>
                         <div class="p-2 bd-highlight">
                             <div class="form-group">
-                                <input type="time" class="form-control" id="fName">
+                                <input type="time" class="form-control" name="TuesdayEnd" id="TuesdayEnd" disabled>
                             </div>
                         </div>
                     </div>
@@ -104,20 +105,20 @@
                     <div class="d-flex bd-highlight mb-2">
                         <div class="me-auto p-2 bd-highlight">
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                                <label class="form-check-label" for="flexCheckDefault">
+                                <input class="form-check-input" type="checkbox" value="Wednesday" name="week" id="checkWednesday">
+                                <label class="form-check-label" for="checkWednesday">
                                     Wednesday
                                 </label>
                             </div>
                         </div>
                         <div class="p-2 bd-highlight">
                             <div class="form-group">
-                                <input type="time" class="form-control" id="fName">
+                                <input type="time" class="form-control" name="WednesdayStart" id="WednesdayStart" disabled>
                             </div>
                         </div>
                         <div class="p-2 bd-highlight">
                             <div class="form-group">
-                                <input type="time" class="form-control" id="fName">
+                                <input type="time" class="form-control" name="WednesdayEnd" id="WednesdayEnd" disabled>
                             </div>
                         </div>
                     </div>
@@ -125,20 +126,20 @@
                     <div class="d-flex bd-highlight mb-2">
                         <div class="me-auto p-2 bd-highlight">
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                                <label class="form-check-label" for="flexCheckDefault">
+                                <input class="form-check-input" type="checkbox" value="Thursday" name="week" id="checkThursday">
+                                <label class="form-check-label" for="checkThursday">
                                     Thursday
                                 </label>
                             </div>
                         </div>
                         <div class="p-2 bd-highlight">
                             <div class="form-group">
-                                <input type="time" class="form-control" id="fName">
+                                <input type="time" class="form-control" name="ThursdayStart" id="ThursdayStart" disabled>
                             </div>
                         </div>
                         <div class="p-2 bd-highlight">
                             <div class="form-group">
-                                <input type="time" class="form-control" id="fName">
+                                <input type="time" class="form-control" name="ThursdayEnd" id="ThursdayEnd" disabled>
                             </div>
                         </div>
                     </div>
@@ -146,20 +147,20 @@
                     <div class="d-flex bd-highlight mb-2">
                         <div class="me-auto p-2 bd-highlight">
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                                <label class="form-check-label" for="flexCheckDefault">
+                                <input class="form-check-input" type="checkbox" value="Friday" name="week" id="checkFriday">
+                                <label class="form-check-label" for="checkFriday">
                                     Friday
                                 </label>
                             </div>
                         </div>
                         <div class="p-2 bd-highlight">
                             <div class="form-group">
-                                <input type="time" class="form-control" id="fName">
+                                <input type="time" class="form-control" name="FridayStart" id="FridayStart" disabled>
                             </div>
                         </div>
                         <div class="p-2 bd-highlight">
                             <div class="form-group">
-                                <input type="time" class="form-control" id="fName">
+                                <input type="time" class="form-control" name="FridayEnd" id="FirdayEnd" disabled>
                             </div>
                         </div>
                     </div>
@@ -167,20 +168,20 @@
                     <div class="d-flex bd-highlight mb-2">
                         <div class="me-auto p-2 bd-highlight">
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                                <label class="form-check-label" for="flexCheckDefault">
+                                <input class="form-check-input" type="checkbox" value="Saturday" name="week" id="checkSaturday">
+                                <label class="form-check-label" for="checkSaturday">
                                     Saturday
                                 </label>
                             </div>
                         </div>
                         <div class="p-2 bd-highlight">
                             <div class="form-group">
-                                <input type="time" class="form-control" id="fName">
+                                <input type="time" class="form-control" name="SaturdayStart" id="SaturdayStart" disabled>
                             </div>
                         </div>
                         <div class="p-2 bd-highlight">
                             <div class="form-group">
-                                <input type="time" class="form-control" id="fName">
+                                <input type="time" class="form-control" name="SaturdayEnd" id="SaturdayEnd" disabled>
                             </div>
                         </div>
                     </div>
@@ -188,25 +189,24 @@
                     <div class="d-flex bd-highlight mb-2">
                         <div class="me-auto p-2 bd-highlight">
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                                <label class="form-check-label" for="flexCheckDefault">
+                                <input class="form-check-input" type="checkbox" value="Sunday" name="week" id="checkSunday">
+                                <label class="form-check-label" for="checkSunday">
                                     Sunday
                                 </label>
                             </div>
                         </div>
                         <div class="p-2 bd-highlight">
                             <div class="form-group">
-                                <input type="time" class="form-control" id="fName">
+                                <input type="time" class="form-control" name="SundayStart" id="SundayStart" disabled>
                             </div>
                         </div>
                         <div class="p-2 bd-highlight">
                             <div class="form-group">
-                                <input type="time" class="form-control" id="fName">
+                                <input type="time" class="form-control" name="SundayEnd" id="SundayEnd" disabled >
                             </div>
                         </div>
                     </div>
-
-
+                    </form>
                 </div>
             </div>
 
@@ -214,11 +214,10 @@
             <div class="container">
                 <div class="row gutters">
                     <div class="d-grid gap-2 col-md-6 mx-auto pt-4">
-                        <a href="/" class="btn btn-outline-success" role="button">Save</a>
+                        <button class="btn btn-outline-success" onclick="save()">Save</button>
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
 
@@ -240,6 +239,48 @@
         //$('.navbar.easy-sidebar-right').removeClass('toggled-right');
         $('.navbar.easy-sidebar').removeClass('toggled');
     });
+
+    $('[name=week]').click(function() {
+        if($( this ).prop("checked") == true) {
+            $("#"+$( this ).val()+"Start").prop('disabled', false);
+            $("#"+$( this ).val()+"End").prop('disabled', false);
+        } else {
+            $("#"+$( this ).val()+"Start").prop('disabled', true);
+            $("#"+$( this ).val()+"End").prop('disabled', true);
+        }
+    });
+
+    $(document).ready(function() {
+        $.ajax({
+            url: "../api/ajax/getTimeslots",
+            type: "GET",
+            dataType: "json",
+            success: function (json) {
+                for(var i=0; i<json.length; i++) {
+                    $('#check'+json[i].week).click();
+                    $("#"+json[i].week+"Start").val(json[i].startTime);
+                    $("#"+json[i].week+"End").val(json[i].endTime);
+                }
+            }
+        })
+    })
+
+    function save() {
+        let dataSting = "name="+$('#storeName').val()+"&city="+$('#city').val()+"&phone="+$('#phone').val()+"&email="+$('#email').val();
+        if($('#timeSlotForm').serialize()!="") dataSting = dataSting + "&" +$('#timeSlotForm').serialize();
+        else {
+            dataSting = dataSting + "&week=";
+        }
+        $.ajax({
+            url: "../api/ajax/setProfrile",
+            type: "POST",
+            data: dataSting,
+            dataType: "text",
+            success: function (msg) {
+                alert(msg);
+            }
+        })
+    }
 </script>
 </body>
 </html>

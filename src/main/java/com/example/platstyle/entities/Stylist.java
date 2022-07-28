@@ -12,7 +12,11 @@ import javax.persistence.*;
 @Entity
 public class Stylist {
     @Id
-    private Long uid;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long sid;
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "uid")
+    private User uid;
     @Column(name="NAME", length=50)
     private String name;
     @Column(name="PHONE", length=20)

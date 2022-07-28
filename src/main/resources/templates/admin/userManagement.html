@@ -30,52 +30,35 @@
                 </tr>
                 </thead>
                 <tbody id="orderList">
-                <tr>
-                    <td>Sam</td>
-                    <td>Member</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td>
-                        <button id="'.$row['cid'].'" onclick=courseDel(this) type="button" rel="tooltip" title="Remove" class="btn btn-danger btn-simple btn-xs">
-                            <i class="fa fa-times"></i>
-                        </button>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Cindy</td>
-                    <td>Stylist</td>
-                    <td></td>
-                    <td></td>
-                    <td>
-                        <i class="fa fa-check"></i>
-                    </td>
-                    <td>
-                        <button id="'.$row['cid'].'" onclick=courseDel(this) type="button" rel="tooltip" title="Remove" class="btn btn-danger btn-simple btn-xs">
-                            <i class="fa fa-times"></i>
-                        </button>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Melody</td>
-                    <td>Member(Request)</td>
-                    <td></td>
-                    <td></td>
-                    <td>
-                        <button id="'.$row['cid'].'" onclick=cloneLink(this) type="button" rel="tooltip" title="Approval" class="btn btn-info btn-simple btn-xs btn-copy">
-                            <i class="fa fa-check"></i>
-                        </button>
-                        <button id="'.$row['cid'].'" onclick=courseDel(this) type="button" rel="tooltip" title="Deny" class="btn btn-danger btn-simple btn-xs">
-                            <i class="fa fa-times"></i>
-                        </button>
-                    </td>
-                    <td>
-                        <button id="'.$row['cid'].'" onclick=courseDel(this) type="button" rel="tooltip" title="Remove" class="btn btn-danger btn-simple btn-xs">
-                            <i class="fa fa-times"></i>
-                        </button>
-                    </td>
-                </tr>
 
+                <tr th:each="p:${usersList}">
+                    <td th:text="${p.getFirstName()}">Sam</td>
+                    <div th:if="${p.getStylistVerify() == 2}">
+                        <td th:text="${p.getRoles()+'(Request)'}"></td>
+                    </div>
+                    <div th:unless="${p.getStylistVerify() == 2}">
+                        <td th:text="${p.getRoles()}"></td>
+                    </div>
+
+                    <td><a th:href="${p.getStylistIDdocument()}" th:text="${p.getStylistIDdocument()}"></a></td>
+                    <td><a th:href="${p.getStylistWorkPermit()}" th:text="${p.getStylistWorkPermit()}"></a></td>
+                    <td th:switch="${p.getStylistVerify()}">
+                        <i th:case="1" class="fa fa-check"></i>
+                        <div th:case="2">
+                            <a onClick="return confirm('Are you sure you want to accept the request ?')" th:href="@{./acceptStylistRequest(id=${p.getUid})}" rel="tooltip" title="Accept" class="btn btn-info btn-simple btn-xs btn-copy">
+                                <i class="fa fa-check"></i>
+                            </a>
+                            <a onClick="return confirm('Are you sure you want to deny the request ?')" th:href="@{./denyStylistRequest(id=${p.getUid})}" rel="tooltip" title="Deny" class="btn btn-danger btn-simple btn-xs">
+                                <i class="fa fa-times"></i>
+                            </a>
+                        </div>
+                    </td>
+                    <td>
+                        <button th:id="${p.getUid()}" onclick=userDelete(this) type="button" rel="tooltip" title="Remove" class="btn btn-danger btn-simple btn-xs">
+                            <i class="fa fa-times"></i>
+                        </button>
+                    </td>
+                </tr>
                 </tbody>
                 <tfoot>
                 <tr>
@@ -97,7 +80,7 @@
 </main>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.0/jquery.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
-<script src="js/sidebars.js" th:href="@{/js/sidebars.js}"></script>
+<script src="../js/sidebars.js" th:href="@{../js/sidebars.js}"></script>
 <script src="../js/dataTables.bootstrap5.min.js"></script>
 <script src="../js/jquery.dataTables.min.js"></script>
 <script>
@@ -109,6 +92,21 @@
         //$('.navbar.easy-sidebar-right').removeClass('toggled-right');
         $('.navbar.easy-sidebar').removeClass('toggled');
     });
+
+    function accept(object){
+        var id=$(object).attr('id');
+        alert(id);
+    }
+
+    function deny(object) {
+        var id=$(object).attr('id');
+        alert(id)
+    }
+
+    function userDelete(object) {
+        var id=$(object).attr('id');
+        alert(id)
+    }
 </script>
 </body>
 </html>

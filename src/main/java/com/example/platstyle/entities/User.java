@@ -32,4 +32,31 @@ public class User {
     @NotNull
     private String roles;
 
+    @OneToOne(mappedBy = "uid", cascade = CascadeType.ALL,
+            fetch = FetchType.LAZY)
+    private Stylist stylist;
+
+    public String getStylistIDdocument() {
+        if(this.stylist!=null) {
+            return this.stylist.getIdentityDocument();
+        } else {
+            return "";
+        }
+    }
+    public String getStylistWorkPermit() {
+        if(this.stylist!=null) {
+            return this.stylist.getWorkPermit();
+        } else {
+            return "";
+        }
+    }
+    public int getStylistVerify() {
+        if(this.stylist!=null) {
+            if(this.stylist.isVerify()) return 1;
+            else return 2;
+        } else {
+            return 0;
+        }
+    }
+
 }

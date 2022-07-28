@@ -136,7 +136,7 @@ public class UserController {
             e.printStackTrace();
         }
         User user = userRepository.findByEmail(principal.getName()).orElse(null);
-        Stylist stylist = new Stylist(user.getUid(), user.getFirstName()+" "+user.getLastName(),user.getPhone(),user.getEmail(), "", idFileName, workPermitFileName, "", false,0);
+        Stylist stylist = new Stylist(null, user, user.getFirstName()+" "+user.getLastName(),user.getPhone(),user.getEmail(), "", idFileName, workPermitFileName, "", false,0);
         stylistRepository.save(stylist);
         attributes.addFlashAttribute("message", "You successfully uploaded " + idFileName + " and "+ workPermitFileName +'!');
         return "redirect:/user/upload";

@@ -40,7 +40,7 @@
                 <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                     <div class="form-group">
                         <label for="phone">Phone</label>
-                        <input type="text" class="form-control" th:field="*{user.phone}" th:value="*{user.phone}" id="phone" placeholder="Enter phone number">
+                        <input type="text" class="form-control" th:field="*{user.phone}" th:value="${user.getPhone}" id="phone" placeholder="Enter phone number">
                     </div>
                 </div>
                 <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
@@ -58,8 +58,9 @@
                 <div class="d-grid gap-2 col-md-6 mx-auto pt-4">
                     <a href="forgotpassword.html" class="btn btn-outline-secondary" role="button">Reset password</a>
                 </div>
-                <div class="d-grid gap-2 col-md-6 mx-auto pt-4">
-                    <a href="/user/upload" class="btn btn-outline-secondary" role="button">Want to be a stylist</a>
+                <div class="d-grid gap-2 col-md-6 mx-auto pt-4" th:switch="${user.getStylistVerify()}">
+                    <a th:case="0" href="/user/upload" class="btn btn-outline-secondary" role="button">Want to be a stylist</a>
+                    <button th:case="2" class="btn btn-outline-secondary"disabled>Waiting for verify</button>
                 </div>
             </div>
 
@@ -127,7 +128,7 @@
 </main>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.0/jquery.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
-<script src="js/sidebars.js" th:href="@{/js/sidebars.js}"></script>
+<script src="../js/sidebars.js" th:href="@{../js/sidebars.js}"></script>
 <script>
     //easy-sidebar-toggle-right
     $('.easy-sidebar-toggle').click(function(e) {

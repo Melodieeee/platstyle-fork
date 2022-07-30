@@ -37,12 +37,17 @@ public class AdminController {
         Stylist stylist = stylistRepository.findAllByUid(user).orElse(null);
         if(stylist != null && user != null) {
             stylist.setVerify(true);
-            user.setRoles("ROLE_STYLIST");
+            if (user.getRoles().equals("ROLE_ADMIN")){
+                user.setRoles("ROLE_ADMIN");
+            } else {
+                user.setRoles("ROLE_STYLIST");
+            }
             stylistRepository.save(stylist);
             userRepository.save(user);
         }
         return "redirect:/admin/userManagement";
     }
+
 
     @GetMapping("/admin/denyStylistRequest")
     public String denyStylistRequest(Long id) {

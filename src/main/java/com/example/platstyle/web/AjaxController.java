@@ -64,8 +64,9 @@ public class AjaxController {
             }
         }
     }
-    @RequestMapping(value = "getServicesByUidAndGender/{uid}/{gender}", method = RequestMethod.GET, produces = {MimeTypeUtils.TEXT_HTML_VALUE})
-    public ResponseEntity<String> getServicesByGender(@PathVariable("uid") Long uid,@PathVariable("gender") String gender, Principal principal) {
+    @RequestMapping(value = "getServicesBySidAndGender/{sid}/{gender}", method = RequestMethod.GET, produces = {MimeTypeUtils.TEXT_HTML_VALUE})
+    public ResponseEntity<String> getServicesByGender(@PathVariable("sid") Long sid,@PathVariable("gender") String gender, Principal principal) {
+        Long uid= stylistRepository.findUidBySid(sid);
         List<Service> services = serviceRepository.findAllByUidANDGender(uid, gender);
         if(services == null) return new ResponseEntity<String>(HttpStatus.BAD_REQUEST);
         else {
@@ -88,7 +89,7 @@ public class AjaxController {
                                              @RequestParam("minPrice") double minPrice,
                                              @RequestParam("maxPrice") double maxPrice, Principal principal) {
         User user = userRepository.findByEmail(principal.getName()).orElse(null);
-        Service service = new Service(null ,gender,serviceName,minPrice,maxPrice,user);
+        Service service = new Service(null ,gender,serviceName,minPrice,maxPrice,user,null);
         serviceRepository.save(service);
         List<Service> services = serviceRepository.findAllByUidANDGender(user.getUid(), gender);
         String response ="success";

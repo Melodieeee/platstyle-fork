@@ -18,7 +18,11 @@ public class Order_service {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long osid;
-    private Long sid;
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "sid", nullable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    private Service service;
+
     private double price;
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "oid", nullable = false)

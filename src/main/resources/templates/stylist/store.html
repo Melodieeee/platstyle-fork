@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css">
     <link href="../css/star-rating.css" media="all" rel="stylesheet" type="text/css"/>
     <link rel="stylesheet" href="../css/style.css" />
+
 </head>
 
 <body>
@@ -34,7 +35,7 @@
                         </div>
                         <!--Rating-->
                         <form>
-                            <input id="input-21b" value="3" type="text" class="rating mb-3" disabled="disabled" data-theme="krajee-fas" data-min=0 data-max=5 data-step=0.2 data-size="sm">
+                            <input id="input-21b" value="4" type="text" class="rating mb-3" disabled="disabled" data-theme="krajee-fas" data-min=0 data-max=5 data-step=0.2 data-size="sm">
                             <div class="clearfix"></div>
                         </form>
                         <!--Comments-->
@@ -124,20 +125,20 @@
                         </div>
 
                         <!--Form-->
-                        <form action="POST">
+                        <form th:action="@{/user/addService}"  method="post">
                             <div class="row gutters">
                                 <div class="col-4 mt-4 mb-2 mx-2">
                                     <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
-                                        <label class="form-check-label" for="flexRadioDefault1">
+                                        <input class="form-check-input" type="radio" id="male" name="gender" value="M" onclick="getServicesByGender()">
+                                        <label class="form-check-label" for="male">
                                             Male
                                         </label>
                                     </div>
                                 </div>
                                 <div class="col-4 mt-4 mb-2">
                                     <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2">
-                                        <label class="form-check-label" for="flexRadioDefault2">
+                                        <input class="form-check-input" type="radio" id="female" name="gender" value="F" onclick="getServicesByGender()">
+                                        <label class="form-check-label" for="female">
                                             Female
                                         </label>
                                     </div>
@@ -145,11 +146,8 @@
                                 <div class="col-8 m-2">
                                     <label class="form-check-label">Service:</label>
                                     <div class="input-group mb-3">
-                                        <select class="form-select" aria-label="Default select example">
+                                        <select th:onchange="getPrice()" class="form-select" aria-label="Default select example" id="serviceSelect">
                                             <option selected>Choose...</option>
-                                            <option value="1">Haircut</option>
-                                            <option value="2">Beard</option>
-                                            <option value="3">Complete Service</option>
                                         </select>
                                     </div>
                                 </div>
@@ -168,11 +166,11 @@
                                 </div>
                                 <div class="col-8 m-2">
                                     <label class="form-check-label">Estimate Price:</label>
-                                    <div class="h2">$20</div>
+                                    <div class="h2" id="price">$20</div>
                                 </div>
                                 <div class="col-8 m-2">
                                     <div class="d-grid gap-2 col-md-8">
-                                        <a href="order.html" class="btn btn-outline-secondary add-button" role="button">Add Service</a>
+                                        <a    class="btn btn-outline-secondary add-button" role="button">Add Service</a>
                                     </div>
                                 </div>
                             </div>
@@ -194,6 +192,8 @@
 <script src="../js/sidebars.js"></script>
 <script>
     //easy-sidebar-toggle-right
+    var minPrice = 0;
+    var maxPrice = 0;
     $('.easy-sidebar-toggle').click(function(e) {
         e.preventDefault();
         //$('body').toggleClass('toggled-right');
@@ -201,6 +201,43 @@
         //$('.navbar.easy-sidebar-right').removeClass('toggled-right');
         $('.navbar.easy-sidebar').removeClass('toggled');
     });
+
+    function getServicesByGender() {
+        let gender=$('input[name="gender"]:checked').val();
+        $("#serviceSelect").empty();
+        $.ajax({
+            url:"../api/ajax/getServicesBySidAndGender/1/"+gender,
+            type: "GET",
+            dataType: "html",
+            success: function(html) {
+                $("#serviceSelect").append(html)
+                getPrice();
+            }
+        })
+    }
+
+    function getPrice() {
+        const el = document.getElementById('serviceName');
+        let id=$( "#serviceSelect option:selected" ).val();
+        $.ajax({
+            url:"../api/ajax/getServiceFee/"+id,
+            type: "GET",
+            dataType: "json",
+            success: function(json) {
+                minPrice = json.minPrice;
+                maxPrice = json.maxPrice;
+                if(maxPrice != 0) {
+                    $('#price').text("$"+minPrice+"-$"+maxPrice);
+                } else {
+                    $('#price').text("$"+minPrice);
+                }
+            }
+        })
+    }
+
+    function addService() {
+
+    }
 </script>
 </body>
 </html>

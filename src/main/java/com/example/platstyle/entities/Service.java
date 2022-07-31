@@ -7,6 +7,7 @@ import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -27,4 +28,6 @@ public class Service {
     @JoinColumn(name = "uid", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     private User user;
+    @OneToMany(mappedBy="service",cascade = CascadeType.PERSIST)
+    private List<Portfolio> portfolios;
 }

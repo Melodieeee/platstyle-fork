@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -33,4 +34,6 @@ public class Stylist {
     private boolean verify;
     @Column(columnDefinition = "double default 0")
     private double balance;
+    @OneToMany(mappedBy="stylist",cascade = CascadeType.ALL)
+    private List<Feedback>  feedbacks;
 }

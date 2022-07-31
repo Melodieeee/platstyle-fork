@@ -52,7 +52,8 @@ public class AdminController {
     @GetMapping("/admin/denyStylistRequest")
     public String denyStylistRequest(Long id) {
         User user = userRepository.findAllByUid(id).orElse(null);
-        stylistRepository.deleteAllByUid(user);
+        System.out.println(user.getEmail());
+        stylistRepository.deleteByUid(user);
         return "redirect:/admin/userManagement";
     }
 

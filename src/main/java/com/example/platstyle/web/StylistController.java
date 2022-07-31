@@ -1,9 +1,6 @@
 package com.example.platstyle.web;
 
-import com.example.platstyle.entities.Service;
-import com.example.platstyle.entities.Stylist;
-import com.example.platstyle.entities.Timeslot;
-import com.example.platstyle.entities.User;
+import com.example.platstyle.entities.*;
 import com.example.platstyle.repositories.*;
 import lombok.AllArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -43,8 +40,10 @@ public class StylistController {
     public String paymentRelease(){ return "stylist/paymentRelease";}
 
     @GetMapping(path = "/user/store")
-    public String store(@RequestParam(name="stylist",defaultValue = "") String uid){
-
+    public String store(@RequestParam(name="stylist",defaultValue = "") long sid, Model model){
+        Stylist stylist = stylistRepository.findById(sid).orElse(null);
+        model.addAttribute("stylist", stylist);
+        model.addAttribute("orderService", new Order_service());
         return "stylist/store";
     }
 

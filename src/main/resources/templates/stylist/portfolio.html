@@ -124,7 +124,7 @@
         $('.navbar.easy-sidebar').removeClass('toggled');
     });
     function getPrice() {
-        const el = document.getElementById('serviceName');
+        //const el = document.getElementById('serviceName');
         let id=$( "#editServiceName option:selected" ).val();
         $.ajax({
             url:"../api/ajax/getServiceFee/"+id,

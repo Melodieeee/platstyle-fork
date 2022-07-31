@@ -33,10 +33,7 @@ import java.nio.file.StandardCopyOption;
 import java.security.Principal;
 import java.time.LocalDate;
 import java.time.ZoneId;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
 @Controller
 @AllArgsConstructor
@@ -79,7 +76,9 @@ public class UserController {
         }
     }
     @GetMapping(path = "/user/shop")
-    public String home() {
+    public String home(Model model, Stylist stylists) {
+        List<Stylist> stylistList = stylistRepository.findAll();
+        model.addAttribute("stylistList", stylistList);
         return "user/shop";
     }
     @GetMapping(path = "/user/account")
@@ -104,7 +103,7 @@ public class UserController {
             userRepository.save(existing);
             customer.setUid(existing.getUid());
             customerRepository.save(customer);
-            return "redirect:/";
+            return "redirect:/user/account";
         }
     }
 
@@ -136,7 +135,7 @@ public class UserController {
             e.printStackTrace();
         }
         User user = userRepository.findByEmail(principal.getName()).orElse(null);
-        Stylist stylist = new Stylist(null, user, user.getFirstName()+" "+user.getLastName(),user.getPhone(),user.getEmail(), "", idFileName, workPermitFileName, "", false,0);
+        Stylist stylist = new Stylist(null, user, user.getFirstName()+" "+user.getLastName(),user.getPhone(),user.getEmail(), "", idFileName, workPermitFileName, "", false,0,null);
         stylistRepository.save(stylist);
         attributes.addFlashAttribute("message", "You successfully uploaded " + idFileName + " and "+ workPermitFileName +'!');
         return "redirect:/user/upload";

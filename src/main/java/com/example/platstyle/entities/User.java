@@ -8,6 +8,8 @@ import org.hibernate.annotations.DynamicUpdate;
 import org.springframework.format.annotation.DateTimeFormat;
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -35,6 +37,10 @@ public class User {
     @OneToOne(mappedBy = "uid", cascade = CascadeType.ALL,
             fetch = FetchType.LAZY)
     private Stylist stylist;
+
+    @OneToMany(mappedBy="user",cascade = CascadeType.PERSIST)
+    private List<Service> services;
+
 
     public String getStylistIDdocument() {
         if(this.stylist!=null) {

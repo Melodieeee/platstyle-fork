@@ -21,6 +21,7 @@ public class Feedback {
     private String comment;
     @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private Date createDate;
+    private double rate;
     @OneToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "oid", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)

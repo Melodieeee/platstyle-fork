@@ -23,19 +23,38 @@
             <!--Left-->
             <div class="container col-xl-5 col-md-6 col-sm-12">
                 <div class="text-center">
-                    <div class="text-center mt-5 mb-5 py-3">
+                    <div class="text-center mt-5 mb-5 py-3" th:object="${store}">
                         <div class="circle-image">
                             <img src="../img/barber1.jpg" width="100">
                         </div>
-                        <h2 class="name fw-500">Bryan Williams</h2>
+                        <h2 class="name fw-500"></h2>
                         <p class="text-black-50">joined&nbsp;<span>July 20th</span></p>
-                        <small class="text-black-50 font-weight-bold">QP09AA9090</small>
+                        <button type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#exampleModal" style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">
+                            Opening Hours
+                        </button>
+                        <!-- Modal -->
+                        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Timeslot</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        ...
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                         <div class="location mt-2 mb-2">
                             <span><i class="fa fa-map-marker stop mt-2"></i> <small class="text-truncate ml-2">Richmong</small> </span>
                         </div>
                         <!--Rating-->
                         <form>
-                            <input id="input-21b" value="4" type="text" class="rating mb-3" disabled="disabled" data-theme="krajee-fas" data-min=0 data-max=5 data-step=0.2 data-size="sm">
+                            <input id="input-21b" value="4" type="text" class="rating mb-3" disabled="disabled" data-theme="krajee-fas" data-min=0 data-max=5 data-step=0.2 data-size="sm" style="--clear-rating: hidden;">
                             <div class="clearfix"></div>
                         </form>
                         <!--Comments-->

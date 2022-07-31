@@ -54,9 +54,9 @@
                         </div>
                     </td>
                     <td>
-                        <button th:id="${p.getUid()}" onclick=userDelete(this) type="button" rel="tooltip" title="Remove" class="btn btn-danger btn-simple btn-xs">
+                        <a onClick="return confirm('Are you sure you want to remove this user ?')" th:href="@{./removeStylistRequest(id=${p.getUid})}" rel="tooltip" title="Remove" class="btn btn-danger btn-simple btn-xs">
                             <i class="fa fa-times"></i>
-                        </button>
+                        </a>
                     </td>
                 </tr>
                 </tbody>

@@ -55,4 +55,11 @@ public class AdminController {
         stylistRepository.deleteAllByUid(user);
         return "redirect:/admin/userManagement";
     }
+
+    @GetMapping("/admin/removeStylistRequest")
+    public String removeStylistRequest(Long id) {
+        User user = userRepository.findAllByUid(id).orElse(null);
+        userRepository.delete(user);
+        return "redirect:/admin/userManagement";
+    }
 }

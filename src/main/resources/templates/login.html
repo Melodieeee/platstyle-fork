@@ -13,9 +13,10 @@
     <form th:action="@{/authentication}" method="post">
         <!-- <img class="mb-4" src="/img/icon-p.png" alt="" width="57" height="57"> -->
         <h1 class="h3 mb-4 pb-4 fw-normal border-bottom">Login</h1>
-
+        <p th:text="${message}" th:if="${message ne null}" class="alert alert-primary"></p>
+        <p th:if="${param.error != null}" class="alert alert-danger">Email address or password wrong, please try again</p>
         <div class="form-floating">
-            <input type="text" class="form-control" name="username" id="username" placeholder="name@example.com">
+            <input type="email" class="form-control" name="username" id="username" placeholder="name@example.com">
             <label for="username">Your email address</label>
         </div>
         <br>

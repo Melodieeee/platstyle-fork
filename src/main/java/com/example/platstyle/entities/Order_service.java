@@ -22,7 +22,7 @@ public class Order_service {
     @JoinColumn(name = "sid", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Service service;
-
+    private String lengthOfHair;
     private double price;
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "oid", nullable = false)

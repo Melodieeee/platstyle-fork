@@ -33,6 +33,7 @@ public class User {
     private String phone;
     @NotNull
     private String roles;
+    // ROLE_ADMIN, ROLE_STYLIST, ROLE_USER
 
     @OneToOne(mappedBy = "uid", cascade = CascadeType.ALL,
             fetch = FetchType.LAZY)
@@ -40,6 +41,9 @@ public class User {
 
     @OneToMany(mappedBy="user",cascade = CascadeType.PERSIST)
     private List<Service> services;
+
+    @OneToMany(mappedBy="user",cascade = CascadeType.PERSIST)
+    private List<Order> orders;
 
 
     public String getStylistIDdocument() {

@@ -1,8 +1,11 @@
 package com.example.platstyle.web;
 
 import com.example.platstyle.entities.Stylist;
+import com.example.platstyle.entities.Support;
 import com.example.platstyle.entities.User;
 import com.example.platstyle.repositories.StylistRepository;
+import com.example.platstyle.repositories.SupportMessageRepository;
+import com.example.platstyle.repositories.SupportRepository;
 import com.example.platstyle.repositories.UserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -17,10 +20,13 @@ public class AdminController {
 
     UserRepository userRepository;
     StylistRepository stylistRepository;
+    SupportRepository supportRepository;
+    SupportMessageRepository supportMessageRepository;
 
     @GetMapping(path = "/admin/supportManagement")
-    public String supportManagement(){
-
+    public String supportManagement(Model model){
+        List<Support> supportList = supportRepository.findAll();
+        model.addAttribute("supportList", supportList);
         return "admin/supportManagement";
     }
 

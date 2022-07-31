@@ -43,7 +43,6 @@
                             <div class="form-group">
                                 <label>New Service<br></label>
                                 <input type="text" class="form-control" th:field="*{newService.serviceName}" placeholder="Your Service Name" required>
-                                <small class="form-text text-muted" contenteditable="true"></small>
                             </div>
 
                         </div>
@@ -167,7 +166,10 @@
                 dataType: "text",
                 success: function(msg) {
                     alert(msg);
-                    getServicesByGender()
+                    $('#serviceName').val("");
+                    $('#minPrice').val("");
+                    $('#maxPrice').val("");
+                    getServicesByGender();
                 }
             })
 

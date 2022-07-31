@@ -98,6 +98,22 @@
                 </tr>
                 </thead>
                 <tbody id="orderList">
+                <tr th:each="support:${supportList}">
+                    <td th:text="${support.getOrderNum()}"></td>
+                    <td th:text="${support.getCategory()}"></td>
+                    <td th:text="${support.getSubject()}"></td>
+                    <td th:text="${support.getCreateDate()}"></td>
+                    <td>
+                       <a href="#" data-bs-toggle="modal" data-bs-target="#replyModal">read</a>
+                    </td>
+                    <td th:switch="${support.isStatus()}">
+                        <button th:case="false" th:id="${support.getSid()}" onclick=cloneLink(this) type="button" rel="tooltip" title="Approval" class="btn btn-info btn-simple btn-xs btn-copy">
+                            <i class="fa fa-check"></i>
+                        </button>
+                        <i th:case="true" class="fa fa-check"></i>
+                    </td>
+                </tr>
+
                 <tr>
                     <td>0001</td>
                     <td>payment</td>
@@ -108,20 +124,6 @@
                     </td>
                     <td>
                         <i class="fa fa-check"></i>
-                    </td>
-                </tr>
-                <tr>
-                    <td>0002</td>
-                    <td>payment</td>
-                    <td>No Show refund</td>
-                    <td>2022/07/06</td>
-                    <td>
-                        The stylist was ... <a href="#">more</a>
-                    </td>
-                    <td>
-                        <button id="'.$row['cid'].'" onclick=cloneLink(this) type="button" rel="tooltip" title="Approval" class="btn btn-info btn-simple btn-xs btn-copy">
-                            <i class="fa fa-check"></i>
-                        </button>
                     </td>
                 </tr>
 

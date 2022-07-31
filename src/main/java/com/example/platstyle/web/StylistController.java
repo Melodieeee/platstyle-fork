@@ -30,8 +30,8 @@ public class StylistController {
     @GetMapping(path = "/stylist/profile")
     public String profile(Model model, Principal principal){
         User user = userRepository.findByEmail(principal.getName()).orElse(null);
-        Stylist stylist = stylistRepository.findById(user.getUid()).orElse(null);
-        if(stylist == null) return "error/403";
+        Stylist stylist = stylistRepository.findAllByUid(user).orElse(null);
+        //if(stylist == null) return "error/403";
         model.addAttribute("stylist", stylist);
         return "stylist/profile";
     }

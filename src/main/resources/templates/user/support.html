@@ -20,19 +20,18 @@
             <div class="col-md-8">
                 <div class="card">
                     <div class="card-body">
-                        <form class="px-5 pt-4">
+                        <form class="px-5 pt-4" th:action="@{/user/addSupport}" method="post">
+                            <!-- Subject input -->
+                            <p th:text="${message}" th:if="${message ne null}" class="alert alert-primary"></p>
+                            <div class="form-outline mb-4">
+                                <input type="text" id="subject" placeholder="Subject" th:field="*{support.subject}" class="form-control" />
+                            </div>
                             <!-- Order input -->
                             <div class="form-outline mb-4">
-                                <input type="text" id="order" placeholder="Order" class="form-control" />
+                                <input type="text" id="order" placeholder="Order number" name="oid" class="form-control" />
                             </div>
-
-                            <!-- Subject input -->
                             <div class="form-outline mb-4">
-                                <input type="text" id="subject" placeholder="Subject" class="form-control" />
-                            </div>
-
-                            <div class="form-outline mb-4">
-                                <input class="form-control" list="datalistOptions" id="category" placeholder="Type to search category">
+                                <input class="form-control" list="datalistOptions" id="category" th:field="*{support.category}" placeholder="Type to search category">
                                 <datalist id="datalistOptions">
                                     <option value="Payment">
                                     <option value="Two">
@@ -43,7 +42,7 @@
 
                             <!-- Message input -->
                             <div class="form-outline mb-4">
-                                <textarea class="form-control" id="message" placeholder="Message" rows="4"></textarea>
+                                <textarea class="form-control" id="message" name="message" placeholder="Message" rows="4"></textarea>
                             </div>
 
                             <!-- Submit button -->

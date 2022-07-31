@@ -1,11 +1,7 @@
 package com.example.platstyle.web;
 
-import com.example.platstyle.entities.Customer;
-import com.example.platstyle.entities.Stylist;
-import com.example.platstyle.entities.User;
-import com.example.platstyle.repositories.CustomerRepository;
-import com.example.platstyle.repositories.StylistRepository;
-import com.example.platstyle.repositories.UserRepository;
+import com.example.platstyle.entities.*;
+import com.example.platstyle.repositories.*;
 import lombok.AllArgsConstructor;
 import net.bytebuddy.description.field.FieldList;
 import org.springframework.beans.BeanUtils;
@@ -30,9 +26,13 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.security.MessageDigest;
 import java.security.Principal;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.*;
 
 @Controller
@@ -42,6 +42,9 @@ public class UserController {
     private UserRepository userRepository;
     private CustomerRepository customerRepository;
     private StylistRepository stylistRepository;
+    private OrderRepository orderRepository;
+    private SupportRepository supportRepository;
+    private SupportMessageRepository supportMessageRepository;
     @GetMapping(path = "/")
     public String students() {
         return "index";
@@ -60,8 +63,8 @@ public class UserController {
     public String forgotpassword(){ return "forgotpassword";}
 
     @PostMapping(path = "/register")
-    public String register(Model model, User user, BindingResult
-            bindingResult, ModelMap mm, HttpSession session) {
+    public String register( User user, BindingResult bindingResult,
+                            RedirectAttributes attributes) {
         if (bindingResult.hasErrors()) {
             return "signup";
         } else {
@@ -72,7 +75,8 @@ public class UserController {
             user.setRegisterDate(date);
             user.setRoles("ROLE_ADMIN");
             userRepository.save(user);
-            return "redirect:/";
+            attributes.addFlashAttribute("message", "Success register, please login!");
+            return "redirect:/login";
         }
     }
     @GetMapping(path = "/user/shop")
@@ -108,7 +112,10 @@ public class UserController {
     }
 
     @GetMapping(path = "/user/support")
-    public String support(){ return "user/support";}
+    public String support(Model model, Principal principal){
+        model.addAttribute("support",new Support());
+        return "user/support";
+    }
 
     @GetMapping(path = "/user/upload")
     public String upload(){
@@ -164,7 +171,31 @@ public class UserController {
         return emptyNames.toArray(result);
     }
 
-
+    @PostMapping(path="/user/addSupport")
+    public String addSupport(Support support, @RequestParam("message") String messageText,
+                             @RequestParam("oid") long oid, Principal principal,
+                             BindingResult bindingResult,
+                             RedirectAttributes attributes) {
+        if (bindingResult.hasErrors()) {
+            return "user/account";
+        } else {
+            User user = userRepository.findByEmail(principal.getName()).orElse(null);
+            Order order = orderRepository.findById(oid).orElse(null);
+            support.setUser(user);
+            support.setOrder(order);
+            Date in = new Date();
+            LocalDateTime ldt = LocalDateTime.ofInstant(in.toInstant(), ZoneId.systemDefault());
+            ZonedDateTime zdt = ldt.atZone(ZoneId.systemDefault());
+            Date date = Date.from(zdt.toInstant());
+            support.setCreateDate(date);
+            support = supportRepository.save(support);
+            supportRepository.flush();
+            Support_message message = new Support_message(null, messageText, date,user,support);
+            supportMessageRepository.save(message);
+            attributes.addFlashAttribute("message", "Thank you for the submission, we will reply you soon!");
+            return "redirect:/user/support";
+        }
+    }
 }
 
 

@@ -3,6 +3,8 @@ package com.example.platstyle.entities;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
@@ -19,14 +21,13 @@ public class Order {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long oid;
     @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
-    private Date orderDateTime;
+    private Date createDate;
     private String note;
     private String address;
     @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private Date arriveTime;
     @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private Date finishTime;
-    private int rate;
     private double totalPrice;
     private int status;
     // 0 without payment
@@ -43,11 +44,17 @@ public class Order {
 8. complete no feedback button
 9. cancel
 */
-
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "uid", nullable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    private User user;
     @OneToMany(mappedBy="order",cascade = CascadeType.PERSIST)
     private List<Order_service> services;
 
-    @OneToOne(mappedBy = "order", cascade = CascadeType.ALL,
-            fetch = FetchType.LAZY)
+    @OneToMany(mappedBy="order",cascade = CascadeType.PERSIST)
+    private List<Support> supports;
+
+    @OneToOne(mappedBy = "order", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Payment payment;
+
 }

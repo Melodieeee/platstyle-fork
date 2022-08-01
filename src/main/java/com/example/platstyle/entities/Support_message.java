@@ -29,4 +29,8 @@ public class Support_message {
     @JoinColumn(name = "sid", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Support support;
+
+    public String getSenderName() {
+        return sender.getFirstName();
+    }
 }

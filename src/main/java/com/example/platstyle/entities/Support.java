@@ -9,6 +9,7 @@ import org.hibernate.annotations.OnDeleteAction;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -42,5 +43,13 @@ public class Support {
         } else {
             return "";
         }
+    }
+
+    public String getUserName() {
+        return user.getFirstName();
+    }
+
+    public String getFormatCreateDate(){
+        return  new SimpleDateFormat("yyyy/MM/dd").format(this.createDate);
     }
 }

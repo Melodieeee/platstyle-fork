@@ -102,14 +102,14 @@
                     <td th:text="${support.getOrderNum()}"></td>
                     <td th:text="${support.getCategory()}"></td>
                     <td th:text="${support.getSubject()}"></td>
-                    <td th:text="${support.getCreateDate()}"></td>
+                    <td th:text="${support.getFormatCreateDate()}"></td>
                     <td>
-                       <a href="#" data-bs-toggle="modal" data-bs-target="#replyModal">read</a>
+                       <a href="#" th:id="${support.getSid()}" onclick=getMessages(this) data-bs-toggle="modal" data-bs-target="#replyModal">read</a>
                     </td>
                     <td th:switch="${support.isStatus()}">
-                        <button th:case="false" th:id="${support.getSid()}" onclick=cloneLink(this) type="button" rel="tooltip" title="Approval" class="btn btn-info btn-simple btn-xs btn-copy">
+                        <a th:case="false" onClick="return confirm('Are you sure you finish this support ?')" th:href="@{./finishSupport(id=${support.getSid()})}" rel="tooltip" title="Accept" class="btn btn-info btn-simple btn-xs btn-copy">
                             <i class="fa fa-check"></i>
-                        </button>
+                        </a>
                         <i th:case="true" class="fa fa-check"></i>
                     </td>
                 </tr>
@@ -151,7 +151,7 @@
                     <h5 class="modal-title">Reply</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body">
+                <div class="modal-body" id="modalBody">
                     <p>
                         Order: 0002<br>
                         Name: Sam<br>
@@ -186,8 +186,8 @@
                   <textarea class="form-control" id="message" placeholder="Message" rows="4"></textarea>
                 </div-->
                 <div class="contan mx-3">
-                    <textarea rows="4"></textarea>
-                    <button type="submit" class="btn"> Send </button>
+                    <textarea id="messageBox" rows="4"></textarea>
+                    <button type="submit" name="sendMessage" onclick="sendMessage()" class="btn"> Send </button>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -213,6 +213,45 @@
         //$('.navbar.easy-sidebar-right').removeClass('toggled-right');
         $('.navbar.easy-sidebar').removeClass('toggled');
     });
+
+    function getMessages(object) {
+        let sid=$(object).attr("id");
+        $("#modalBody").empty();
+        $.ajax({
+            url:"../api/ajax/getMessages/"+sid,
+            type: "GET",
+            dataType: "html",
+            success: function(html) {
+                $("#modalBody").append(html);
+                $("[name=sendMessage]").attr("id",sid);
+            }
+        })
+    }
+
+    function sendMessage() {
+        $.ajax({
+            url:"../api/ajax/addMessage",
+            data: {
+                sid: $("[name=sendMessage]").attr("id"),
+                message:$("#messageBox").val()
+            },
+            type: "POST",
+            dataType: "text",
+            success: function(message) {
+                if(message=="success") {
+                    $("#messages").append('<div class="me text" id="msgcqltdjvyj" mid="0">\n' +
+                        '                                <span class="hidden_text">Me: </span>'+$("#messageBox").val()+'\n' +
+                        '                                <div class="me comment">\n' +
+                        '                                    <span class="hidden_text">(</span>\n' +
+                        '                                    <time class="timeago" datetime="now()">now</time>\n' +
+                        '                                    <span class="hidden_text">)<br></span>\n' +
+                        '                                </div>\n' +
+                        '                            </div>');
+                    $("#messageBox").val("");
+                }
+            }
+        })
+    }
 </script>
 </body>
 </html>

@@ -69,4 +69,13 @@ public class AdminController {
         userRepository.delete(user);
         return "redirect:/admin/userManagement";
     }
+
+    @GetMapping("/admin/finishSupport")
+    public String finishSupport(Long id) {
+        Support support = supportRepository.findAllBySid(id).orElse(null);
+        if(support==null) throw new RuntimeException("support does not exist");
+        support.setStatus(true);
+        supportRepository.save(support);
+        return "redirect:/admin/supportManagement";
+    }
 }

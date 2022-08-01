@@ -3,7 +3,6 @@ package com.example.platstyle.web;
 import com.example.platstyle.entities.*;
 import com.example.platstyle.repositories.*;
 import lombok.AllArgsConstructor;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -12,10 +11,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.security.Principal;
-import java.time.LocalDate;
-import java.time.ZoneId;
-import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 
 @Controller
@@ -31,7 +28,7 @@ public class StylistController {
     public String profile(Model model, Principal principal){
         User user = userRepository.findByEmail(principal.getName()).orElse(null);
         Stylist stylist = stylistRepository.findAllByUid(user).orElse(null);
-        //if(stylist == null) return "error/403";
+        if(stylist == null) return "error/403";
         model.addAttribute("stylist", stylist);
         return "stylist/profile";
     }
@@ -64,5 +61,7 @@ public class StylistController {
             return "redirect:/stylist/portfolio";
         }
     }
+
+
 
 }

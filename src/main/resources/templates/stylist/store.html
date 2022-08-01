@@ -1,5 +1,5 @@
 <!doctype html>
-<html class="easy-sidebar-active" lang="en">
+<html class="easy-sidebar-active" lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -23,7 +23,7 @@
             <!--Left-->
             <div class="container col-xl-5 col-md-6 col-sm-12">
                 <div class="text-center">
-                    <div class="text-center mt-5 mb-5 py-3" th:object="${store}">
+                    <div class="text-center mt-5 mb-5 py-3" >
                         <div class="circle-image">
                             <img src="../img/barber1.jpg" width="100">
                         </div>
@@ -148,7 +148,7 @@
                             <div class="row gutters">
                                 <div class="col-4 mt-4 mb-2 mx-2">
                                     <div class="form-check">
-                                        <input class="form-check-input" type="radio" id="male" name="gender" value="M" onclick="getServicesByGender()">
+                                        <input class="form-check-input" type="radio" id="male" name="gender" value="M" onclick="getServicesByGender()" autocomplete="off">
                                         <label class="form-check-label" for="male">
                                             Male
                                         </label>
@@ -156,7 +156,7 @@
                                 </div>
                                 <div class="col-4 mt-4 mb-2">
                                     <div class="form-check">
-                                        <input class="form-check-input" type="radio" id="female" name="gender" value="F" onclick="getServicesByGender()">
+                                        <input class="form-check-input" type="radio" id="female" name="gender" value="F" onclick="getServicesByGender()" autocomplete="off">
                                         <label class="form-check-label" for="female">
                                             Female
                                         </label>
@@ -174,7 +174,7 @@
                                     <label class="form-check-label">Hair Part:</label>
                                     <div class="btn-group w-100" role="group" aria-label="Basic radio toggle button group">
                                         <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" checked>
-                                        <label class="btn btn-outline-secondary" for="btnradio1">Partial</label>
+                                        <label class="btn btn-outline-secondary" for="btnradio1">Short</label>
 
                                         <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off">
                                         <label class="btn btn-outline-secondary" for="btnradio2">Medium</label>
@@ -183,6 +183,7 @@
                                         <label class="btn btn-outline-secondary" for="btnradio3">Long</label>
                                     </div>
                                 </div>
+
                                 <div class="col-8 m-2">
                                     <label class="form-check-label">Estimate Price:</label>
                                     <div class="h2" id="price">$20</div>
@@ -212,6 +213,7 @@
 <script>
     //easy-sidebar-toggle-right
     var minPrice = 0;
+    var midPrice = 0;
     var maxPrice = 0;
     $('.easy-sidebar-toggle').click(function(e) {
         e.preventDefault();
@@ -238,6 +240,7 @@
     function getPrice() {
         const el = document.getElementById('serviceName');
         let id=$( "#serviceSelect option:selected" ).val();
+
         $.ajax({
             url:"../api/ajax/getServiceFee/"+id,
             type: "GET",
@@ -245,10 +248,17 @@
             success: function(json) {
                 minPrice = json.minPrice;
                 maxPrice = json.maxPrice;
-                if(maxPrice != 0) {
-                    $('#price').text("$"+minPrice+"-$"+maxPrice);
-                } else {
-                    $('#price').text("$"+minPrice);
+                midPrice = (maxPrice + minPrice) / 2;
+
+                var hair=document.getElementsByName("btnradio");
+                for(var i = 0; i < hair.length;i++){
+                    if(hair[0].checked){
+                        $('#price').text("$"+minPrice);
+                    } else if (hair[1].checked){
+                        $('#price').text("$"+midPrice);
+                    } else{
+                        $('#price').text("$"+maxPrice);
+                    }
                 }
             }
         })

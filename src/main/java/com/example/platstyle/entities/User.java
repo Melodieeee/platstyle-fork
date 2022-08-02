@@ -69,4 +69,12 @@ public class User {
         }
     }
 
+    public long getStylistId() {
+        if(this.stylist!=null) {
+            return stylist.getSid();
+        } else {
+            return 0;
+        }
+    }
+
 }

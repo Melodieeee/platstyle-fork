@@ -27,4 +27,8 @@ public class Customer {
     @DateTimeFormat(pattern="yyyy-MM-dd")
     private Date birthday;
     private String photo;
+
+    public String getAddress(){
+        return this.street+", "+city+", "+province+" "+postal;
+    }
 }

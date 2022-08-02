@@ -35,6 +35,9 @@ public class Service {
         return user.getFirstName()+ " " + user.getLastName();
     }
 
+    public long getStylistId() {
+        return this.user.getStylistId();
+    }
     public String getGender() {
         if(this.gender.equals("F")) return "Female";
         else if(this.gender.equals("M")) return "Male";

@@ -15,10 +15,11 @@ public interface StylistRepository  extends JpaRepository<Stylist, Long> {
 
     Optional<Stylist> findAllBySid(Long sid);
     Optional<Stylist> findAllByUid(User uid);
-    @Query(value = "select uid from service  where sid = ?1 ",nativeQuery = true)
+    @Query(value = "select uid from stylist  where sid = ?1 ",nativeQuery = true)
     long findUidBySid (long sid);
     @Modifying
     @Query(value="delete from stylist where uid = ?1", nativeQuery = true)
     @Transactional
     void deleteByUid(User user);
+    Optional<Stylist> findBySid(long sid);
 }

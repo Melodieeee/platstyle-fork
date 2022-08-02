@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Optional;
 
 public interface TimeslotRepository extends JpaRepository<Timeslot, Long> {
 
@@ -15,4 +16,6 @@ public interface TimeslotRepository extends JpaRepository<Timeslot, Long> {
     List<Timeslot> findAllByUid (long uid);
     @Transactional
     long deleteByUser(User user);
+
+
 }

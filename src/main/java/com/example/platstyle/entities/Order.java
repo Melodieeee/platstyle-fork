@@ -50,6 +50,11 @@ public class Order {
     @JoinColumn(name = "uid", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     private User user;
+
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "sid", nullable = true)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    private Stylist stylist;
     @OneToMany(mappedBy="order",cascade = CascadeType.PERSIST)
     private List<Order_service> services;
 
@@ -58,5 +63,17 @@ public class Order {
 
     @OneToOne(mappedBy = "order", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Payment payment;
+
+    public String getStylistName() {
+        return services.get(0).getService().getStylistName();
+    }
+
+    public String getServiceName() {
+        return services.get(0).getService().getServiceName();
+    }
+
+    public String getOrderNum() {
+        return String.format("%05d", this.getOid());
+    }
 
 }

@@ -36,4 +36,7 @@ public class Stylist {
     private double balance;
     @OneToMany(mappedBy="stylist",cascade = CascadeType.ALL)
     private List<Feedback>  feedbacks;
+
+    @OneToMany(mappedBy="stylist",cascade = CascadeType.ALL)
+    private List<Order> orderList;
 }

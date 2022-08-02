@@ -13,10 +13,14 @@ import java.util.Optional;
 
 public interface StylistRepository  extends JpaRepository<Stylist, Long> {
 
+
     Optional<Stylist> findAllBySid(Long sid);
     Optional<Stylist> findAllByUid(User uid);
     @Query(value = "select uid from stylist  where sid = ?1 ",nativeQuery = true)
     long findUidBySid (long sid);
+
+    @Query(value = "select * from stylist  where verify = 1 ",nativeQuery = true)
+    List<Stylist> findAllVerifiedStylist();
     @Modifying
     @Query(value="delete from stylist where uid = ?1", nativeQuery = true)
     @Transactional

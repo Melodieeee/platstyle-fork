@@ -15,6 +15,7 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.Date;
+import java.util.List;
 
 import static com.example.platstyle.web.UserController.copyNonNullProperties;
 
@@ -76,11 +77,14 @@ public class StylistController {
 
     @PostMapping(path = "/user/addService")
     public String addCart(Order_service order_service, @RequestParam("serviceSelect") long sid, BindingResult bindingResult, Principal principal){
-
+        if(sid==0) return "redirect:/user/shop";
         if (bindingResult.hasErrors()) {
-            return "user/store";
+            return "redirect:/user/shop";
         } else {
             User user = userRepository.findByEmail(principal.getName()).orElse(null);
+            Service service = serviceRepository.findById(sid).orElse(null);
+            if(service == null) throw new RuntimeException("can not find service");
+            Stylist stylist = stylistRepository.findAllByUid(service.getUser()).orElse(null);
             Order order = orderRepository.findAllByUserAndStatus(user, 0).orElse(null);
             if(order == null) {
                 Customer customer = customerRepository.findById(user.getUid()).orElse(null);
@@ -88,12 +92,14 @@ public class StylistController {
                 LocalDateTime ldt = LocalDateTime.ofInstant(in.toInstant(), ZoneId.systemDefault());
                 ZonedDateTime zdt = ldt.atZone(ZoneId.systemDefault());
                 Date date = Date.from(zdt.toInstant());
-                order = new Order(null, date,"",customer.getAddress(),null,null,null,0,0,user,null,null,null);
+                order = new Order(null, date,"",customer.getAddress(),null,null,null,0,0,user,stylist,null,null,null);
                 orderRepository.save(order);
                 orderRepository.flush();
+            } else if(stylist.getSid() != order.getStylist().getSid()){
+                orderServiceRepository.deleteByOid(order);
+                order.setStylist(stylist);
+                orderRepository.save(order);
             }
-            Service service = serviceRepository.findById(sid).orElse(null);
-            if(service == null) throw new RuntimeException("can not find service");
             order_service.setService(service);
             double minPrice = service.getMinPrice();
             double maxPrice = service.getMaxPrice();
@@ -111,7 +117,6 @@ public class StylistController {
             }
             order_service.setOrder(order);
             orderServiceRepository.save(order_service);
-            System.out.println(service.getUser().getFirstName());
             //取得數量 存入localstorage or session
             return  "redirect:/user/store?stylist="+service.getStylistId();
         }

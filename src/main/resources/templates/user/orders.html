@@ -27,22 +27,20 @@
                         <th scope="col">Date</th>
                         <th scope="col">Stylist</th>
                         <th scope="col">Service</th>
-                        <th scope="col">Fee</th>
                         <th scope="col">Total</th>
                         <th scope="col">Status</th>
                         <th scope="col">Action</th>
                     </tr>
                     </thead>
-                    <tr class="rounded bg-white">
-                        <td><a href="/user/orderDetail">15023</a></td>
+                    <tr th:each="order:${orderList}" class="rounded bg-white">
+                        <td><a th:href="'/user/orderDetail?order='+${order.getOid()}" th:text="${order.getOrderNum()}">15023</a></td>
                         <td>Jun 30</td>
                         <td class="d-flex align-items-center">
                             <img src="https://cdn-icons-png.flaticon.com/512/168/168732.png" class="rounded-circle" width="25">
-                            <span style="padding-left: 3px;" class="ml-2">Sam</span>
+                            <span style="padding-left: 3px;" class="ml-2" th:text="${order.getStylistName()}"></span>
                         </td>
-                        <td>Basic Haircut</td>
-                        <td>$20.00</td>
-                        <td>$24.98</td>
+                        <td th:text="${order.getServiceName()}"></td>
+                        <td th:text="${order.getTotalPrice()}"></td>
                         <td>ongoing</td>
                         <td>
                             <div class="dropdown">
@@ -65,7 +63,6 @@
                             <span style="padding-left: 3px;" class="ml-2">Tom</span>
                         </td>
                         <td>Basic Haircut</td>
-                        <td>$20.00</td>
                         <td>$24.98</td>
                         <td>complete</td>
                         <td>

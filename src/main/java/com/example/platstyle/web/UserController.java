@@ -75,15 +75,19 @@ public class UserController {
             Date date = Date.from(localDate.atStartOfDay(defaultZoneId).toInstant());
             user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
             user.setRegisterDate(date);
-            user.setRoles("ROLE_ADMIN");
+            user.setRoles("ROLE_USER");
             userRepository.save(user);
+            userRepository.flush();
+            Customer customer = new Customer();
+            customer.setUid(user.getUid());
+            customerRepository.save(customer);
             attributes.addFlashAttribute("message", "Success register, please login!");
             return "redirect:/login";
         }
     }
     @GetMapping(path = "/user/shop")
     public String home(Model model, Stylist stylists) {
-        List<Stylist> stylistList = stylistRepository.findAll();
+        List<Stylist> stylistList = stylistRepository.findAllVerifiedStylist();
         model.addAttribute("stylistList", stylistList);
         return "user/shop";
     }
@@ -152,7 +156,7 @@ public class UserController {
             e.printStackTrace();
         }
         User user = userRepository.findByEmail(principal.getName()).orElse(null);
-        Stylist stylist = new Stylist(null, user, user.getFirstName()+" "+user.getLastName(),user.getPhone(),user.getEmail(), "", idFileName, workPermitFileName, "", false,0,null);
+        Stylist stylist = new Stylist(null, user, user.getFirstName()+" "+user.getLastName(),user.getPhone(),user.getEmail(), "", idFileName, workPermitFileName, "", false,0,null, null);
         stylistRepository.save(stylist);
         attributes.addFlashAttribute("message", "You successfully uploaded " + idFileName + " and "+ workPermitFileName +'!');
         return "redirect:/user/upload";
@@ -231,6 +235,7 @@ public class UserController {
         if(order.getOid() != service.getOrder().getOid()) throw new RuntimeException("Order is not yours");
         System.out.println(service.getPrice());
         orderServiceRepository.delete(service);
+        if(order.getServices().size()==0) orderRepository.delete(order);
         return "redirect:/user/cart";
     }
 

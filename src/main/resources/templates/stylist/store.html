@@ -133,8 +133,8 @@
                                 <div class="col-8 m-2">
                                     <label class="form-check-label">Service:</label>
                                     <div class="input-group mb-3">
-                                        <select th:onchange="getPrice()" class="form-select" aria-label="Default select example" name="serviceSelect" id="serviceSelect">
-                                            <option selected>Choose...</option>
+                                        <select th:onchange="getPrice()" class="form-select" aria-label="Default select example" name="serviceSelect" id="serviceSelect" required>
+                                            <option value="0" selected>Choose...</option>
                                         </select>
                                     </div>
                                 </div>

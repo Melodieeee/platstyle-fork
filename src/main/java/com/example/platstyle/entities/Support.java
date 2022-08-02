@@ -39,7 +39,7 @@ public class Support {
     private List<Support_message> messages;
     public String getOrderNum() {
         if(this.order!=null) {
-            return String.format("%05d", this.order.getOid());
+            return order.getOrderNum();
         } else {
             return "";
         }

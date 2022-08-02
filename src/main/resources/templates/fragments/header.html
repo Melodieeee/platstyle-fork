@@ -68,67 +68,67 @@
                 <div class="offcanvas-body">
                     <ul class="nav nav-pills flex-column mb-auto">
                         <li class="nav-item">
-                            <a href="/user/shop" class="nav-link active" aria-current="page">
+                            <a href="/user/shop" th:classappend="${#httpServletRequest.getRequestURI() == '/user/shop' ? 'active':''}" class="nav-link link-dark" aria-current="page">
                                 <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="/user/shop"/></svg>
                                 Shop
                             </a>
                         </li>
                         <li>
-                            <a href="/user/orders" class="nav-link link-dark">
+                            <a href="/user/orders" th:classappend="${#httpServletRequest.getRequestURI() == '/user/orders' ? 'active':''}" class="nav-link link-dark">
                                 <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#table"/></svg>
                                 Orders
                             </a>
                         </li>
                         <li>
-                            <a href="/user/account" class="nav-link link-dark">
+                            <a href="/user/account" th:classappend="${#httpServletRequest.getRequestURI() == '/user/account' ? 'active':''}" class="nav-link link-dark">
                                 <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="/user/account"/></svg>
                                 Account
                             </a>
                         </li>
                         <li>
-                            <a href="/user/supportHistory" class="nav-link link-dark">
+                            <a href="/user/supportHistory" th:classappend="${#httpServletRequest.getRequestURI() == '/user/supportHistory' ? 'active':''}" class="nav-link link-dark">
                                 <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="/user/supportHistory"/></svg>
                                 Support History
                             </a>
                         </li>
-                        <li>
-                            <a href="/stylist/profile" class="nav-link link-dark">
+                        <li sec:authorize="hasRole('STYLIST')">
+                            <a href="/stylist/profile" th:classappend="${#httpServletRequest.getRequestURI() == '/stylist/profile' ? 'active':''}" class="nav-link link-dark">
                                 <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="/stylist/profile"/></svg>
                                 Profile
                             </a>
                         </li>
-                        <li>
-                            <a href="/stylist/portfolio" class="nav-link link-dark">
+                        <li sec:authorize="hasRole('STYLIST')">
+                            <a href="/stylist/portfolio" th:classappend="${#httpServletRequest.getRequestURI() == '/stylist/portfolio' ? 'active':''}" class="nav-link link-dark">
                                 <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="/stylist/portfolio"/></svg>
                                 Portfolio
                             </a>
                         </li>
-                        <li>
-                            <a href="/stylist/appointments" class="nav-link link-dark">
+                        <li sec:authorize="hasRole('STYLIST')">
+                            <a href="/stylist/appointments" th:classappend="${#httpServletRequest.getRequestURI() == '/user/supportHistory' ? 'active':''}" class="nav-link link-dark">
                                 <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="/stylist/appointments"/></svg>
                                 Appointments
                             </a>
                         </li>
-                        <li>
-                            <a href="/stylist/ongoingAppointments" class="nav-link link-dark">
+                        <li sec:authorize="hasRole('STYLIST')">
+                            <a href="/stylist/ongoingAppointments" th:classappend="${#httpServletRequest.getRequestURI() == '/stylist/ongoingAppointments' ? 'active':''}" class="nav-link link-dark">
                                 <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="/stylist/ongoingAppointments"/></svg>
                                 Ongoing Appointments
                             </a>
                         </li>
-                        <li>
-                            <a href="/stylist/paymentRelease" class="nav-link link-dark">
+                        <li sec:authorize="hasRole('STYLIST')">
+                            <a href="/stylist/paymentRelease" th:classappend="${#httpServletRequest.getRequestURI() == '/stylist/paymentRelease' ? 'active':''}" class="nav-link link-dark">
                                 <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="/stylist/paymentRelease"/></svg>
                                 Payment Release
                             </a>
                         </li>
                         <li sec:authorize="hasRole('ADMIN')">
-                            <a href="/admin/supportManagement" class="nav-link link-dark">
+                            <a href="/admin/supportManagement" th:classappend="${#httpServletRequest.getRequestURI() == '/admin/supportManagement' ? 'active':''}" class="nav-link link-dark">
                                 <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="/admin/supportManagement"/></svg>
                                 Support Management
                             </a>
                         </li>
                         <li sec:authorize="hasRole('ADMIN')">
-                            <a href="/admin/userManagement" class="nav-link link-dark">
+                            <a href="/admin/userManagement" th:classappend="${#httpServletRequest.getRequestURI() == '/admin/userManagement' ? 'active':''}" class="nav-link link-dark">
                                 <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="/admin/userManagement"/></svg>
                                 User Management
                             </a>

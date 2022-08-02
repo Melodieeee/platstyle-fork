@@ -28,7 +28,8 @@ public class Customer {
     private Date birthday;
     private String photo;
 
-    public String getAddress(){
+    public String getAddress() {
+        if(postal==null) return "";
         return this.street+", "+city+", "+province+" "+postal;
     }
 }

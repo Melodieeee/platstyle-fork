@@ -8,6 +8,7 @@ import org.hibernate.annotations.OnDeleteAction;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -74,6 +75,80 @@ public class Order {
 
     public String getOrderNum() {
         return String.format("%05d", this.getOid());
+    }
+
+    public String getDate() {
+        return new SimpleDateFormat("MM/dd").format(this.createDate);
+    }
+
+    public String getCustomerStatus() {
+        String txtStatus="";
+        switch (this.status) {
+            case 1:
+                txtStatus = "Waiting Confirm";
+                break;
+            case 2:
+                txtStatus = "Please Confirm";
+                break;
+            case 3:
+                txtStatus = "Waiting Set";
+                break;
+            case 4:
+                txtStatus = "Please Confirm";
+                break;
+            case 5:
+                txtStatus = "Service Providing";
+                break;
+            case 6:
+                txtStatus = "Please Confirm";
+                break;
+            case 7:
+                txtStatus = "Complete";
+                break;
+            case 8:
+                txtStatus = "Complete";
+                break;
+            case 9:
+                txtStatus = "Cancel";
+                break;
+
+        }
+        return txtStatus;
+    }
+
+    public String getStylistStatus() {
+        String txtStatus="";
+        switch (this.status) {
+            case 1:
+                txtStatus = "Please Confirm";
+                break;
+            case 2:
+                txtStatus = "Waiting Confirm";
+                break;
+            case 3:
+                txtStatus = "Please Set";
+                break;
+            case 4:
+                txtStatus = "Waiting Confirm";
+                break;
+            case 5:
+                txtStatus = "Service Providing";
+                break;
+            case 6:
+                txtStatus = "Waiting Confirm";
+                break;
+            case 7:
+                txtStatus = "Complete";
+                break;
+            case 8:
+                txtStatus = "Complete";
+                break;
+            case 9:
+                txtStatus = "Cancel";
+                break;
+
+        }
+        return txtStatus;
     }
 
 }

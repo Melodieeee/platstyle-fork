@@ -12,5 +12,7 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
 
     @Query(value = "select * from orders where uid = ?1 and status != 0",nativeQuery = true)
     List<Order> findAllByUid(long uid);
+    @Query(value = "select * from orders where sid = ?1 and status != 0",nativeQuery = true)
+    List<Order> findAllBySid(long sid);
     Optional<Order> findAllByUserAndStatus(User user, int status);
 }

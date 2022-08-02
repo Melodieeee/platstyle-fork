@@ -33,15 +33,15 @@
                     </tr>
                     </thead>
                     <tr th:each="order:${orderList}" class="rounded bg-white">
-                        <td><a th:href="'/user/orderDetail?order='+${order.getOid()}" th:text="${order.getOrderNum()}">15023</a></td>
-                        <td>Jun 30</td>
+                        <td><a th:href="'/user/orderDetail?order='+${order.getOid()}" th:text="${order.getOrderNum()}"></a></td>
+                        <td th:text="${order.getDate}"></td>
                         <td class="d-flex align-items-center">
                             <img src="https://cdn-icons-png.flaticon.com/512/168/168732.png" class="rounded-circle" width="25">
                             <span style="padding-left: 3px;" class="ml-2" th:text="${order.getStylistName()}"></span>
                         </td>
                         <td th:text="${order.getServiceName()}"></td>
                         <td th:text="${order.getTotalPrice()}"></td>
-                        <td>ongoing</td>
+                        <td th:text="${order.getCustomerStatus()}"></td>
                         <td>
                             <div class="dropdown">
                                 <button class="btn btn-sm btn-danger dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">

@@ -32,7 +32,12 @@ public class OrderController {
     public String orderDetail(){ return "user/orderDetail";}
 
     @GetMapping(path = "/stylist/appointments")
-    public String appointments(){ return "stylist/appointments";}
+    public String appointments(Model model, Principal principal){
+        User user = userRepository.findByEmail(principal.getName()).orElse(null);
+        List<Order> appointmentList = orderRepository.findAllBySid(user.getStylistId());
+        model.addAttribute("appointmentList", appointmentList);
+        return "stylist/appointments";
+    }
 
     @GetMapping(path = "/stylist/ongoingAppointments")
     public String ongoingAppointments(){ return "stylist/ongoingAppointments";}

@@ -30,4 +30,14 @@ public class Service {
     private User user;
     @OneToMany(mappedBy="service",cascade = CascadeType.PERSIST)
     private List<Portfolio> portfolios;
+
+    public String getStylistName() {
+        return user.getFirstName()+ " " + user.getLastName();
+    }
+
+    public String getGender() {
+        if(this.gender.equals("F")) return "Female";
+        else if(this.gender.equals("M")) return "Male";
+        else return "No";
+    }
 }

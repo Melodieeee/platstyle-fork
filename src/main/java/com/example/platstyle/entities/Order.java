@@ -25,6 +25,8 @@ public class Order {
     private String note;
     private String address;
     @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    private Date scheduleDate;
+    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private Date arriveTime;
     @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private Date finishTime;

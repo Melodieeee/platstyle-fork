@@ -12,6 +12,8 @@ import java.util.List;
 import java.util.Optional;
 
 public interface StylistRepository  extends JpaRepository<Stylist, Long> {
+
+    Optional<Stylist> findAllBySid(Long sid);
     Optional<Stylist> findAllByUid(User uid);
     @Query(value = "select uid from service  where sid = ?1 ",nativeQuery = true)
     long findUidBySid (long sid);

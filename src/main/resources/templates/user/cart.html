@@ -18,14 +18,16 @@
     <div class="container w-50">
         <div class="h2 mb-4">Order</div>
         <div class="container order-box">
+            <p th:text="${message}" th:if="${message ne null}" class="alert alert-warning"></p>
             <div class="row d-flex justify-content-between">
-                <div class="col-6 mb-3">
-                    <h4>Hair Stylist: <span>Zoio Alma</span></h4>
-                </div>
-                <div class="col-4 d-flex mb-3">
-                    <input type="datetime-local" id="book-time"
-                           name="book-time">
-                </div>
+                <form th:action="@{/user/setScheduleDate}" class="row justify-content-between" id="dateForm" method="post">
+                        <div class="col-6 mb-3">
+                            <h4>Hair Stylist: <span th:text="${stylistName}"></span></h4>
+                        </div>
+                        <div class="col-4 d-flex mb-3">
+                            <input type="datetime-local" id="book-time" name="scheduleDate" th:value="${scheduleDate}">
+                        </div>
+                </form>
             </div>
             <div class="row border-top">
                 <div class="col-3 mt-3">
@@ -40,19 +42,20 @@
             </div>
             <div class="cart-row mb-3">
                 <div class="cart-items">
+
                     <!--ADD ITEMS-->
-                    <div class="row">
+                    <div class="row" th:each="service:${services}">
                         <div class="col-3 mt-3">
-                            <span>Male</span>
+                            <span th:text="${service.getService().getGender}"></span>
                         </div>
-                        <div class="col-5 mt-3">
-                            <span>Haircut</span>
+                        <div class="col-4 mt-3">
+                            <span th:text="${service.getService().getServiceName}"></span>
                         </div>
                         <div class="col-3 mt-3">
-                            <span>20</span>
+                            <span th:text="${service.getPrice}"></span>
                         </div>
                         <div class="col-1 mt-3">
-                            <button type="button" class="btn btn-outline-danger btn-sm"><i class="bi bi-x"></i></button>
+                            <a onClick="return confirm('Are you sure want to remove this service ?')" th:href="@{./removeOrderService(id=${service.getOsid})}" class="btn btn-outline-danger btn-sm"><i class="bi bi-x"></i></a>
                         </div>
                     </div>
                 </div>
@@ -60,14 +63,14 @@
 
             <div class="row text-end">
                 <div class="cart-total d-flex justify-content-end">
-                    <h5 class="cart-total-title">Total (CAD):&nbsp;</h5>
-                    <span class="cart-total-price mx-4">$0</span>
+                    <h5 class="cart-total-title" >Total (CAD):&nbsp;</h5>
+                    <span class="cart-total-price mx-4"th:text="${total}"></span>
                 </div>
             </div>
         </div>
         <div class="row m-3 text-center" >
             <div class="col-md-12">
-                <a href="/user/checkout" class="btn btn-outline-secondary btn-appoi" role="button">Make Appointment</a>
+                <button type="button" onclick="submitDate()" class="btn btn-outline-secondary btn-appoi" role="button">Make Appointment</button>
             </div>
         </div>
 
@@ -89,6 +92,9 @@
         //$('.navbar.easy-sidebar-right').removeClass('toggled-right');
         $('.navbar.easy-sidebar').removeClass('toggled');
     });
+    function submitDate(){
+        $('#dateForm').submit();
+    }
 </script>
 </body>
 </html>

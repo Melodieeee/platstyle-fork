@@ -28,6 +28,7 @@ import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.security.MessageDigest;
 import java.security.Principal;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -43,6 +44,7 @@ public class UserController {
     private CustomerRepository customerRepository;
     private StylistRepository stylistRepository;
     private OrderRepository orderRepository;
+    private  OrderServiceRepository orderServiceRepository;
     private SupportRepository supportRepository;
     private SupportMessageRepository supportMessageRepository;
     @GetMapping(path = "/")
@@ -96,7 +98,7 @@ public class UserController {
         return "user/account";
     }
 
-    @PostMapping(path="/save")
+    @PostMapping(path="/user/save")
     public String save(Model model, User user, Customer customer, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "user/account";
@@ -112,9 +114,17 @@ public class UserController {
     }
 
     @GetMapping(path = "/user/support")
-    public String support(Model model, Principal principal){
+    public String support(Model model){
         model.addAttribute("support",new Support());
         return "user/support";
+    }
+
+    @GetMapping(path = "/user/supportHistory")
+    public String supportManagement(Model model, Principal principal){
+        User user = userRepository.findByEmail(principal.getName()).orElse(null);
+        List<Support> supportList = supportRepository.findAllByUser(user);
+        model.addAttribute("supportList", supportList);
+        return "user/supportHistory";
     }
 
     @GetMapping(path = "/user/upload")
@@ -149,7 +159,23 @@ public class UserController {
     }
 
     @GetMapping(path = "/user/cart")
-    public String order(){ return "user/cart";}
+    public String order(Model model, Principal principal) {
+        User user = userRepository.findByEmail(principal.getName()).orElse(null);
+        Order order = orderRepository.findAllByUserAndStatus(user,0).orElse(null);
+        Double total = 0.0;
+        if(order == null) return "user/cart";
+        List<Order_service> services = order.getServices();
+        if(services.size() == 0) return "user/cart";
+        for (Order_service service : services) {
+            total += service.getPrice();
+        }
+        Service service = services.get(0).getService();
+        model.addAttribute("stylistName", service.getStylistName());
+        model.addAttribute("services", services);
+        model.addAttribute("total", "$"+total.toString());
+        model.addAttribute("scheduleDate", order.getScheduleDate());
+        return "user/cart";
+    }
 
     @GetMapping(path = "/user/checkout")
     public String checkout(){ return "user/checkout";}
@@ -195,6 +221,39 @@ public class UserController {
             attributes.addFlashAttribute("message", "Thank you for the submission, we will reply you soon!");
             return "redirect:/user/support";
         }
+    }
+
+    @GetMapping("/user/removeOrderService")
+    public String removeOrderService(Long id, Principal principal) {
+        User user = userRepository.findByEmail(principal.getName()).orElse(null);
+        Order order = orderRepository.findAllByUserAndStatus(user,0).orElse(null);
+        Order_service service = orderServiceRepository.findById(id).orElse(null);
+        if(order.getOid() != service.getOrder().getOid()) throw new RuntimeException("Order is not yours");
+        System.out.println(service.getPrice());
+        orderServiceRepository.delete(service);
+        return "redirect:/user/cart";
+    }
+
+    @PostMapping(path="/user/setScheduleDate")
+    public String save(@RequestParam("scheduleDate") String scheduleDate, Principal principal, RedirectAttributes attributes) {
+        User user = userRepository.findByEmail(principal.getName()).orElse(null);
+        Order order = orderRepository.findAllByUserAndStatus(user,0).orElse(null);
+        if(scheduleDate.isEmpty()) {
+            attributes.addFlashAttribute("message", "Please select the date!");
+            return "redirect:/user/cart";
+        }
+        scheduleDate = scheduleDate.replace('T',' ');
+        scheduleDate += ":00";
+        Date date;
+        try {
+            date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(scheduleDate);
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        }
+        order.setScheduleDate(date);
+        orderRepository.save(order);
+        return "redirect:/user/checkout";
+
     }
 }
 

@@ -39,7 +39,7 @@ import java.util.*;
 @Controller
 @AllArgsConstructor
 public class UserController {
-    private final String UPLOAD_DIR = "./uploads/";
+    private final String UPLOAD_DIR = "src/main/resources/static/uploads/";
     private UserRepository userRepository;
     private CustomerRepository customerRepository;
     private StylistRepository stylistRepository;

@@ -44,5 +44,8 @@ p.af-arrival-confirm{
     margin:auto;
 }
 
+.jumpDetails {
+    z-index: 9999;
+}
 
   

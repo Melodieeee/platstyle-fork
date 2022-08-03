@@ -1,0 +1,395 @@
+<!doctype html>
+<html class="easy-sidebar-active" lang="en"  xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Order Status</title>
+
+  <div th:replace="fragments/header :: header-css"/>
+  <!--Website ICON-->
+  <link rel="icon" href="img/icon-p.png" type="image/p-icon"/>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" rel="stylesheet">
+  <!-- Custom styles for this template -->
+  <link rel="stylesheet" href="css/easy-sidebar.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="css/manageappointment.css">  
+  
+</head>
+
+<body>
+  <main>
+      <div th:replace="fragments/header :: header"/>
+
+      <!--Content Start-->
+
+      <!-- Show customer's order details -->
+      <div class="container px-5 mb-5 border-bottom">
+        <div class="container h1">Your Order</div>
+        <div class="container row">
+          <!-- stylist info -->
+          <div class="container col-8 px-2 my-5">
+            <div class="container row">
+              <!-- photo -->
+              <div class="container col-3 pt-2"><img src="img/stylistImg.jpg" alt="stylist's photo" style="width: 100%;"></div>
+              <!-- order details -->
+              <div class="container col-8">
+                <div class="h3">Johnny Depp</div>
+                <p><span>2</span> services for <span>$60</span> @ <span>May 30 at 0600 pm</span></p>
+                <p>address</p>
+                <h5>Order items</h5>
+              </div>
+            </div>
+            
+          </div>
+          <!-- cancel button -->
+          <div class="container col-4 my-5">
+            <button class="btn btn-dark mt-3">Cancel This Order</button>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- progress bar -->
+      <div class="container-fluid px-1 px-md-4 py-5 mx-auto bottompart">
+        <div class="row d-flex justify-content-center">
+            <div class="col-12 col-md-11 col-lg-10 col-xl-9">
+                <div class="card card0 border-0">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card card00 m-2 border-0 pt-4">
+                                <!-- <div class="row text-center justify-content-center px-3">
+                                    <p class="prev text-danger"><span class="fa fa-long-arrow-left"> Go home</span></p id="back">
+                                    <h3 class="mt-4">Simple Registration</h3>
+                                </div> -->
+                                
+                                <div class="d-flex flex-md-row px-3 mt-4 flex-column-reverse">
+                                    <!-- left part---progress bar -->
+                                    <div class="col-md-6">
+                                        <div class="card1">
+    
+                                            <ul id="progressbar" class="text-center">
+                                                <li class="active step0" ></li>
+                                                <li class="step0"></li>
+                                                <li class="step0"></li>
+                                                <li class="step0"></li>
+                                                <li class="step0"></li>
+                                                <li class="step0"></li>
+                                                <li class="step0"></li>
+                                                <li class="step0"></li>                                                
+                                            </ul>
+    
+                                            <h6 class="mb-5">Appointment Requesting</h6>
+                                            <h6 class="mb-5">Order Accepted by Stylist</h6>                                            
+                                            <h6 class="mb-5">Stylist Arrived</h6>
+                                            <h6 class="mb-5">Price Evaluation</h6>
+                                            <h6 class="mb-5">Price Confirmed</h6>
+                                            <h6 class="mb-5">Get Serviced</h6>
+                                            <h6 class="mb-5">Service Completed</h6>
+                                            <h6 class="mb-5">Give Your Feedback</h6>
+                                        </div>
+                                    </div>
+
+                                    <!-- rignt part---changing display info -->
+                                    <div class="col-md-6 pe-4">
+
+                                      <!-- Appointment Requesting -->
+                                      <div class="card2 first-screen show ml-2">
+                                        <div class="row px-3 mr-2">
+                                            <p>Please wait for your stylist to accept your order.</p>
+                                        </div>
+
+                                        <div class="row px-3 mt-3">
+
+                                          <!-- Accept? select -->
+                                          <!-- <div class="container col-6">
+                                            <label for="" class="form-label">Accept?</label>
+                                            <select class="form-select" aria-label="accept or reject">
+                                              <option value="1">Accept</option>
+                                              <option value="2">Reject</option>
+                                            </select>              
+                                          </div> -->
+                                        
+                                          <!-- next btn hidden -->
+                                          <div class="container pt-3" style="text-align: end;" >
+                                            <button type="submit" class="btn btn-primary mt-4 next-button">
+                                             <span class="fa fa-arrow-right"></span>
+                                            </button>
+                                          </div>
+
+                                        </div>
+                                          
+                                      </div>
+  
+                                      <!-- Order Accepted by Stylist -->
+                                      <div class="card2 ml-2">
+                                          <div class="row px-3 mr-2">
+                                            <p>We have received your advanced payment. Please waht for your stlist's arrival </p>
+                                            <p>at <span>New Westminster, BC V3L 5B2</span></p>
+                                            <p>on <span>May 30</span> at <span>06:00 p.m.</span>.</p>
+                                          </div>
+                                          <div class="row px-3 mt-3">
+
+                                            <!-- next btn hidden-->
+                                            <div class="container pt-3" style="text-align: end;" >
+                                              <button type="submit" class="btn btn-primary mt-4 next-button">
+                                                Submit Changes
+                                              </button>
+                                            </div>
+
+                                          </div>
+                                      </div>
+
+                                      <!-- Stylist Arrived -->
+                                      <div class="card2 ml-2">
+                                        <div class="container">
+                                          <div class="row px-3 mr-2">
+                                            <p>Please confirm your stylist's arrival.</p>                                          
+                                          </div>
+                                          <!-- Arrive? select -->
+                                          <div class="container">
+                                            <label for="arriveSelect" class="form-label">Stylist arrived?</label>
+                                            <select id="arriveSelect class="form-select" aria-label="arrive or not">
+                                              <option value="1">Arrived</option>
+                                              <option value="2">Not Arrived</option>
+                                            </select>              
+                                          </div>
+                                          <!-- next btn-->
+                                          <div class="container" style="text-align: end;">
+                                            <button type="submit" class="btn btn-primary mt-4 next-button">
+                                              Confirm
+                                            </button>
+                                          </div>                                         
+                                        </div>                                   
+                                      </div>
+
+                                      <!-- Price Evaluation -->
+                                      <div class="card2 ml-2 pb-5">
+                                        <div class="row px-3 mr-2">
+                                          <span>Orginal Total of Your Order: $70 </span>
+                                          <a data-bs-toggle="collapse" href="#collapsedOriginalOrder" role="button" aria-expanded="false" aria-controls="collapsedOriginalOrder">
+                                            <em>see details</em>
+                                          </a>
+                                        </div>
+
+                                        <!-- collapsed original order details -->
+                                        <div class="collapse" id="collapsedOriginalOrder">
+                                          <div class="card card-body">
+                                      
+                                            <table class="table table-striped">
+                                    
+                                              <tbody>
+                                                <tr>
+                                                  <td colspan="4">Original Order Items: </td>
+                                                </tr>
+                                                <tr>
+                                                  <th scope="row">1</th>
+                                                  <td>Haircut</td>
+                                                  <td>Short</td>
+                                                  <td>$30</td>
+                                                </tr>
+                                                <tr>
+                                                  <th scope="row">2</th>
+                                                  <td>Hair perm</td>
+                                                  <td>Medium</td>
+                                                  <td>$40</td>
+                                                </tr>
+                                                <tr>                    
+                                                  <td colspan="3">Total</td>
+                                                  <td>$70</td>
+                                                </tr>
+                                              </tbody>
+                                            </table>
+                    
+                                          </div>
+                                        </div>       
+
+                                        <div class="row px-3 mt-3">
+
+                                          <!-- final price table-->
+                                          <div class="container">
+                                            <table class="table table-striped">
+                    
+                                              <tbody>                                                
+                                                <tr>
+                                                  <th scope="row">1</th>
+                                                  <td>Haircut</td>
+                                                  <td>Medium</td>
+                                                  <td>$20</td>
+                                                </tr>
+                                                <tr>
+                                                  <th scope="row">2</th>
+                                                  <td>Hair perm</td>
+                                                  <td>Medium</td>
+                                                  <td>$70</td>
+                                                </tr>  
+                                                <tr>
+                                                  <td colspan="3">Total</td>
+                                                  <td colspan="1">$<span>90</span></td>
+                                                </tr>                                              
+                                              </tbody>
+
+                                              <thead>
+                                                <tr>                    
+                                                  <td colspan="3">Final Price:</td>
+                                                  <td colspan="2"></td>
+                                                </tr>   
+                                              </thead>
+                                            </table>
+                                            
+                                          </div>
+
+                                          <!-- next btn -->
+                                          <div class="container pt-3" style="text-align: end;" >
+                                            <button type="submit" class="btn btn-primary mt-4 next-button">
+                                              Confirm This Price
+                                            </button>
+                                          </div>
+
+                                        </div>
+                                      </div>
+    
+                                      <!-- Price Confirmed -->
+                                      <div class="card2 ml-2">
+                                        <div class="container">
+                                          <div class="row px-3 mr-2">
+                                            <em class="h3">Total: $<span>90</span></em> 
+                                            <p>The final price is confirmed.</p>                                                                                    
+                                          </div>
+
+                                         <!-- next btn hidden -->
+                                          <div class="container pt-3" style="text-align: end;" >
+                                            <button type="submit" class="btn btn-primary mt-4 next-button">
+                                             <span class="fa fa-arrow-right"></span>
+                                            </button>
+                                          </div>
+                                        </div>                                   
+                                      </div>
+
+                                      <!-- Get Service -->
+                                      <div class="card2 ml-2">
+                                        <div class="container">
+                                          <div class="row px-3 mr-2">
+                                            <p>New hairstyle is on the way ...</p>                                          
+                                          </div>
+
+                                          <!-- next btn hidden -->
+                                          <div class="container pt-3" style="text-align: end;" >
+                                            <button type="submit" class="btn btn-primary mt-4 next-button">
+                                              <span class="fa fa-arrow-right"></span>
+                                            </button>
+                                          </div>
+                                        </div>
+                                      </div>
+
+                                      <!-- Service completed -->
+                                      <div class="card2 ml-2">
+                                        
+                                        <div class="container mt-3">
+                                          <div class="container">
+                                            <p>Please enter the tip amount and confirm the completion of service in 5 mins. We will process your order and 
+                                              charge the balance  in <span>#sec-count-down</span> secs.</p>
+                                          </div>
+
+                                          <!-- Completed? select -->
+                                          <div class="container">
+                                            <label for="completeSelect" class="form-label mb-4">Please confirm the completion.</label>
+                                            <select id="completeSelect" class="form-select" aria-label="completed or not">
+                                              <option value="1">Service is completed</option>
+                                              <option value="2">Service is incompleted</option>
+                                            </select>              
+                                          </div>
+                                          <!-- tip -->
+                                          <div class="container col pt-3">
+                                            <label for="inputTip" class="form-label">Tip your stylist:</label>
+                                            <input id="inputTip" type="text" class="form-control" aria-describedby="tipHelpBlock" placeholder="$xx.xx">
+                                          </div>
+
+                                          <!-- next btn -->
+                                          <div class="container" style="text-align: end;" >
+                                            <button type="submit" class="btn btn-primary mt-4 next-button">
+                                              Submit
+                                            </button>
+                                          </div>
+
+                                        </div>
+                                      </div>
+    
+                                      <!-- Give Your Feedback -->
+                                      <div class="card2 ml-2">
+
+                                        <div class="container">
+                                          <p>Thank you for using PlatStyle! Hope you like your new hairstyle! </p>
+                                          <!-- rating -->                                          
+                                          <div class="rating-box">
+                                            <label for="rating-value" class="form-label">Rating:</label>
+                                            <div class="rating">
+                                              <span class="fa fa-star"></span>
+                                              <span class="fa-regular fa-star"></span>
+                                              <span class="fa-regular fa-star"></span>
+                                              <span class="fa-regular fa-star"></span>
+                                              <span class="fa-regular fa-star"></span>
+                                            </div>
+                                            
+                                            <h4> id="rating-value"></h4>
+                                          </div>            
+                                          <script src="js/rating.js"></script>
+
+                                          <!-- input feedback -->
+                                          <div class="container p-0">
+                                            <label for="reviewsInput" class="form-label">Write your reviews:</label>
+                                            <textarea class="form-control" id="reviewsInput" rows="3" placeholder="What you want to tell your stylist..."></textarea>
+                                          </div>
+                                          
+                                          <!-- next btn -->
+                                          <div class="container" style="text-align: end;" >
+                                            <button type="submit" class="btn btn-primary mt-4 next-button">
+                                              Submit
+                                            </button>
+                                          </div>
+                                        </div>
+                                      </div>                                   
+    
+                                    </div>
+                                </div>
+                            </div>
+                           
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+  <!-- Script -->
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="js/manage-appointment.js"></script>
+
+    <!--Content End-->
+
+    <!--Footer-->
+    <div th:replace="fragments/footer :: footer"/>
+  </main>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.0/jquery.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+        <script src="/docs/5.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+        <script src="js/sidebars.js"></script>    
+        <script src="js/jquery-1.11.0.min.js"></script> 
+        <script src="js/bootstrap.min.js"></script> 
+
+        <script>
+        //easy-sidebar-toggle-right
+        $('.easy-sidebar-toggle').click(function(e) {
+            e.preventDefault();
+          //$('body').toggleClass('toggled-right');
+            $('body').toggleClass('toggled');
+          //$('.navbar.easy-sidebar-right').removeClass('toggled-right');
+            $('.navbar.easy-sidebar').removeClass('toggled');
+        });
+        </script>
+
+      </div>
+  </body>
+</html>

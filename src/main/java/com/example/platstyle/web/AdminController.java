@@ -43,6 +43,7 @@ public class AdminController {
         Stylist stylist = stylistRepository.findAllByUid(user).orElse(null);
         if(stylist != null && user != null) {
             stylist.setVerify(true);
+            stylist.setPhoto("../img/avatar7.png");
             user.setRoles("ROLE_STYLIST");
             stylistRepository.save(stylist);
             userRepository.save(user);

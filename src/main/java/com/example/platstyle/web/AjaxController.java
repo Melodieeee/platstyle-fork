@@ -258,15 +258,25 @@ public class AjaxController {
                                                          Principal principal){
 
         //String sql = "SELECT * FROM `stylist` WHERE city LIKE \"%vancouver%\" AND sid IN ( SELECT DISTINCT uid FROM `service` WHERE gender = \"F\");";
-        String sql = "SELECT * FROM `stylist` WHERE ";
+        String sql = "SELECT * FROM `stylist`";
         boolean first = true;
+        if(citys.length != 0 || gender.length == 2 ) sql += " WHERE ";
         if(citys.length != 0) sql += "city LIKE ";
         for(String city: citys) {
-            if(first) sql = sql + "\"%" + city +  "%\"";
-            else sql = sql + " or city LIKE \"%" + city +  "%\"";
-            first = false;
+            if(!city.isEmpty()) {
+                if(first) sql = sql + "\"%" + city +  "%\"";
+                else sql = sql + " or city LIKE \"%" + city +  "%\"";
+                first = false;
+            }
         }
-        if(gender.length == 1 ) sql += " AND sid IN ( SELECT DISTINCT uid FROM `service` WHERE gender = \"" + gender[0] + "\");";
+        if(citys.length != 0 && gender.length == 2 ) sql += " AND";
+        if(gender.length == 2 ) {
+            for(String gen: gender) {
+                if(!gen.isEmpty()) {
+                    sql += " sid IN ( SELECT DISTINCT uid FROM `service` WHERE gender = \"" + gender[1] + "\");";
+                }
+            }
+        }
         String response = "";
         List<Object[]> stylists = stylistRepository.findByFilter(sql);
         for(Object[] stylist: stylists) {
@@ -277,15 +287,14 @@ public class AjaxController {
                     "                      <span class=\"product_fav \"><i class=\"bi bi-heart\"></i></span>\n" +
                     "               </div>\n" +
                     "               <div class=\"text-center\">\n" +
-                    "                    <a th:href=\"'/user/store?stylist='+${stylist.getSid()}\">\n" +
-                    "                    <img th:src=\"${stylist.getPhoto()}\" width=\"200\" height=\"200\">\n" +
+                    "                    <a href=\"/user/store?stylist="+stylist[0]+"\">\n" +
+                    "                    <img src=\""+ stylist[7] +"\" width=\"200\" height=\"200\">\n" +
                     "                    </a>\n" +
                     "                            </div>\n" +
                     "                            <div class=\"d-flex justify-content-between align-items-center\">\n" +
                     "                                <div class=\"about text-start\">\n" +
-                    "                                    <h5 th:text=\"${stylist.getName()}\"></h5>\n" +
+                    "                                    <h5>"+ stylist[5] +"</h5>\n" +
                     "                                </div>\n" +
-                    "                                <!--Rating-->\n" +
                     "                                <span class=\"about-rating bg-primary\">4.5</span>\n" +
                     "                            </div>\n" +
                     "                        </div>\n" +

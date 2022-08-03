@@ -9,15 +9,32 @@
 </head>
 
 <body>
+<style>
+    .user-img {
+        height: 250px;
+        width: 250px;
+    }
+
+    #uploadBtn {
+        height: 40px;
+        width: 100%;
+        position: absolute;
+        bottom: 69%;
+        transform: translateX(17%);
+    }
+</style>
+
 <main>
 
     <div th:replace="fragments/header :: header"/>
     <!--Content Start-->
 
         <div class="container w-50 min-vh-10">
-            <div class="container mb-5">
+            <div class="container mb-5 w-50">
                 <div class="user-img">
-                    <img src="https://bootdey.com/img/Content/avatar/avatar7.png" class="img-thumbnail mx-auto d-block" alt="..." width="250" height="250">
+                    <img src="https://bootdey.com/img/Content/avatar/avatar7.png" class="img-thumbnail mx-auto d-block" alt="...">
+                    <input class="form" type="file" id="file" style="display: none">
+                    <label for="file" id="uploadBtn"><i class="bi bi-pencil-fill"></i></label>
                 </div>
             </div>
             <form th:action="@{/user/save}"  method="post">
@@ -127,6 +144,7 @@
     <div th:replace="fragments/footer :: footer"/>
 </main>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.0/jquery.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
 <script src="../js/sidebars.js" th:href="@{../js/sidebars.js}"></script>
 <script>

@@ -6,11 +6,9 @@
     <title>PlatStyle</title>
 
     <div th:replace="fragments/header :: header-css"/>
-    <!--Website ICON-->
-    <link rel="icon" href="img/icon-p.png" type="image/p-icon"/>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" rel="stylesheet">
 
     <!-- Custom styles for this template -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="css/easy-sidebar.css">
     <link rel="stylesheet" href="css/orderdetails.css">
     
@@ -125,19 +123,19 @@
               
               <!-- card number -->
               <div class="container col-4">
-                <label for="inputCardNumber" class="form-label">Card Number</label>
+                <label for="cardNumber" class="form-label">Card Number</label>
                 <input type="text" id="cardNumber" class="form-control" aria-describedby="cardNumHelpBlock" placeholder="XXXX-XXXX-XXXX-XXXX">
               </div>
 
               <!-- exp date -->
               <div class="container col-3">
-                <label for="inputExpDate" class="form-label">Exp. Date</label>
+                <label for="expDate" class="form-label">Exp. Date</label>
                 <input type="text" id="expDate" class="form-control" aria-describedby="expDateHelpBlock" placeholder="MM/YY">
               </div>
               
               <!-- security code -->
               <div class="container col-2">
-                <label for="inputSecurityCode" class="form-label">Security Code</label>
+                <label for="securityCode" class="form-label">Security Code</label>
                 <input type="password" id="securityCode" class="form-control" aria-describedby="securityCodeHelpBlock" placeholder="XXX">
               </div>
 
@@ -149,12 +147,12 @@
              
               <!-- card holder -->
               <div class="container col col-4 pt-3">
-                <label for="inputCardHolder" class="form-label">Card Holder</label>
+                <label for="cardHolder" class="form-label">Card Holder</label>
                 <input type="text" id="cardHolder" class="form-control" aria-describedby="cardHolderHelpBlock">
               </div>
               <!-- postal code -->
               <div class="container col col-3 pt-3">
-                <label for="inputZipCode" class="form-label">Postal Code</label>
+                <label for="postalCode" class="form-label">Postal Code</label>
                 <input type="text" id="postalCode" class="form-control" aria-describedby="postalCodeHelpBlock">
               </div>
 
@@ -187,7 +185,7 @@
                   
                   <div class="form-floating">
                     <textarea class="form-control" placeholder="Leave a comment here" id="noteInput" disabled></textarea>
-                    <label for="floatingTextarea">write down what you want to tell your stylist before he/she arrives...</label>
+                    <label for="noteInput">write down what you want to tell your stylist before he/she arrives...</label>
                   </div>
 
                 </fieldset>

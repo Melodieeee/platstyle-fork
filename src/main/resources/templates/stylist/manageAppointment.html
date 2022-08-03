@@ -7,10 +7,8 @@
 
   <div th:replace="fragments/header :: header-css"/>
 
-  <!--Website ICON-->
-  <link rel="icon" href="img/icon-p.png" type="image/p-icon"/>
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" rel="stylesheet">
   <!-- Custom styles for this template -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" rel="stylesheet">
   <link rel="stylesheet" href="css/easy-sidebar.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
@@ -103,8 +101,8 @@
 
                                           <!-- Accept? select -->
                                           <div class="container col-6">
-                                            <label for="" class="form-label">Accept?</label>
-                                            <select class="form-select" aria-label="accept or reject">
+                                            <label for="acceptSelect" class="form-label">Accept?</label>
+                                            <select id="acceptSelect" class="form-select" aria-label="accept or reject">
                                               <option value="1">Accept</option>
                                               <option value="2">Reject</option>
                                             </select>              
@@ -234,8 +232,8 @@
 
                                           <!-- Completed? select -->
                                           <div class="container">
-                                            <label for="" class="form-label mb-4">Service done! Please confirm the completion.</label>
-                                            <select class="form-select" aria-label="completed or not">
+                                            <label for="completeSelect" class="form-label mb-4">Service done! Please confirm the completion.</label>
+                                            <select id="completeSelect" class="form-select" aria-label="completed or not">
                                               <option value="1">Service is completed</option>
                                               <option value="2">Service is incompleted</option>
                                             </select>              

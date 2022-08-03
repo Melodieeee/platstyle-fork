@@ -43,11 +43,7 @@ public class AdminController {
         Stylist stylist = stylistRepository.findAllByUid(user).orElse(null);
         if(stylist != null && user != null) {
             stylist.setVerify(true);
-            if (user.getRoles().equals("ROLE_ADMIN")){
-                user.setRoles("ROLE_ADMIN");
-            } else {
-                user.setRoles("ROLE_STYLIST");
-            }
+            user.setRoles("ROLE_STYLIST");
             stylistRepository.save(stylist);
             userRepository.save(user);
         }

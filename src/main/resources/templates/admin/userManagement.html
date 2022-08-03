@@ -40,8 +40,8 @@
                         <td th:text="${p.getRoles()}"></td>
                     </div>
 
-                    <td><a th:href="${p.getStylistIDdocument()}" th:text="${p.getStylistIDdocument()}"></a></td>
-                    <td><a th:href="${p.getStylistWorkPermit()}" th:text="${p.getStylistWorkPermit()}"></a></td>
+                    <td><a th:href="${'/uploads/'+p.getStylistIDdocument()}" th:text="${p.getStylistIDdocument()}"></a></td>
+                    <td><a th:href="${'/uploads/'+p.getStylistWorkPermit()}" th:text="${p.getStylistWorkPermit()}"></a></td>
                     <td th:switch="${p.getStylistVerify()}">
                         <i th:case="1" class="fa fa-check"></i>
                         <div th:case="2">

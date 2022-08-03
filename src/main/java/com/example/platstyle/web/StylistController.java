@@ -128,7 +128,6 @@ public class StylistController {
 
             return  "redirect:/user/store?stylist="+service.getStylistId();
         }
-
-
     }
+
 }

@@ -32,7 +32,7 @@
                     </tr>
                     </thead>
                     <tr th:each="appointment:${appointmentList}" class="rounded bg-white">
-                        <td><a th:href="'/user/orderDetail?order='+${appointment.getOid()}" th:text="${appointment.getOrderNum()}"></a></td>
+                        <td><a th:href="'/stylist/manageAppointment?order='+${appointment.getOid()}" th:text="${appointment.getOrderNum()}"></a></td>
                         <td th:text="${appointment.getDate()}"></td>
                         <td class="d-flex align-items-center">
                             <img src="https://cdn-icons-png.flaticon.com/512/168/168732.png" class="rounded-circle" width="25">

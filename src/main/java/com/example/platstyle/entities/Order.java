@@ -82,6 +82,10 @@ public class Order {
         return new SimpleDateFormat("MM/dd").format(this.createDate);
     }
 
+    public String getFormatScheduleDate() {
+        return new SimpleDateFormat("yyyy/MM/dd HH:mm").format(this.scheduleDate);
+    }
+
     public String getCustomerStatus() {
         String txtStatus="";
         switch (this.status) {
@@ -151,5 +155,7 @@ public class Order {
         }
         return txtStatus;
     }
+
+
 
 }

@@ -9,10 +9,9 @@
 
   <!-- Custom styles for this template -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="css/easy-sidebar.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-  <link rel="stylesheet" href="css/manageappointment.css">  
+  <link rel="stylesheet" href="/css/manageappointment.css">
   
 </head>
 
@@ -29,12 +28,12 @@
           <div class="container col-8 px-2 my-5">
             <div class="container row">
               <!-- photo -->
-              <div class="container col-3 pt-2"><img src="img/customerImg.jpg" alt="customer's photo" style="width: 100%;"></div>
+              <div class="container col-3 pt-2"><img src="../img/customerImg.jpg" alt="customer's photo" style="width: 100%;"></div>
               <!-- order details -->
               <div class="container col-8">
-                <div class="h3">Amber Heard</div>
-                <p><span>2</span> services for <span>$60</span> @ <span>May 30 at 0600 pm</span></p>
-                <p>address</p>
+                <div class="h3" th:text="${order.getUser().getFirstName()+' '+order.getUser().getLastName()}"></div>
+                <p><span th:text="${services.size()}"></span> services for $<span th:text="${order.getTotalPrice()}">60</span> @ <span th:text="${order.getFormatScheduleDate()}">May 30 at 0600 pm</span></p>
+                <p th:text="${order.getAddress()}">address</p>
                 <h5>Order items</h5>
               </div>
             </div>
@@ -68,9 +67,9 @@
     
                                             <ul id="progressbar" class="text-center">
                                                 <li class="active step0" ></li>
-                                                <li class="step0"></li>
-                                                <li class="step0"></li>
-                                                <li class="step0"></li>
+                                                <li class="active step0"></li>
+                                                <li class="active step0"></li>
+                                                <li class="active step0"></li>
                                                 <li class="step0"></li>
                                                 <li class="step0"></li>
                                                 <li class="step0"></li>
@@ -92,7 +91,7 @@
                                     <div class="col-md-6 pe-4">
 
                                       <!-- Receive appointment -->
-                                      <div class="card2 first-screen show ml-2">
+                                      <div class="card2 first-screen ml-2">
                                         <div class="row px-3 mr-2">
                                             <p>You can decide to take this appointment or not.</p>
                                         </div>
@@ -194,7 +193,7 @@
                                       </div>
     
                                       <!-- Request Price Confirm -->
-                                      <div class="card2 ml-2">
+                                      <div class="card2 ml-2 show">
                                         <div class="container">
                                           <div class="row px-3 mr-2">
                                             <p>Wait for the customer to confirm the price...</p>                                          
@@ -283,7 +282,7 @@
                                           <div class="card card-body">                                      
                                             <!-- rating -->
                                             <div class="circle-img">
-                                              <img src="/img/reviews_backgroind.jpg">
+                                              <img src="../img/reviews_backgroind.jpg">
                                               <div class="rating-on-img">
                                                 <h3 class="head-rate">4.7</h3>
                                                 <h3 class="subhead-rate">out of 5</h3>
@@ -313,7 +312,7 @@
     <!-- Script -->
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="js/manage-appointment.js"></script>
+    <script src="/js/manage-appointment.js"></script>
 
 
     <!--Content End-->
@@ -324,10 +323,6 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.0/jquery.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
-        <script src="/docs/5.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
-        <script src="js/sidebars.js"></script>    
-        <script src="js/jquery-1.11.0.min.js"></script> 
-        <script src="js/bootstrap.min.js"></script> 
 
         <script>
         //easy-sidebar-toggle-right

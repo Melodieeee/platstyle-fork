@@ -22,16 +22,52 @@
     <div class="container mt-5 mb-5">
         <div class="row g-5">
             <!--Filter-->
-            <div class="col-md-3">
+            <form class="col-md-3" id="filter">
                 <div class="h2 mb-4">All Stylists</div>
                 <div class="t-products p-2">
                     <h6 class="text-uppercase">Region</h6>
                     <div class="p-lists">
-                        <div class="d-flex justify-content-between mt-2"> <span>Vancouver</span> <span>23</span> </div>
+                        <div class="d-flex justify-content-between mt-2">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="vancouver" name="city" id="vancouver">
+                                <label class="form-check-label" for="Vancouver">Vancouver</label>
+                            </div>
+                            <span>3</span>
+                        </div>
+                        <div class="d-flex justify-content-between mt-2">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="burnaby" name="city" id="burnaby">
+                                <label class="form-check-label" for="Burnaby">Burnaby</label>
+                            </div>
+                            <span>3</span>
+                        </div>
+                        <div class="d-flex justify-content-between mt-2">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="richmond" name="city" id="richmond">
+                                <label class="form-check-label" for="richmond">Richmond</label>
+                            </div>
+                            <span>3</span>
+                        </div>
+                        <div class="d-flex justify-content-between mt-2">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="coquitlam" name="city" id="coquitlam">
+                                <label class="form-check-label" for="coquitlam">Coquitlam</label>
+                            </div>
+                            <span>3</span>
+                        </div>
+                        <div class="d-flex justify-content-between mt-2">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="others" name="city" id="others">
+                                <label class="form-check-label" for="others">Others</label>
+                            </div>
+                            <span>3</span>
+                        </div>
+
+                        <!--div class="d-flex justify-content-between mt-2"> <span>Vancouver</span> <span>23</span> </div>
                         <div class="d-flex justify-content-between mt-2"> <span>Burnaby</span> <span>46</span> </div>
                         <div class="d-flex justify-content-between mt-2"> <span>Richmond</span> <span>13</span> </div>
                         <div class="d-flex justify-content-between mt-2"> <span>Coquitlam</span> <span>33</span> </div>
-                        <div class="d-flex justify-content-between mt-2"> <span>Others</span> <span>12</span> </div>
+                        <div class="d-flex justify-content-between mt-2"> <span>Others</span> <span>12</span> </div-->
                     </div>
                 </div>
                 <div class="gender p-2">
@@ -39,12 +75,17 @@
                         <h6 class="text-uppercase">Gender</h6>
                     </div>
                     <div class="d-flex justify-content-between mt-2">
-                        <div class="form-check"> <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                            <label class="form-check-label" for="flexCheckDefault">Male</label> </div> <span>3</span>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="M" name="gender" id="male">
+                            <label class="form-check-label" for="male">Male</label>
+                        </div>
+                        <span>3</span>
                     </div>
                     <div class="d-flex justify-content-between mt-2">
-                        <div class="form-check"> <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked"
-                                                        checked> <label class="form-check-label" for="flexCheckChecked">Female</label> </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="F" name="gender" id="female">
+                            <label class="form-check-label" for="female">Female</label>
+                        </div>
                         <span>4</span>
                     </div>
                 </div>
@@ -70,10 +111,8 @@
                                required title="">
                         <div class="clearfix"></div>
                     </form>
-
-
                 </div>
-            </div>
+            </form>
             <!--Products-->
             <div class="col-md-9">
                 <div class="h2 mx-3">Today's Offer</div>
@@ -210,6 +249,27 @@
         //$('.navbar.easy-sidebar-right').removeClass('toggled-right');
         $('.navbar.easy-sidebar').removeClass('toggled');
     });
+
+    $('[name=city]').click(function() {
+        getStylistList()
+    });
+
+    $('[name=gender]').click(function() {
+        getStylistList()
+    });
+
+    function getStylistList() {
+        $.ajax({
+            url:"../api/ajax/getStylistListByFilter",
+            data: $('#filter').serialize(),
+            type: "POST",
+            dataType: "text",
+            success: function(html) {
+                alert(html);
+                //$("#serviceSelect").append(html)
+            }
+        })
+    }
 </script>
 </body>
 

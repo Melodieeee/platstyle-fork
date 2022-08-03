@@ -11,8 +11,7 @@ import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 
-public interface StylistRepository  extends JpaRepository<Stylist, Long> {
-
+public interface StylistRepository  extends JpaRepository<Stylist, Long>, StylistRepositoryCustom {
 
     Optional<Stylist> findAllBySid(Long sid);
     Optional<Stylist> findAllByUid(User uid);

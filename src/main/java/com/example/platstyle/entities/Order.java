@@ -33,6 +33,7 @@ public class Order {
     private Date finishTime;
     private double totalPrice;
     private int status;
+
     // 0 without payment
     // 1 waiting stylist
     /*

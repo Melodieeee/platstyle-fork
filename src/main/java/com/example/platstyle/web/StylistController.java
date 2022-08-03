@@ -3,6 +3,7 @@ package com.example.platstyle.web;
 import com.example.platstyle.entities.*;
 import com.example.platstyle.repositories.*;
 import lombok.AllArgsConstructor;
+import org.springframework.boot.Banner;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -47,12 +48,19 @@ public class StylistController {
     public String paymentRelease(){ return "stylist/paymentRelease";}
 
     @GetMapping(path = "/user/store")
-    public String store(@RequestParam(name="stylist",defaultValue = "") long sid, Model model, Order_service order_service, Service service){
+    public String store(@RequestParam(name="stylist",defaultValue = "") long sid, Model model, Order_service order_service, Service service, Principal principal){
+        int count;
         Object stylist = stylistRepository.findBySid(sid).orElse(null);
-        //取得order 狀態為0的order_service數量
+        User user = userRepository.findByEmail(principal.getName()).orElse(null);
+        Order order = orderRepository.findAllByUserAndStatus(user, 0).orElse(null);
+        if(order == null) {
+            count = 0;
+        } else {
+            count = order.getServices().size();
+        }
         model.addAttribute("stylist", stylist);
         model.addAttribute("orderService", new Order_service());
-        // addAttribute(名稱,數量)
+        model.addAttribute("count", count);
 
         return "stylist/store";
     }
@@ -76,7 +84,7 @@ public class StylistController {
     }
 
     @PostMapping(path = "/user/addService")
-    public String addCart(Order_service order_service, @RequestParam("serviceSelect") long sid, BindingResult bindingResult, Principal principal){
+    public String addCart(Order_service order_service, @RequestParam("serviceSelect") long sid, BindingResult bindingResult, Principal principal, Model model){
         if(sid==0) return "redirect:/user/shop";
         if (bindingResult.hasErrors()) {
             return "redirect:/user/shop";
@@ -117,7 +125,7 @@ public class StylistController {
             }
             order_service.setOrder(order);
             orderServiceRepository.save(order_service);
-            //取得數量 存入localstorage or session
+
             return  "redirect:/user/store?stylist="+service.getStylistId();
         }
 

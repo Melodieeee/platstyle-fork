@@ -245,6 +245,7 @@
     function cartCount() {
         var count = [[${count}]];
         localStorage.setItem("count", count);
+        if(count != 0) $('#badge').text(localStorage.getItem("count"));
     }
 
 </script>

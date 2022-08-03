@@ -97,9 +97,8 @@
     }
 
     function cartCount() {
-        var count = [[${count}]];
-        alert(count);
-        localStorage.setItem("count", count);
+        var count = localStorage.getItem("count");
+        localStorage.setItem("count", --count);
     }
 
 </script>

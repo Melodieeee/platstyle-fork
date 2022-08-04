@@ -20,9 +20,10 @@ public class Payment {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long pid;
     private String cardNumber;
-    @DateTimeFormat(pattern="yyyy-MM-dd")
-    private Date expireDate;
+    private String expireDate;
     private String cardHolder;
+    private String securityCode;
+    private String postalCode;
     private double amount;
     @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private Date createDate;

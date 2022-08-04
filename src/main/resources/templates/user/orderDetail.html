@@ -30,10 +30,22 @@
                     <div class="container col-3 pt-2"><img src="../img/avatar7.png" alt="stylist's photo" style="width: 100%;"></div>
                     <!-- order details -->
                     <div class="container col-8">
-                        <div class="h3">Johnny Depp</div>
-                        <p><span>2</span> services for <span>$60</span> @ <span>May 30 at 0600 pm</span></p>
-                        <p>address</p>
+                        <div class="h3" th:text="${order.getStylistName()}"></div>
+                        <p><span th:text="${services.size()}"></span> services for $<span th:text="${order.getTotalPrice()}">60</span> @ <span th:text="${order.getFormatScheduleDate()}">May 30 at 0600 pm</span></p>
+                        <p th:text="${order.getAddress()}">address</p>
                         <h5>Order items</h5>
+                        <div class="container items px-3">
+                            <div class="row item1 pb-2" th:each="s:${services}">
+                                <div class="col item-name col-3" th:text="${s.getService().getServiceName}">Haircut</div>
+                                <div class="col item-details col-7" th:text="${s.getLengthOfHair()}">Short</div>
+                                <div class="col price col-2" th:text="${'$'+s.getPrice()}">$20</div>
+                            </div>
+                            <div class="row subtotal pt-3">
+                                <div class="col h5 col-3">Subtotal</div>
+                                <div class="col col-7"></div>
+                                <div class="col h5 col-2 price" th:text="${'$'+order.getTotalPrice()}">$50</div>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
@@ -67,19 +79,18 @@
                                         <div class="card1">
 
                                             <ul id="progressbar" class="text-center">
-                                                <li class="active step0" ></li>
-                                                <li class="step0"></li>
-                                                <li class="step0"></li>
-                                                <li class="step0"></li>
-                                                <li class="step0"></li>
-                                                <li class="step0"></li>
-                                                <li class="step0"></li>
-                                                <li class="step0"></li>
+                                                <li th:classappend="${order.getStatus >= 1 ? 'active':''}" class="step0" ></li>
+                                                <li th:classappend="${order.getStatus >= 2 ? 'active':''}" class="step0"></li>
+                                                <li th:classappend="${order.getStatus >= 3 ? 'active':''}" class="step0"></li>
+                                                <li th:classappend="${order.getStatus >= 4 ? 'active':''}" class="step0"></li>
+                                                <li th:classappend="${order.getStatus >= 5 ? 'active':''}" class="step0"></li>
+                                                <li th:classappend="${order.getStatus >= 6 ? 'active':''}" class="step0"></li>
+                                                <li th:classappend="${order.getStatus >= 7 ? 'active':''}" class="step0"></li>
+                                                <li th:classappend="${order.getStatus >= 8 ? 'active':''}" class="step0"></li>
                                             </ul>
 
                                             <h6 class="mb-5">Appointment Requesting</h6>
                                             <h6 class="mb-5">Order Accepted by Stylist</h6>
-                                            <h6 class="mb-5">Stylist Arrived</h6>
                                             <h6 class="mb-5">Price Evaluation</h6>
                                             <h6 class="mb-5">Price Confirmed</h6>
                                             <h6 class="mb-5">Get Serviced</h6>
@@ -92,7 +103,7 @@
                                     <div class="col-md-6 pe-4">
 
                                         <!-- Appointment Requesting -->
-                                        <div class="card2 first-screen show ml-2">
+                                        <div th:classappend="${order.getStatus == 1 ? 'show':''}" class="card2 first-screen ml-2">
                                             <div class="row px-3 mr-2">
                                                 <p>Please wait for your stylist to accept your order.</p>
                                             </div>
@@ -109,60 +120,45 @@
                                                 </div> -->
 
                                                 <!-- next btn hidden -->
-                                                <div class="container pt-3" style="text-align: end;" >
-                                                    <button type="submit" class="btn btn-primary mt-4 next-button">
-                                                        <span class="fa fa-arrow-right"></span>
-                                                    </button>
-                                                </div>
 
                                             </div>
 
                                         </div>
 
                                         <!-- Order Accepted by Stylist -->
-                                        <div class="card2 ml-2">
+                                        <div th:classappend="${order.getStatus == 2 ? 'show':''}" class="card2 ml-2">
                                             <div class="row px-3 mr-2">
                                                 <p>We have received your advanced payment. Please waht for your stlist's arrival </p>
                                                 <p>at <span>New Westminster, BC V3L 5B2</span></p>
                                                 <p>on <span>May 30</span> at <span>06:00 p.m.</span>.</p>
                                             </div>
-                                            <div class="row px-3 mt-3">
-
-                                                <!-- next btn hidden-->
-                                                <div class="container pt-3" style="text-align: end;" >
-                                                    <button type="submit" class="btn btn-primary mt-4 next-button">
-                                                        Submit Changes
-                                                    </button>
-                                                </div>
-
+                                            <div class="row px-3 mr-2">
+                                                <p>Please confirm your stylist's arrival.</p>
                                             </div>
-                                        </div>
-
-                                        <!-- Stylist Arrived -->
-                                        <div class="card2 ml-2">
-                                            <div class="container">
-                                                <div class="row px-3 mr-2">
-                                                    <p>Please confirm your stylist's arrival.</p>
-                                                </div>
-                                                <!-- Arrive? select -->
-                                                <div class="container">
-                                                    <label for="arriveSelect" class="form-label">Stylist arrived?</label>
-                                                    <select id="arriveSelect" class="form-select" aria-label="arrive or not">
-                                                        <option value="1">Arrived</option>
-                                                        <option value="2">Not Arrived</option>
-                                                    </select>
-                                                </div>
-                                                <!-- next btn-->
+                                            <form th:action="@{/user/confirmArrive/{path}(path=${order.getOid})}" method="post" class="container">
+                                                <label for="arriveSelect" class="form-label">Stylist arrived?</label>
+                                                <select id="arriveSelect" name="arriveSelect" class="form-select" aria-label="arrive or not">
+                                                    <option value="1">Arrived</option>
+                                                    <option value="2">Not Arrived</option>
+                                                </select>
                                                 <div class="container" style="text-align: end;">
                                                     <button type="submit" class="btn btn-primary mt-4 next-button">
                                                         Confirm
                                                     </button>
                                                 </div>
+                                            </form>
+                                        </div>
+
+                                        <div th:classappend="${order.getStatus == 3 ? 'show':''}" class="card2 ml-2">
+                                            <div class="container">
+                                                <div class="row px-3 mr-2">
+                                                    <p>Please wait for your stylist to set the final price.</p>
+                                                </div>
                                             </div>
                                         </div>
 
                                         <!-- Price Evaluation -->
-                                        <div class="card2 ml-2 pb-5">
+                                        <div th:classappend="${order.getStatus == 4 ? 'show':''}" class="card2 ml-2 pb-5">
                                             <div class="row px-3 mr-2">
                                                 <span>Orginal Total of Your Order: $70 </span>
                                                 <a data-bs-toggle="collapse" href="#collapsedOriginalOrder" role="button" aria-expanded="false" aria-controls="collapsedOriginalOrder">
@@ -248,7 +244,7 @@
                                         </div>
 
                                         <!-- Price Confirmed -->
-                                        <div class="card2 ml-2">
+                                        <div th:classappend="${order.getStatus == 5 ? 'show':''}" class="card2 ml-2">
                                             <div class="container">
                                                 <div class="row px-3 mr-2">
                                                     <em class="h3">Total: $<span>90</span></em>
@@ -265,7 +261,7 @@
                                         </div>
 
                                         <!-- Get Service -->
-                                        <div class="card2 ml-2">
+                                        <div th:classappend="${order.getStatus == 6 ? 'show':''}" class="card2 ml-2">
                                             <div class="container">
                                                 <div class="row px-3 mr-2">
                                                     <p>New hairstyle is on the way ...</p>
@@ -281,7 +277,7 @@
                                         </div>
 
                                         <!-- Service completed -->
-                                        <div class="card2 ml-2">
+                                        <div th:classappend="${order.getStatus == 7 ? 'show':''}" class="card2 ml-2">
 
                                             <div class="container mt-3">
                                                 <div class="container">
@@ -314,7 +310,7 @@
                                         </div>
 
                                         <!-- Give Your Feedback -->
-                                        <div class="card2 ml-2">
+                                        <div th:classappend="${order.getStatus == 8 ? 'show':''}" class="card2 ml-2">
 
                                             <div class="container">
                                                 <p>Thank you for using PlatStyle! Hope you like your new hairstyle! </p>

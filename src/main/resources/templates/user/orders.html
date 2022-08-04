@@ -43,7 +43,13 @@
                         <td th:text="${order.getTotalPrice()}"></td>
                         <td th:text="${order.getCustomerStatus()}"></td>
                         <td>
-                            <div class="dropdown">
+                            <a th:if="${order.getStatus < 5}" onClick="return confirm('Are you sure you want to cancel this order ?')" th:href="@{./cancelOrder(id=${order.getOid})}" class="btn btn-sm btn-danger" >
+                                Cancel
+                            </a>
+                            <a th:if="${order.getStatus == 7}" th:href="'/user/orderDetail?order='+${order.getOid()}" class="btn btn-sm btn-primary" >
+                                FeedBack
+                            </a>
+                            <!--div class="dropdown">
                                 <button class="btn btn-sm btn-danger dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                                     Cancel
                                 </button>
@@ -51,30 +57,7 @@
                                     <li><a class="dropdown-item" href="#">Yes</a></li>
                                     <li><a class="dropdown-item" href="#">No</a></li>
                                 </ul>
-                            </div>
-
-                        </td>
-                    </tr>
-                    <tr class="rounded bg-white">
-                        <td style="color: blue;">18009</td>
-                        <td>May 15</td>
-                        <td class="d-flex align-items-center">
-                            <img src="https://cdn-icons-png.flaticon.com/512/168/168732.png" class="rounded-circle" width="25">
-                            <span style="padding-left: 3px;" class="ml-2">Tom</span>
-                        </td>
-                        <td>Basic Haircut</td>
-                        <td>$24.98</td>
-                        <td>complete</td>
-                        <td>
-                            <div class="dropdown">
-                                <button class="btn btn-sm btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                    Feedback
-                                </button>
-                                <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" href="#">Yes</a></li>
-                                    <li><a class="dropdown-item" href="#">No</a></li>
-                                </ul>
-                            </div>
+                            </div-->
 
                         </td>
                     </tr>

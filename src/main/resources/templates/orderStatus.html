@@ -1,5 +1,5 @@
 <!doctype html>
-<html class="easy-sidebar-active" lang="en"  xmlns:th="http://www.thymeleaf.org">
+<html class="easy-sidebar-active" lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -12,7 +12,9 @@
   <link rel="stylesheet" href="css/easy-sidebar.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-  <link rel="stylesheet" href="css/manageappointment.css">  
+  <link rel="stylesheet" href="css/manageappointment.css">
+    <link rel="stylesheet" href="css/star-rating.css">
+    <link rel="stylesheet" href="css/theme.css">
   
 </head>
 
@@ -319,20 +321,12 @@
 
                                         <div class="container">
                                           <p>Thank you for using PlatStyle! Hope you like your new hairstyle! </p>
-                                          <!-- rating -->                                          
-                                          <div class="rating-box">
-                                            <label class="form-label">Rating:</label>
-                                            <div class="rating">
-                                              <span class="fa fa-star"></span>
-                                              <span class="fa-regular fa-star"></span>
-                                              <span class="fa-regular fa-star"></span>
-                                              <span class="fa-regular fa-star"></span>
-                                              <span class="fa-regular fa-star"></span>
-                                            </div>
-                                            
-                                            <h4> id="rating-value"></h4>
-                                          </div>            
-                                          <script src="js/rating.js"></script>
+                                          <!--Rating-->
+                                            <form>
+                                                <input id="customerRating" value="4" type="text" class="rating mb-3" disabled="disabled" data-theme="krajee-fas" data-min=0 data-max=5 data-step=0.2 data-size="sm" style="--clear-rating: hidden;">
+                                                <div class="clearfix"></div>
+                                            </form>
+                                            <script src="js/star-rating.js"></script>
 
                                           <!-- input feedback -->
                                           <div class="container p-0">

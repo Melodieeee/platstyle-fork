@@ -139,10 +139,7 @@ public class UserController {
 
     @PostMapping("/user/account")
     public String uploadPhoto(@RequestParam("photoFile") MultipartFile photoFile, Principal principal, Model model, RedirectAttributes attributes){
-        if(photoFile.isEmpty()) {
-            attributes.addFlashAttribute("message", "Please select a file to upload.");
-            return "redirect:/user/account";
-        }
+
         String photoFileName = StringUtils.cleanPath(photoFile.getOriginalFilename());
         try {
             Path path = Paths.get(UPLOAD_PHOTO_DIR + photoFileName);
@@ -154,7 +151,10 @@ public class UserController {
         Customer customer = customerRepository.findById(user.getUid()).orElse(null);
         customer.setPhoto("../img/"+photoFileName);
         customerRepository.save(customer);
-        System.out.println(customer.getUid());
+        if(photoFile != null) {
+            customer.setPhoto("../img/avatar7.png");
+            customerRepository.save(customer);
+        }
 
 
 

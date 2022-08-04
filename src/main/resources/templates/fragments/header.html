@@ -40,9 +40,11 @@
                     </div>
                 </div>
                 <!--Search bar-->
-                <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3 bg-light" role="search">
-                    <input type="search" class="form-control" placeholder="Search..." aria-label="Search">
-                </form>
+                <div class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3 bg-light">
+                    <form ethod="post" th:action="@{/user/shop}" role="search">
+                        <input id="search-input" type="search" name="keyword" class="form-control" placeholder="Search..." aria-label="Search" >
+                    </form>
+                </div>
                 <!--Order ICON-->
                 <div class="text-end">
                     <a href="/user/cart" role="button">

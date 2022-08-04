@@ -88,8 +88,14 @@ public class UserController {
         }
     }
     @GetMapping(path = "/user/shop")
-    public String home(Model model, Stylist stylists) {
-        List<Stylist> stylistList = stylistRepository.findAllVerifiedStylist();
+    public String home(@RequestParam(name="keyword",defaultValue = "") String
+                                   keyword, Model model, Stylist stylists) {
+        List<Stylist> stylistList;
+        if (keyword.isEmpty()){
+            stylistList = stylistRepository.findAllVerifiedStylist();
+        }else{
+            stylistList = stylistRepository.findAllByName(keyword);
+        }
         model.addAttribute("stylistList", stylistList);
         return "user/shop";
     }

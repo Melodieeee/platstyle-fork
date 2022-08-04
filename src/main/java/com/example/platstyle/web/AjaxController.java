@@ -24,15 +24,25 @@ public class AjaxController {
     private StylistRepository stylistRepository;
     private TimeslotRepository timeslotRepository;
     private SupportRepository supportRepository;
-    SupportMessageRepository supportMessageRepository;
+    private SupportMessageRepository supportMessageRepository;
+    private PortfolioRepository portfolioRepository;
 
     @RequestMapping(value = "getServiceFee/{serviceID}", method = RequestMethod.GET, produces = {MimeTypeUtils.APPLICATION_JSON_VALUE})
     public ResponseEntity<String> getServiceFee(@PathVariable("serviceID") Long sid) {
         Service service = serviceRepository.findById(sid).orElse(null);
         if(service == null) return new ResponseEntity<String>(HttpStatus.BAD_REQUEST);
         else {
+            String portfolioJson = "\"photos\":[";
+            List<Portfolio> portfolios = portfolioRepository.findAllByService(service);
+            boolean first = true;
+            for(Portfolio portfolio: portfolios) {
+                if(first)  portfolioJson = portfolioJson + "\"" + portfolio.getPhoto() + "\"";
+                else portfolioJson = portfolioJson + ",\"" + portfolio.getPhoto() + "\"";
+                first = false;
+            }
+            portfolioJson += "]";
             try {
-                String output="{\"minPrice\":"+ service.getMinPrice()+ ", \"maxPrice\":"+service.getMaxPrice()+"}";
+                String output="{\"minPrice\":"+ service.getMinPrice()+ ", \"maxPrice\":"+service.getMaxPrice()+", "+portfolioJson+"}";
                 ResponseEntity<String> responseEntity = new ResponseEntity<String>(output, HttpStatus.OK);
                 return responseEntity;
             } catch (Exception e) {

@@ -106,15 +106,9 @@
                     <div class="container">
                         <div class="row gutters">
                             <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel" >
-                                <div class="carousel-inner">
+                                <div class="carousel-inner" id="portfolios" style=" width:100%; height: 400px !important;">
                                     <div class="carousel-item active">
-                                        <img src="../img/haircut5.jpg" class="d-block w-100" alt="">
-                                    </div>
-                                    <div class="carousel-item">
-                                        <img src="../img/haircut6.jpg" class="d-block w-100" alt="">
-                                    </div>
-                                    <div class="carousel-item">
-                                        <img src="../img/haircut3.jpg" class="d-block w-100" alt="">
+                                        <img src="../img/haircut5.jpg" id="img-photo" class="d-block w-100" alt="">
                                     </div>
                                 </div>
                                 <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
@@ -240,12 +234,17 @@
                 minPrice = json.minPrice;
                 maxPrice = json.maxPrice;
                 midPrice = (maxPrice + minPrice) / 2;
-
+                photos = json.photos;
                 hairPart = document.getElementsByName("lengthOfHair");
                 for (var i = 0; i < hairPart.length; i++) {
                     if (hairPart[i].checked){
                         setPrice(i);
+                    } else {
+                        $('#price').text("$"+minPrice + "-"+ "$"+maxPrice);
                     }
+                }
+                for(var i = 0; i < photos.length; i++) {
+                    $('#img-photo').attr('src', photos);
                 }
             }
         })

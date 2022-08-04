@@ -3,7 +3,6 @@ package com.example.platstyle.web;
 import com.example.platstyle.entities.*;
 import com.example.platstyle.repositories.*;
 import lombok.AllArgsConstructor;
-import org.springframework.boot.Banner;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
@@ -25,9 +24,6 @@ import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.Date;
 import java.util.List;
-import java.util.Objects;
-
-import static com.example.platstyle.web.UserController.copyNonNullProperties;
 
 
 @Controller
@@ -43,6 +39,8 @@ public class StylistController {
     private OrderServiceRepository orderServiceRepository;
 
     private CustomerRepository customerRepository;
+
+    private PortfolioRepository portfolioRepository;
 
 
     @GetMapping(path = "/stylist/profile")
@@ -86,6 +84,24 @@ public class StylistController {
     public String portfolio(Model model){
         model.addAttribute("newService", new Service());
         return "stylist/portfolio";
+    }
+
+    @PostMapping(path="/stylist/portfolio")
+    public String portfolioPhoto(@RequestParam("photoFile") MultipartFile photoFile,
+                                 @RequestParam("selectedService") long sid,Principal principal, RedirectAttributes attributes) {
+        String photoFileName = StringUtils.cleanPath(photoFile.getOriginalFilename());
+        if(photoFileName.isEmpty() || sid ==0) return "redirect:/stylist/portfolio";
+        try {
+            Path path = Paths.get(UPLOAD_PHOTO_DIR + photoFileName);
+            Files.copy(photoFile.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        Service service = serviceRepository.findById(sid).orElse(null);
+        Portfolio portfolio = new Portfolio(null, "", "../img/"+photoFileName, new Date(), service);
+        portfolioRepository.save(portfolio);
+        attributes.addFlashAttribute("message", "You successfully uploaded " + photoFileName + '!');
+        return "redirect:/stylist/portfolio";
     }
 
     @PostMapping(path = "/stylist/addService")

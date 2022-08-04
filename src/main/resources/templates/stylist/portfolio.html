@@ -96,12 +96,18 @@
                     </div>
                 </form>
 
-                <div class="col-md-6">
-                    <div class="file-upload-wrapper">
-                        <label>Photos<br></label><br>
-                        <input type="file" id="input-file-now" class="file-upload">
-                    </div>
-                    <button type="button" class="btn btn-primary" style="margin-top: 5px;">Upload<br></button>
+                <div class="col-md-3">
+                    <form method="post" th:action="@{/stylist/portfolio}" id="photoForm" enctype="multipart/form-data">
+                        <input type="number" id="selectedService" name="selectedService" value="0" hidden>
+                        <div class="file-upload-wrapper">
+                            <label>Photos<br></label><br>
+                            <input type="file" id="photoFile" class="file-upload" name="photoFile" multiple>
+                        </div>
+                        <button type="submit" class="btn btn-primary" style="margin-top: 5px;">Upload<br></button>
+                    </form>
+                </div>
+                <div class="col-md-6 mt-3">
+                    <p th:text="${message}" th:if="${message ne null}" class="alert alert-primary"></p>
                 </div>
             </div>
         </div>
@@ -127,6 +133,7 @@
     function getPrice() {
         //const el = document.getElementById('serviceName');
         let id=$( "#editServiceName option:selected" ).val();
+        $("#selectedService").val(id);
         $.ajax({
             url:"../api/ajax/getServiceFee/"+id,
             type: "GET",

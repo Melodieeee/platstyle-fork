@@ -42,7 +42,10 @@
                         <td th:text="${appointment.getTotalPrice()}"></td>
                         <td th:text="${appointment.getStylistStatus()}"></td>
                         <td>
-                            <div class="dropdown">
+                            <a th:if="${appointment.getStatus() < 5}" onClick="return confirm('Are you sure you want to cancel this appointment ?')" th:href="@{./cancelAppointment(id=${appointment.getOid})}" class="btn btn-sm btn-danger" >
+                                Cancel
+                            </a>
+                            <!--div class="dropdown">
                                 <button class="btn btn-sm btn-danger dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                                     Cancel
                                 </button>
@@ -50,7 +53,7 @@
                                     <li><a class="dropdown-item" href="#">Yes</a></li>
                                     <li><a class="dropdown-item" href="#">No</a></li>
                                 </ul>
-                            </div>
+                            </div-->
 
                         </td>
                     </tr>

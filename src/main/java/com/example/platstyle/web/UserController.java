@@ -238,8 +238,9 @@ public class UserController {
             payment.setCreateDate(date);
             payment.setAmount((or_order.getTotalPrice() * 0.112 + 3));
             //copyNonNullProperties(or_order,newOrder);
+            or_order.setStatus(1);
             orderRepository.save(or_order);
-            return "user/orderDetail";
+            return "redirect:/user/orderDetail?order="+or_order.getOid();
         }
     }
 

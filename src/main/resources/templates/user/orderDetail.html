@@ -53,7 +53,8 @@
             <!-- cancel button -->
             <div class="container col-3 col-offset-1 my-5">
                 <div class="row justify-content-center">
-                    <button class="btn btn-dark mt-3 ">Cancel This Order</button>
+                    <a th:if="${order.getStatus < 5}" onClick="return confirm('Are you sure you want to cancel this order ?')" th:href="@{./cancelOrder(id=${order.getOid})}" class="btn btn-dark mt-3">Cancel This Order</a>
+                    <a th:if="${order.getStatus == 99}" class="btn btn-danger mt-3">Canceled</a>
                 </div>
             </div>
         </div>
@@ -61,7 +62,7 @@
     </div>
 
     <!-- progress bar -->
-    <div class="container-fluid px-1 px-md-4 py-5 mx-auto bottompart">
+    <div th:if="${order.getStatus != 99}" class="container-fluid px-1 px-md-4 py-5 mx-auto bottompart">
         <div class="row d-flex justify-content-center">
             <div class="col-12 col-md-11 col-lg-10 col-xl-9">
                 <div class="card card0 border-0">
@@ -96,6 +97,7 @@
                                             <h6 class="mb-5">Get Serviced</h6>
                                             <h6 class="mb-5">Service Completed</h6>
                                             <h6 class="mb-5">Give Your Feedback</h6>
+                                            <h6 class="mb-5">Order Completed</h6>
                                         </div>
                                     </div>
 
@@ -160,7 +162,7 @@
                                         <!-- Price Evaluation -->
                                         <div th:classappend="${order.getStatus == 4 ? 'show':''}" class="card2 ml-2 pb-5">
                                             <div class="row px-3 mr-2">
-                                                <span>Orginal Total of Your Order: $70 </span>
+                                                <span th:text="${'Orginal Total of Your Order: $'+order.getTotalPrice}"> </span>
                                                 <a data-bs-toggle="collapse" href="#collapsedOriginalOrder" role="button" aria-expanded="false" aria-controls="collapsedOriginalOrder">
                                                     <em>see details</em>
                                                 </a>
@@ -176,21 +178,15 @@
                                                         <tr>
                                                             <td colspan="4">Original Order Items: </td>
                                                         </tr>
-                                                        <tr>
-                                                            <th scope="row">1</th>
-                                                            <td>Haircut</td>
-                                                            <td>Short</td>
-                                                            <td>$30</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <th scope="row">2</th>
-                                                            <td>Hair perm</td>
-                                                            <td>Medium</td>
-                                                            <td>$40</td>
+                                                        <tr th:each="s,iter:${services}">
+                                                            <th scope="row" th:text="${iter.index + 1}"></th>
+                                                            <td th:text="${s.getService().getServiceName}">Haircut</td>
+                                                            <td th:text="${s.getLengthOfHair()}">Medium</td>
+                                                            <td>$<span class="servicePrice" th:text="${s.getPrice()}">20</span></td>
                                                         </tr>
                                                         <tr>
                                                             <td colspan="3">Total</td>
-                                                            <td>$70</td>
+                                                            <td>$<span id="totalPrice" th:text="${order.getTotalPrice}" ></span></td>
                                                         </tr>
                                                         </tbody>
                                                     </table>
@@ -201,25 +197,19 @@
                                             <div class="row px-3 mt-3">
 
                                                 <!-- final price table-->
-                                                <div class="container">
+                                                <form th:action="@{/user/confirmPrice/{path}(path=${order.getOid})}" method="post" class="container">
                                                     <table class="table table-striped">
 
                                                         <tbody>
-                                                        <tr>
-                                                            <th scope="row">1</th>
-                                                            <td>Haircut</td>
-                                                            <td>Medium</td>
-                                                            <td>$20</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <th scope="row">2</th>
-                                                            <td>Hair perm</td>
-                                                            <td>Medium</td>
-                                                            <td>$70</td>
+                                                        <tr th:each="s,iter:${services}">
+                                                            <th scope="row" th:text="${iter.index + 1}"></th>
+                                                            <td th:text="${s.getService().getServiceName}">Haircut</td>
+                                                            <td th:text="${s.getLengthOfHair()}">Medium</td>
+                                                            <td>$<span class="servicePrice" th:text="${s.getPrice()}">20</span></td>
                                                         </tr>
                                                         <tr>
                                                             <td colspan="3">Total</td>
-                                                            <td colspan="1">$<span>90</span></td>
+                                                            <td colspan="1">$<span id="finalTotalPrice" th:text="${order.getTotalPrice}" ></span></td>
                                                         </tr>
                                                         </tbody>
 
@@ -231,15 +221,13 @@
                                                         </thead>
                                                     </table>
 
-                                                </div>
-
-                                                <!-- next btn -->
-                                                <div class="container pt-3" style="text-align: end;" >
-                                                    <button type="submit" class="btn btn-primary mt-4 next-button">
-                                                        Confirm This Price
-                                                    </button>
-                                                </div>
-
+                                                    <!-- next btn -->
+                                                    <div class="container pt-3" style="text-align: end;" >
+                                                        <button type="submit" class="btn btn-primary mt-4 next-button">
+                                                            Confirm This Price
+                                                        </button>
+                                                    </div>
+                                                </form>
                                             </div>
                                         </div>
 
@@ -248,69 +236,51 @@
                                             <div class="container">
                                                 <div class="row px-3 mr-2">
                                                     <em class="h3">Total: $<span>90</span></em>
-                                                    <p>The final price is confirmed.</p>
+                                                    <p>The final price is confirmed. Please enjoy the service.</p>
                                                 </div>
 
-                                                <!-- next btn hidden -->
+                                                <!-- next btn hidden>
                                                 <div class="container pt-3" style="text-align: end;" >
                                                     <button type="submit" class="btn btn-primary mt-4 next-button">
                                                         <span class="fa fa-arrow-right"></span>
                                                     </button>
-                                                </div>
+                                                </div -->
                                             </div>
                                         </div>
 
                                         <!-- Get Service -->
                                         <div th:classappend="${order.getStatus == 6 ? 'show':''}" class="card2 ml-2">
-                                            <div class="container">
-                                                <div class="row px-3 mr-2">
-                                                    <p>New hairstyle is on the way ...</p>
-                                                </div>
+                                            <form th:action="@{/user/confirmService/{path}(path=${order.getOid})}" method="post" class="container">
+                                                    <p>New hairstyle complete service ...</p>
+                                                    <p>Please enter the tip amount and confirm the completion of service in 5 mins. We will process your order and
+                                                        charge the balance  in <span>#sec-count-down</span> secs.</p>
 
-                                                <!-- next btn hidden -->
+                                                    <select id="comfirmSelect" name="completeSelect" class="form-select" aria-label="completed or not">
+                                                        <option value="1">Service is completed</option>
+                                                        <option value="2">Service is incompleted</option>
+                                                    </select>
+                                                    <div class="container col pt-3">
+                                                        <label for="inputTip" class="form-label">Tip your stylist:</label>
+                                                        <input id="inputTip" name = tip type="number" class="form-control" aria-describedby="tipHelpBlock" placeholder="$xx.xx">
+                                                    </div>
+                                                    <!-- next btn -->
+                                                    <div class="container" style="text-align: end;" >
+                                                        <button type="submit" class="btn btn-primary mt-4 next-button">
+                                                            Submit
+                                                        </button>
+                                                    </div>
+
+                                                <!-- next btn hidden >
                                                 <div class="container pt-3" style="text-align: end;" >
                                                     <button type="submit" class="btn btn-primary mt-4 next-button">
                                                         <span class="fa fa-arrow-right"></span>
                                                     </button>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <!-- Service completed -->
-                                        <div th:classappend="${order.getStatus == 7 ? 'show':''}" class="card2 ml-2">
-
-                                            <div class="container mt-3">
-                                                <div class="container">
-                                                    <p>Please enter the tip amount and confirm the completion of service in 5 mins. We will process your order and
-                                                        charge the balance  in <span>#sec-count-down</span> secs.</p>
-                                                </div>
-
-                                                <!-- Completed? select -->
-                                                <div class="container">
-                                                    <label for="completeSelect" class="form-label mb-4">Please confirm the completion.</label>
-                                                    <select id="completeSelect" class="form-select" aria-label="completed or not">
-                                                        <option value="1">Service is completed</option>
-                                                        <option value="2">Service is incompleted</option>
-                                                    </select>
-                                                </div>
-                                                <!-- tip -->
-                                                <div class="container col pt-3">
-                                                    <label for="inputTip" class="form-label">Tip your stylist:</label>
-                                                    <input id="inputTip" type="text" class="form-control" aria-describedby="tipHelpBlock" placeholder="$xx.xx">
-                                                </div>
-
-                                                <!-- next btn -->
-                                                <div class="container" style="text-align: end;" >
-                                                    <button type="submit" class="btn btn-primary mt-4 next-button">
-                                                        Submit
-                                                    </button>
-                                                </div>
-
-                                            </div>
+                                                </div-->
+                                            </form>
                                         </div>
 
                                         <!-- Give Your Feedback -->
-                                        <div th:classappend="${order.getStatus == 8 ? 'show':''}" class="card2 ml-2">
+                                        <div th:classappend="${order.getStatus == 7 ? 'show':''}" class="card2 ml-2">
 
                                             <div class="container">
                                                 <p>Thank you for using PlatStyle! Hope you like your new hairstyle! </p>
@@ -325,7 +295,7 @@
                                                         <span class="fa-regular fa-star"></span>
                                                     </div>
 
-                                                    <h4> id="rating-value"></h4>
+                                                    <h4 id="rating-value"></h4>
                                                 </div>
                                                 <script src="js/rating.js"></script>
 
@@ -340,6 +310,13 @@
                                                     <button type="submit" class="btn btn-primary mt-4 next-button">
                                                         Submit
                                                     </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div th:classappend="${order.getStatus == 8 ? 'show':''}" class="card2 ml-2">
+                                            <div class="container">
+                                                <div class="row px-3 mr-2">
+                                                    <p>Thank you for the feedback, hope you like your new hairstyle.</p>
                                                 </div>
                                             </div>
                                         </div>

@@ -46,7 +46,7 @@ public class OrderController {
     public String appointments(Model model, Principal principal){
         User user = userRepository.findByEmail(principal.getName()).orElse(null);
         Stylist stylist = user.getStylist();
-        List<Order> appointmentList = orderRepository.findAllByStylistAndStatusBetween(stylist, 7,9);
+        List<Order> appointmentList = orderRepository.findAllByStylistAndStatusBetween(stylist, 7,100);
         model.addAttribute("appointmentList", appointmentList);
         return "stylist/appointments";
     }
@@ -79,12 +79,25 @@ public class OrderController {
         Order order = orderRepository.findById(id).orElse(null);
         if(order == null) throw new RuntimeException("Can not find appointment!");
         if(order.getUser().getUid() != user.getUid()) {
-            System.out.println(order.getUser().getUid()+ " " +user.getUid());
             return "redirect:/user/shop";
         }
         order.setStatus(99);
         orderRepository.save(order);
         return "redirect:/user/orders";
+    }
+
+    @GetMapping("/stylist/cancelAppointment")
+    public String cancelAppointment(Long id, Principal principal) {
+        User user = userRepository.findByEmail(principal.getName()).orElse(null);
+        if(id == 0) return "redirect:/user/shop";
+        Order order = orderRepository.findById(id).orElse(null);
+        if(order == null) throw new RuntimeException("Can not find appointment!");
+        if(order.getStylist().getSid() != user.getStylistId()) {
+            return "redirect:/user/shop";
+        }
+        order.setStatus(99);
+        orderRepository.save(order);
+        return "redirect:/stylist/appointments";
     }
 
     @RequestMapping(value = "/stylist/acceptAppointment/{oid}", method = RequestMethod.POST)
@@ -104,7 +117,7 @@ public class OrderController {
     }
 
     @RequestMapping(value = "/stylist/confirmPrice/{oid}", method = RequestMethod.POST)
-    public String confirmPrice(@PathVariable("oid") long oid, Principal principal) {
+    public String stylistConfirmPrice(@PathVariable("oid") long oid, Principal principal) {
         Order order = orderRepository.findById(oid).orElse(null);
         if(order == null) throw new RuntimeException("Can not find appointment!");
         User user = userRepository.findByEmail(principal.getName()).orElse(null);
@@ -120,19 +133,21 @@ public class OrderController {
         Order order = orderRepository.findById(oid).orElse(null);
         if(order == null) throw new RuntimeException("Can not find appointment!");
         User user = userRepository.findByEmail(principal.getName()).orElse(null);
-        if(user.getStylistId()!=order.getStylist().getSid()) return "redirect:/user/home";
+        if(user.getStylistId()!=order.getStylist().getSid()) {
+            return "redirect:/user/home";
+        }
         if(status == 1) {
-            order.setStatus(7);
+            order.setStatus(6);
         } else if(status == 2) {
-            order.setStatus(10);
+            order.setStatus(97);
         }
         orderRepository.save(order);
         return "redirect:/stylist/manageAppointment?order="+oid;
     }
 
     @RequestMapping(value = "/user/confirmArrive/{oid}", method = RequestMethod.POST)
-    public String comfirmArrice(@PathVariable("oid") long oid,
-                                    @RequestParam("arriveSelect") int status, Principal principal) {
+    public String userconfirmArrive(@PathVariable("oid") long oid,
+                                @RequestParam("arriveSelect") int status, Principal principal) {
         Order order = orderRepository.findById(oid).orElse(null);
         if(order == null) throw new RuntimeException("Can not find appointment!");
         User user = userRepository.findByEmail(principal.getName()).orElse(null);
@@ -141,7 +156,42 @@ public class OrderController {
             order.setArriveTime(new Date());
             order.setStatus(3);
         } else if(status == 2) {
-            order.setStatus(99);
+            order.setStatus(98);
+        }
+        orderRepository.save(order);
+        return "redirect:/user/orderDetail?order="+oid;
+    }
+
+    @RequestMapping(value = "/user/confirmPrice/{oid}", method = RequestMethod.POST)
+    public String userConfirmPrice(@PathVariable("oid") long oid, Principal principal) {
+        Order order = orderRepository.findById(oid).orElse(null);
+        if(order == null) throw new RuntimeException("Can not find appointment!");
+        User user = userRepository.findByEmail(principal.getName()).orElse(null);
+        if(user.getUid() != order.getUser().getUid()) return "redirect:/user/home";
+        order.setStatus(5);
+        orderRepository.save(order);
+        return "redirect:/user/orderDetail?order="+oid;
+    }
+
+    @RequestMapping(value = "/user/confirmService/{oid}", method = RequestMethod.POST)
+    public String confirmService(@PathVariable("oid") long oid,
+                                 @RequestParam("completeSelect") int status,
+                                 @RequestParam("tip") double tip, Principal principal) {
+        Order order = orderRepository.findById(oid).orElse(null);
+        if(order == null) throw new RuntimeException("Can not find appointment!");
+        User user = userRepository.findByEmail(principal.getName()).orElse(null);
+        if(user.getUid() != order.getUser().getUid()) return "redirect:/user/home";
+        Stylist stylist= order.getStylist();
+        if(status == 1) {
+            order.setFinishTime(new Date());
+            if(tip < 0) tip = 0;
+            order.setTip(tip);
+            order.setStatus(7);
+            double balance = stylist.getBalance();
+            stylist.setBalance(balance + tip + (order.getTotalPrice()*0.9));
+            stylistRepository.save(stylist);
+        } else if(status == 2) {
+            order.setStatus(96);
         }
         orderRepository.save(order);
         return "redirect:/user/orderDetail?order="+oid;

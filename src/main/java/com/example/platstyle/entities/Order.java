@@ -32,6 +32,7 @@ public class Order {
     @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private Date finishTime;
     private double totalPrice;
+    private double tip;
     private int status;
 
     // 0 without payment
@@ -47,6 +48,9 @@ public class Order {
 7. complete feedback
 8. complete no feedback button
 99. cancel
+98. Stylist doesn't arrive
+97. Stylist doesn't finish service
+96. user feel doesn't finish service
 */
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "uid", nullable = false)
@@ -117,6 +121,9 @@ public class Order {
             case 99:
                 txtStatus = "Cancel";
                 break;
+            case 98:
+                txtStatus = "Absent";
+                break;
 
         }
         return txtStatus;
@@ -149,10 +156,12 @@ public class Order {
             case 8:
                 txtStatus = "Complete";
                 break;
-            case 9:
+            case 99:
                 txtStatus = "Cancel";
                 break;
-
+            case 98:
+                txtStatus = "Absent";
+                break;
         }
         return txtStatus;
     }

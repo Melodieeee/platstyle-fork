@@ -28,7 +28,7 @@
                         <th scope="col">Service</th>
                         <th scope="col">Total</th>
                         <th scope="col">Status</th>
-                        <th scope="col">Action</th>
+                        <!--th scope="col">Action</th-->
                     </tr>
                     </thead>
                     <tr th:each="appointment:${appointmentList}" class="rounded bg-white">
@@ -41,7 +41,7 @@
                         <td th:text="${appointment.getServiceName()}"></td>
                         <td th:text="${appointment.getTotalPrice()}"></td>
                         <td th:text="${appointment.getStylistStatus()}"></td>
-                        <td>
+                        <!--td>
                             <div class="dropdown">
                                 <button class="btn btn-sm btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                                     Feedback
@@ -52,7 +52,7 @@
                                 </ul>
                             </div>
 
-                        </td>
+                        </td-->
                     </tr>
                 </table>
             </div>

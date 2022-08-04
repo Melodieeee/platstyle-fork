@@ -55,7 +55,12 @@ public class StylistController {
     }
 
     @GetMapping(path = "/stylist/paymentRelease")
-    public String paymentRelease(){ return "stylist/paymentRelease";}
+    public String paymentRelease(Model model, Principal principal) {
+        User user = userRepository.findByEmail(principal.getName()).orElse(null);
+        Stylist stylist = stylistRepository.findAllByUid(user).orElse(null);
+        model.addAttribute("balance", stylist.getBalance());
+        return "stylist/paymentRelease";
+    }
 
     @GetMapping(path = "/user/store")
     public String store(@RequestParam(name="stylist",defaultValue = "") long sid, Model model, Order_service order_service, Service service, Principal principal){
@@ -112,7 +117,7 @@ public class StylistController {
                 LocalDateTime ldt = LocalDateTime.ofInstant(in.toInstant(), ZoneId.systemDefault());
                 ZonedDateTime zdt = ldt.atZone(ZoneId.systemDefault());
                 Date date = Date.from(zdt.toInstant());
-                order = new Order(null, date,"",customer.getAddress(),null,null,null,0,0,user,stylist,null,null,null);
+                order = new Order(null, date,"",customer.getAddress(),null,null,null,0,0,0,user,stylist,null,null,null);
                 orderRepository.save(order);
                 orderRepository.flush();
             } else if(stylist.getSid() != order.getStylist().getSid()){

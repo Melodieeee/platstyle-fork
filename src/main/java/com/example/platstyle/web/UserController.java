@@ -4,6 +4,7 @@ import com.example.platstyle.entities.*;
 import com.example.platstyle.repositories.*;
 import lombok.AllArgsConstructor;
 import net.bytebuddy.description.field.FieldList;
+import org.aspectj.weaver.ast.Or;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.BeanWrapper;
 import org.springframework.beans.BeanWrapperImpl;
@@ -200,6 +201,8 @@ public class UserController {
         for (Order_service service : services) {
             total += service.getPrice();
         }
+        order.setTotalPrice(total);
+        orderRepository.save(order);
         Service service = services.get(0).getService();
         model.addAttribute("stylistName", service.getStylistName());
         model.addAttribute("services", services);
@@ -209,7 +212,44 @@ public class UserController {
     }
 
     @GetMapping(path = "/user/checkout")
-    public String checkout(){ return "user/checkout";}
+    public String checkout(Model model, Principal principal){
+        User user = userRepository.findByEmail(principal.getName()).orElse(null);
+        Order order = orderRepository.findAllByUserAndStatus(user,0).orElse(null);
+        List<Order_service> services = order.getServices();
+        Customer customer = customerRepository.findById(user.getUid()).orElse(null);
+        model.addAttribute("order", order);
+        model.addAttribute("services", services);
+        model.addAttribute("customer", customer);
+        model.addAttribute("payment", new Payment());
+
+        return "user/checkout";
+    }
+
+    @PostMapping(path = "/user/checkout")
+    public String placeOrder(Payment payment,
+                             Order newOrder,
+                             Principal principal, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return "user/checkout";
+        } else {
+            User user = userRepository.findByEmail(principal.getName()).orElse(null);
+            Order or_order = orderRepository.findAllByUserAndStatus(user,0).orElse(null);
+            or_order.setAddress(newOrder.getAddress());
+            or_order.setNote(newOrder.getNote());
+            payment.setOrder(or_order);
+            or_order.setPayment(payment);
+            Date in = new Date();
+            LocalDateTime ldt = LocalDateTime.ofInstant(in.toInstant(), ZoneId.systemDefault());
+            ZonedDateTime zdt = ldt.atZone(ZoneId.systemDefault());
+            Date date = Date.from(zdt.toInstant());
+            payment.setCreateDate(date);
+            payment.setAmount((or_order.getTotalPrice() * 0.112 + 3));
+            //copyNonNullProperties(or_order,newOrder);
+            orderRepository.save(or_order);
+            return "user/orderDetail";
+        }
+    }
+
 
     public static void copyNonNullProperties(Object src, Object target) {
         BeanUtils.copyProperties(src, target, getNullPropertyNames(src));

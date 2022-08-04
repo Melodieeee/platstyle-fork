@@ -18,9 +18,6 @@
     #uploadBtn {
         height: 40px;
         width: 100%;
-        position: absolute;
-        bottom: 69%;
-        transform: translateX(17%);
     }
 </style>
 
@@ -30,12 +27,16 @@
     <!--Content Start-->
 
         <div class="container w-50 min-vh-10">
-            <div class="container mb-5 w-50">
-                <div class="user-img">
-                    <img src="https://bootdey.com/img/Content/avatar/avatar7.png" class="img-thumbnail mx-auto d-block" alt="...">
-                    <input class="form" type="file" id="file" style="display: none">
-                    <label for="file" id="uploadBtn"><i class="bi bi-pencil-fill"></i></label>
+            <div class="row text-center mb-5">
+                <div class="col"></div>
+                <div class="col align-self-center">
+                    <div class="user-img">
+                        <img src="https://bootdey.com/img/Content/avatar/avatar7.png" class="img-thumbnail mx-auto d-block" alt="...">
+                        <input class="form" type="file" id="file" style="display: none">
+                        <label for="file" id="uploadBtn">Upload profile photo <i class="bi bi-pencil-fill"></i></label>
+                    </div>
                 </div>
+                <div class="col"></div>
             </div>
             <form th:action="@{/user/save}"  method="post">
             <div class="row gutters">

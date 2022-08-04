@@ -258,7 +258,6 @@ public class UserController {
         order.setScheduleDate(date);
         orderRepository.save(order);
         return "redirect:/user/checkout";
-
     }
 }
 

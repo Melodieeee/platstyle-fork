@@ -27,9 +27,9 @@
                         <div class="circle-image">
                             <img th:src="${stylist.getPhoto()}" width="100">
                         </div>
-                        <h2 class="name fw-500" th:text="*{stylist.name}"></h2>
+                        <h2 class="name fw-500 mt-2 mb-2" th:text="*{stylist.name}"></h2>
                         <p class="text-black-50" ></p>
-                        <button type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#exampleModal" style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">
+                        <button type="button" class="btn btn-outline-success" onclick="setTimeslots()" data-bs-toggle="modal" data-bs-target="#exampleModal" style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">
                             Opening Hours
                         </button>
                         <!-- Modal -->
@@ -37,11 +37,28 @@
                             <div class="modal-dialog">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel">Timeslot</h5>
+                                        <h5 class="modal-title" id="exampleModalLabel">Available time</h5>
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body">
-
+                                        <div class="container">
+                                            <table class="table">
+                                                <thead>
+                                                <tr>
+                                                    <th scope="col">Date</th>
+                                                    <th scope="col">From</th>
+                                                    <th scope="col">To</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <tr th:each="t:${timeslot}">
+                                                    <td th:text="${t.getWeek()}"></td>
+                                                    <td th:text="${t.getStartTime()}"></td>
+                                                    <td th:text="${t.getEndTime()}"></td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -50,7 +67,7 @@
                             </div>
                         </div>
                         <div class="location mt-2 mb-2">
-                            <span><i class="fa fa-map-marker stop mt-2"></i> <small class="text-truncate ml-2" th:utext="*{stylist.city}"></small> </span>
+                            <span><i class="fa fa-map-marker stop mt-2 text-danger"></i> <small class="text-truncate text-danger ml-2" th:utext="*{stylist.city}"></small> </span>
                         </div>
                         <!--Rating-->
                         <form>
@@ -186,6 +203,9 @@
     var maxPrice = 0;
     var hairPart;
 
+    //Hidden clean btn
+
+
     $('.easy-sidebar-toggle').click(function(e) {
         e.preventDefault();
         //$('body').toggleClass('toggled-right');
@@ -246,6 +266,8 @@
         var count = [[${count}]];
         localStorage.setItem("count", count);
         if(count != 0) $('#badge').text(localStorage.getItem("count"));
+        var cleanBtn = document.getElementsByClassName('clear-rating');
+        cleanBtn[0].hidden=true;
     }
 
 </script>

@@ -50,9 +50,10 @@ public class StylistController {
     @GetMapping(path = "/user/store")
     public String store(@RequestParam(name="stylist",defaultValue = "") long sid, Model model, Order_service order_service, Service service, Principal principal){
         int count;
-        Object stylist = stylistRepository.findBySid(sid).orElse(null);
+        Stylist stylist = stylistRepository.findBySid(sid).orElse(null);
         User user = userRepository.findByEmail(principal.getName()).orElse(null);
         Order order = orderRepository.findAllByUserAndStatus(user, 0).orElse(null);
+        List<Timeslot> timeslots = timeslotRepository.findAllByUid(stylist.getUid().getUid());
         if(order == null) {
             count = 0;
         } else {
@@ -61,7 +62,8 @@ public class StylistController {
         model.addAttribute("stylist", stylist);
         model.addAttribute("orderService", new Order_service());
         model.addAttribute("count", count);
-
+        model.addAttribute("timeslot", timeslots);
+        System.out.println(stylist.getFeedbacks());
         return "stylist/store";
     }
 

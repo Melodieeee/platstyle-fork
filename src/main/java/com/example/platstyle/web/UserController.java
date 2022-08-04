@@ -152,13 +152,6 @@ public class UserController {
         Customer customer = customerRepository.findById(user.getUid()).orElse(null);
         customer.setPhoto("../img/"+photoFileName);
         customerRepository.save(customer);
-        if(photoFile != null) {
-            customer.setPhoto("../img/avatar7.png");
-            customerRepository.save(customer);
-        }
-
-
-
         attributes.addFlashAttribute("message", "You successfully uploaded " + photoFileName + '!');
 
         return "redirect:/user/account";

@@ -6,17 +6,26 @@ import lombok.AllArgsConstructor;
 import org.springframework.boot.Banner;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.security.Principal;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 import static com.example.platstyle.web.UserController.copyNonNullProperties;
 
@@ -25,6 +34,7 @@ import static com.example.platstyle.web.UserController.copyNonNullProperties;
 @AllArgsConstructor
 public class StylistController {
 
+    private final String UPLOAD_PHOTO_DIR = "src/main/resources/static/img/";
     private ServiceRepository serviceRepository;
     private UserRepository userRepository;
     private StylistRepository stylistRepository;
@@ -130,6 +140,26 @@ public class StylistController {
 
             return  "redirect:/user/store?stylist="+service.getStylistId();
         }
+    }
+
+
+    @PostMapping("/stylist/profile")
+    public String uploadPhoto(@RequestParam("photoFile") MultipartFile photoFile, Principal principal, Model model, RedirectAttributes attributes){
+
+        String photoFileName = StringUtils.cleanPath(photoFile.getOriginalFilename());
+        try {
+            Path path = Paths.get(UPLOAD_PHOTO_DIR + photoFileName);
+            Files.copy(photoFile.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        User user = userRepository.findByEmail(principal.getName()).orElse(null);
+        Stylist stylist = stylistRepository.findBySid(user.getStylistId()).orElse(null);
+        stylist.setPhoto("../img/"+photoFileName);
+        stylistRepository.save(stylist);
+        attributes.addFlashAttribute("message", "You successfully uploaded " + photoFileName + '!');
+
+        return "redirect:/stylist/profile";
     }
 
 }

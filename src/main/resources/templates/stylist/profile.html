@@ -24,11 +24,14 @@
                         <div class="row text-center mb-5">
                             <div class="col"></div>
                             <div class="col align-self-center">
-                                <div class="user-img">
-                                    <img src="https://bootdey.com/img/Content/avatar/avatar7.png" class="img-thumbnail mx-auto d-block" alt="...">
-                                    <input class="form" type="file" id="file" style="display: none">
-                                    <label for="file" id="uploadBtn">Upload profile photo <i class="bi bi-pencil-fill"></i></label>
-                                </div>
+                                <form method="post" th:action="@{/stylist/profile}" enctype="multipart/form-data">
+                                    <div class="user-img">
+                                        <img th:src="${stylist.getPhoto}" class="img-thumbnail mx-auto d-block" onerror="this.src='../img/avatar7.png'">
+                                        <input class="form-control" type="file" name="photoFile" id="photoFile" style="display: none;" multiple >
+                                        <label for="photoFile" class="form-label uploadBtn">Click to select</label>
+                                        <button type="submit" class="btn btn-outline-secondary btn-sm"><i class="bi bi-pencil-fill"></i></button>
+                                    </div>
+                                </form>
                             </div>
                             <div class="col"></div>
                         </div>

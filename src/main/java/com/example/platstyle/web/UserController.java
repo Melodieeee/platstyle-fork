@@ -40,6 +40,7 @@ import java.util.*;
 @AllArgsConstructor
 public class UserController {
     private final String UPLOAD_DIR = "src/main/resources/static/uploads/";
+    private final String UPLOAD_PHOTO_DIR = "src/main/resources/static/img/";
     private UserRepository userRepository;
     private CustomerRepository customerRepository;
     private StylistRepository stylistRepository;
@@ -134,6 +135,32 @@ public class UserController {
     @GetMapping(path = "/user/upload")
     public String upload(){
         return "user/upload";
+    }
+
+    @PostMapping("/user/account")
+    public String uploadPhoto(@RequestParam("photoFile") MultipartFile photoFile, Principal principal, Model model, RedirectAttributes attributes){
+        if(photoFile.isEmpty()) {
+            attributes.addFlashAttribute("message", "Please select a file to upload.");
+            return "redirect:/user/account";
+        }
+        String photoFileName = StringUtils.cleanPath(photoFile.getOriginalFilename());
+        try {
+            Path path = Paths.get(UPLOAD_PHOTO_DIR + photoFileName);
+            Files.copy(photoFile.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        User user = userRepository.findByEmail(principal.getName()).orElse(null);
+        Customer customer = customerRepository.findById(user.getUid()).orElse(null);
+        customer.setPhoto("../img/"+photoFileName);
+        customerRepository.save(customer);
+        System.out.println(customer.getUid());
+
+
+
+        attributes.addFlashAttribute("message", "You successfully uploaded " + photoFileName + '!');
+
+        return "redirect:/user/account";
     }
 
     @PostMapping(path = "/user/upload")

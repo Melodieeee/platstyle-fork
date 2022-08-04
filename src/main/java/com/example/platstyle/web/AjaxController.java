@@ -273,7 +273,7 @@ public class AjaxController {
         if(gender.length == 2 ) {
             for(String gen: gender) {
                 if(!gen.isEmpty()) {
-                    sql += " sid IN ( SELECT DISTINCT uid FROM `service` WHERE gender = \"" + gender[1] + "\");";
+                    sql += " uid IN ( SELECT DISTINCT uid FROM `service` WHERE gender = \"" + gender[1] + "\");";
                 }
             }
         }

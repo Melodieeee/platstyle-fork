@@ -46,7 +46,7 @@ public class Order {
 6. confirm service
 7. complete feedback
 8. complete no feedback button
-9. cancel
+99. cancel
 */
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "uid", nullable = false)
@@ -114,7 +114,7 @@ public class Order {
             case 8:
                 txtStatus = "Complete";
                 break;
-            case 9:
+            case 99:
                 txtStatus = "Cancel";
                 break;
 
@@ -156,7 +156,5 @@ public class Order {
         }
         return txtStatus;
     }
-
-
 
 }

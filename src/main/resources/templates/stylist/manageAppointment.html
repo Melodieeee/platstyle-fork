@@ -36,21 +36,37 @@
                 <div class="h3" th:text="${order.getUser().getFirstName()+' '+order.getUser().getLastName()}"></div>
                 <p><span th:text="${services.size()}"></span> services for $<span th:text="${order.getTotalPrice()}">60</span> @ <span th:text="${order.getFormatScheduleDate()}">May 30 at 0600 pm</span></p>
                 <p th:text="${order.getAddress()}">address</p>
-                <h5>Order items</h5>
+                  <h5>Order items</h5>
+                  <div class="container items px-3">
+                      <div class="row item1 pb-2" th:each="s:${services}">
+                          <div class="col item-name col-3" th:text="${s.getService().getServiceName}">Haircut</div>
+                          <div class="col item-details col-7" th:text="${s.getLengthOfHair()}">Short</div>
+                          <div class="col price col-2" th:text="${'$'+s.getPrice()}">$20</div>
+                      </div>
+                      <div class="row subtotal pt-3">
+                          <div class="col h5 col-3">Subtotal</div>
+                          <div class="col col-7"></div>
+                          <div class="col h5 col-2 price" th:text="${'$'+order.getTotalPrice()}">$50</div>
+                      </div>
+                  </div>
               </div>
             </div>
             
           </div>
           <!-- cancel button -->
-          <div class="container col-4 my-5">
-            <button class="btn btn-dark mt-3">Cancel the Appointment</button>
+
+          <div class="container col-3 col-offset-1 my-5">
+              <div class="row justify-content-center">
+                  <button th:if="${order.getStatus != 99}" class="btn btn-dark mt-3">Cancel the Appointment</button>
+                  <a th:if="${order.getStatus == 99}" class="btn btn-danger mt-3">Canceled</a>
+              </div>
           </div>
         </div>
 
       </div>
 
       <!-- progress bar -->
-      <div class="container-fluid px-1 px-md-4 py-5 mx-auto bottompart">
+      <div th:if="${order.getStatus != 9}" class="container-fluid px-1 px-md-4 py-5 mx-auto bottompart">
         <div class="row d-flex justify-content-center">
             <div class="col-12 col-md-11 col-lg-10 col-xl-9">
                 <div class="card card0 border-0">
@@ -68,14 +84,14 @@
                                         <div class="card1">
     
                                             <ul id="progressbar" class="text-center">
-                                                <li class="active step0" ></li>
-                                                <li class="active step0"></li>
-                                                <li class="active step0"></li>
-                                                <li class="active step0"></li>
-                                                <li class="step0"></li>
-                                                <li class="step0"></li>
-                                                <li class="step0"></li>
-                                                <li class="step0"></li>                                                
+                                                <li th:classappend="${order.getStatus >= 1 ? 'active':''}" class="step0" ></li>
+                                                <li th:classappend="${order.getStatus >= 2 ? 'active':''}" class="step0"></li>
+                                                <li th:classappend="${order.getStatus >= 3 ? 'active':''}" class="step0"></li>
+                                                <li th:classappend="${order.getStatus >= 4 ? 'active':''}" class="step0"></li>
+                                                <li th:classappend="${order.getStatus >= 5 ? 'active':''}" class="step0"></li>
+                                                <li th:classappend="${order.getStatus >= 6 ? 'active':''}" class="step0"></li>
+                                                <li th:classappend="${order.getStatus >= 7 ? 'active':''}" class="step0"></li>
+                                                <li th:classappend="${order.getStatus >= 8 ? 'active':''}" class="step0"></li>
                                             </ul>
     
                                             <h6 class="mb-5">Receive Appointment</h6>
@@ -93,17 +109,17 @@
                                     <div class="col-md-6 pe-4">
 
                                       <!-- Receive appointment -->
-                                      <div class="card2 first-screen ml-2">
+                                      <div th:classappend="${order.getStatus == 1 ? 'show':''}" class="card2 first-screen ml-2">
                                         <div class="row px-3 mr-2">
                                             <p>You can decide to take this appointment or not.</p>
                                         </div>
 
-                                        <div class="row px-3 mt-3">
+                                        <form th:action="@{/stylist/acceptAppointment/{path}(path=${order.getOid})}" method="post" class="row px-3 mt-3">
 
                                           <!-- Accept? select -->
                                           <div class="container col-6">
                                             <label for="acceptSelect" class="form-label">Accept?</label>
-                                            <select id="acceptSelect" class="form-select" aria-label="accept or reject">
+                                            <select id="acceptSelect" class="form-select" name="acceptSelect" aria-label="accept or reject">
                                               <option value="1">Accept</option>
                                               <option value="2">Reject</option>
                                             </select>              
@@ -116,72 +132,54 @@
                                             </button>
                                           </div>
 
-                                        </div>
+                                        </form>
                                           
                                       </div>
   
                                       <!-- Appointment accepted -->
-                                      <div class="card2 ml-2">
+                                      <div th:classappend="${order.getStatus == 2 ? 'show':''}" class="card2 ml-2">
                                           <div class="row px-3 mr-2">
                                             <p>Please arrive at <span>New Westminster, BC V3L 5B2</span></p>
                                             <p>on <span>May 30</span> at <span>06:00 p.m.</span>.</p>
                                           </div>
-                                          <div class="row px-3 mt-3">
-
-                                            <!-- next btn -->
-                                            <div class="container pt-3" style="text-align: end;" >
-                                              <button type="submit" class="btn btn-primary mt-4 next-button">
-                                                Submit Changes
-                                              </button>
-                                            </div>
-
-                                          </div>
                                       </div>
 
                                       <!-- Price Evaluation -->
-                                      <div class="card2 ml-2">
+                                      <div th:classappend="${order.getStatus == 3 ? 'show':''}" class="card2 ml-2">
                                         <div class="row px-3 mr-2">
                                           <p>Appointment details:</p> 
                                         </div>
 
-                                        <div class="row px-3 mt-3">
-
+                                        <form th:action="@{/stylist/confirmPrice/{path}(path=${order.getOid})}" method="post" class="row px-3 mt-3">
                                           <!-- order list table-->
                                           <div class="container">
                                             <table class="table table-striped">
-                    
+
                                               <tbody class="added_tasks">
-                                                <tr id="t1">
-                                                  <th scope="row">1</th>
-                                                  <td>Haircut</td>
-                                                  <td>Medium</td>
-                                                  <td>$<span class="servicePrice">20</span></td>
+                                                <tr th:each="s,iter:${services}">
+                                                  <th scope="row" th:text="${iter.index + 1}"></th>
+                                                  <td th:text="${s.getService().getServiceName}">Haircut</td>
+                                                  <td th:text="${s.getLengthOfHair()}">Medium</td>
+                                                  <td>$<span class="servicePrice" th:text="${s.getPrice()}">20</span></td>
                                                   <td><i class="fa fa-trash" onclick="Delete(t1)"></i></td>
                                                 </tr>
-                                                <tr id="t2">
-                                                  <th scope="row">2</th>
-                                                  <td>Hair perm</td>
-                                                  <td>Medium</td>
-                                                  <td>$<span class="servicePrice">70</span></td>
-                                                  <td><i class="fa fa-trash" onclick="Delete(t2)"></i></td>
-                                                </tr>
-                                                                                                                                
+
                                               </tbody>
                                               <thead>
-                                                <tr>                    
+                                                <tr>
                                                   <td colspan="3">Total</td>
-                                                  <td colspan="2">$<span id="totalPrice">90</span></td>
-                                                </tr>   
+                                                  <td colspan="2">$<span id="totalPrice" th:text="${order.getTotalPrice}" ></span></td>
+                                                </tr>
                                               </thead>
                                             </table>
-                                            
+
                                             <div class="input-group mb-3 row ms-1 addtask">
                                               <input type="text" class="form-control col-6 addService" aria-label="Item name" id="newServiceInput" placeholder="New Service...">
                                               <span class="input-group-text col-1">$</span>
                                               <input type="text" class="form-control col-3 addPrice" aria-label="Amount" id="newPriceInput" placeholder="Price...">
                                               <button class="btn btn-outline-secondary col-2" type="button">Add</button>
                                             </div>
-                                            
+
                                           </div>
 
                                           <!-- next btn -->
@@ -191,50 +189,38 @@
                                             </button>
                                           </div>
 
-                                        </div>
+                                        </form>
                                       </div>
     
                                       <!-- Request Price Confirm -->
-                                      <div class="card2 ml-2 show">
+                                      <div th:classappend="${order.getStatus == 4 ? 'show':''}" class="card2 ml-2">
                                         <div class="container">
                                           <div class="row px-3 mr-2">
                                             <p>Wait for the customer to confirm the price...</p>                                          
                                           </div>
 
                                          <!-- next btn hidden -->
-                                          <div class="container pt-3" style="text-align: end;" >
-                                            <button type="submit" class="btn btn-primary mt-4 next-button">
-                                             <span class="fa fa-arrow-right"></span>
-                                            </button>
-                                          </div>
                                         </div>                                   
                                       </div>
 
                                       <!-- Provide Service -->
-                                      <div class="card2 ml-2">
+                                      <div th:classappend="${order.getStatus == 5 ? 'show':''}" class="card2 ml-2">
                                         <div class="container">
                                           <div class="row px-3 mr-2">
                                             <p>Provide the customer BEST service...</p>                                          
-                                          </div>
-
-                                          <!-- next btn hidden -->
-                                          <div class="container pt-3" style="text-align: end;" >
-                                            <button type="submit" class="btn btn-primary mt-4 next-button">
-                                              <span class="fa fa-arrow-right"></span>
-                                            </button>
                                           </div>
                                         </div>
                                       </div>
 
                                       <!-- Service completed -->
-                                      <div class="card2 ml-2">
+                                      <div th:classappend="${order.getStatus == 6 ? 'show':''}" class="card2 ml-2">
                                         
-                                        <div class="container mt-3">
+                                        <form th:action="@{/stylist/completeService/{path}(path=${order.getOid})}" method="post" class="container mt-3">
 
                                           <!-- Completed? select -->
                                           <div class="container">
                                             <label for="completeSelect" class="form-label mb-4">Service done! Please confirm the completion.</label>
-                                            <select id="completeSelect" class="form-select" aria-label="completed or not">
+                                            <select id="completeSelect" name="completeSelect" class="form-select" aria-label="completed or not">
                                               <option value="1">Service is completed</option>
                                               <option value="2">Service is incompleted</option>
                                             </select>              
@@ -247,11 +233,11 @@
                                             </button>
                                           </div>
 
-                                        </div>
+                                        </form>
                                       </div>
     
                                       <!-- Earned Amount -->
-                                      <div class="card2 ml-2">
+                                      <div th:classappend="${order.getStatus == 7 ? 'show':''}" class="card2 ml-2">
 
                                         <div class="container">
                                           <div class="h3 my-3">You Earn...</div>
@@ -274,7 +260,7 @@
                                       </div>
 
                                       <!-- Check Customer's Reviews -->
-                                      <div class="card2 ml-2">
+                                      <div th:classappend="${order.getStatus == 8 ? 'show':''}" class="card2 ml-2">
                                         <div class="row px-3 mr-2">
                                             <a data-bs-toggle="collapse" href="#collapseCheckReview" role="button" aria-expanded="false" aria-controls="collapseCheckReview">
                                               Click here to check the review

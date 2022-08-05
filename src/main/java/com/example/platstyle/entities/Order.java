@@ -70,6 +70,8 @@ public class Order {
     @OneToOne(mappedBy = "order", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Payment payment;
 
+    @OneToOne(mappedBy = "order", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Feedback feedback;
 
     public String getStylistName() {
         return services.get(0).getService().getStylistName();

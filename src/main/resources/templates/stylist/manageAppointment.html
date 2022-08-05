@@ -117,7 +117,7 @@
                                             <h6 class="mb-5">Provide Service</h6>
                                             <h6 class="mb-5">Service Completed</h6>
                                             <h6 class="mb-5">Earned Amount: <span
-                                                    th:text="${'$' + (order.getTotalPrice() + order.getTip)}"></span>
+                                                    th:text="${'$' + (order.getTotalPrice()*0.9 + order.getTip)}"></span>
                                             </h6>
                                             <h6 class="mb-5">Check Customer's Reviews</h6>
                                         </div>
@@ -284,7 +284,7 @@
                                                 <div class="row px-3 pt-1">
                                                     <div class="h4 col-6">Services:</div>
                                                     <div class="h4 col-6" style="text-align: end;">$<span
-                                                            th:text="${order.getTotalPrice()}">0</span></div>
+                                                            th:text="${order.getTotalPrice()*0.9}">0</span></div>
                                                 </div>
 
                                                 <!-- next btn hidden -->
@@ -298,30 +298,44 @@
 
                                         <!-- Check Customer's Reviews -->
                                         <div th:classappend="${order.getStatus == 8 ? 'show':''}" class="card2 ml-2">
-                                            <div class="row px-3 mr-2">
+                                            <div class="card card-body m-1">
+                                                <!-- rating -->
+                                                <div class="circle-img">
+                                                    <img src="../img/reviews_backgroind.jpg">
+                                                    <div class="rating-on-img">
+                                                        <h3 class="head-rate" th:text="${feedback.getRate()}">0</h3>
+                                                        <h3 class="subhead-rate">out of 5</h3>
+                                                    </div>
+                                                </div>
+                                                <!-- review -->
+                                                <div class="container">
+                                                    <label for="readReviews" class="form-label"><span class="h5" th:text="${order.getUser().getFirstName()}">Customer</span>
+                                                        said...</label>
+                                                    <textarea class="form-control mt-1" id="readReviews" disabled th:text="${feedback.getComment()}">wait for reviews......</textarea>
+                                                </div>
+                                            </div>
+
+                                            <div class="row px-3 my-4">
                                                 <a data-bs-toggle="collapse" href="#collapseCheckReview" role="button"
                                                    aria-expanded="false" aria-controls="collapseCheckReview">
-                                                    Click here to check the review
+                                                    Click here to check your earned amount
                                                 </a>
                                             </div>
                                             <div class="collapse" id="collapseCheckReview">
-                                                <div class="card card-body">
-                                                    <!-- rating -->
-                                                    <div class="circle-img">
-                                                        <img src="../img/reviews_backgroind.jpg">
-                                                        <div class="rating-on-img">
-                                                            <h3 class="head-rate">4.7</h3>
-                                                            <h3 class="subhead-rate">out of 5</h3>
-                                                        </div>
+                                                <div class="container my-5">
+                                                    <div class="h4 px-2 my-3">You Earn...</div>
+                                                    <div class="row px-2 pt-3">
+                                                        <div class="h5 col-6">Tips:</div>
+                                                        <div class="h5 col-6" style="text-align: end;">$<span
+                                                                th:text="${order.getTip()}">0</span></div>
                                                     </div>
-                                                    <!-- review -->
-                                                    <div class="container">
-                                                        <label for="readReviews" class="form-label"><span>Amber</span>
-                                                            said...</label>
-                                                        <textarea class="form-control" id="readReviews" disabled>reviews......</textarea>
+                                                    <div class="row px-2 pt-1">
+                                                        <div class="h5 col-6">Services:</div>
+                                                        <div class="h5 col-6" style="text-align: end;">$<span
+                                                                th:text="${order.getTotalPrice()*0.9}">0</span></div>
                                                     </div>
-
                                                 </div>
+
                                             </div>
 
                                         </div>

@@ -67,6 +67,7 @@ public class StylistController {
         User user = userRepository.findByEmail(principal.getName()).orElse(null);
         Order order = orderRepository.findAllByUserAndStatus(user, 0).orElse(null);
         List<Timeslot> timeslots = timeslotRepository.findAllByUid(stylist.getUid().getUid());
+        List<Feedback> feedbacks = stylist.getFeedbacks();
         if(order == null) {
             count = 0;
         } else {
@@ -76,7 +77,7 @@ public class StylistController {
         model.addAttribute("orderService", new Order_service());
         model.addAttribute("count", count);
         model.addAttribute("timeslot", timeslots);
-        System.out.println(stylist.getFeedbacks());
+        model.addAttribute("feedbacks", feedbacks);
         return "stylist/store";
     }
 
@@ -133,7 +134,7 @@ public class StylistController {
                 LocalDateTime ldt = LocalDateTime.ofInstant(in.toInstant(), ZoneId.systemDefault());
                 ZonedDateTime zdt = ldt.atZone(ZoneId.systemDefault());
                 Date date = Date.from(zdt.toInstant());
-                order = new Order(null, date,"",customer.getAddress(),null,null,null,0,0,0,user,stylist,null,null,null);
+                order = new Order(null, date,"",customer.getAddress(),null,null,null,0,0,0,user,stylist,null,null,null,null);
                 orderRepository.save(order);
                 orderRepository.flush();
             } else if(stylist.getSid() != order.getStylist().getSid()){

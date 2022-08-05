@@ -91,24 +91,27 @@
                         </div>
                         <!--Rating-->
                         <form>
-                            <input id="input-21b" value="4" type="text" disabled="disabled" class="rating" data-theme="krajee-fas" data-min=0 data-max=5 data-step=0.2 data-size="sm"
-                                   required title="">
+                            <input id="input-21b" th:value="${#aggregates.sum(feedbacks.![rate]) / #lists.size(feedbacks)}" type="text" class="rating mb-3" disabled="disabled" data-theme="krajee-fas" data-min=0 data-max=5 data-step=0.2 data-size="sm" style="--clear-rating: hidden;">
                             <div class="clearfix"></div>
                         </form>
                         <!--Comments-->
                         <div class="container mt-5">
                             <div class="d-flex justify-content-center align-items-center">
                                 <div class="card">
-                                    <div class="comment-title m-2 border-bottom">
-                                        <h5>Customer Comments</h5>
+                                    <div class="comment-title pt-2 border-bottom">
+                                        <h5>Recent Comments</h5>
                                     </div>
                                     <div class="comment-card mt-2 w-75">
-                                        <div class="d-flex flex-row p-3 text-start"> <img src="../img/aircut15.jpeg" width="40" height="40" class="rounded-circle mr-3">
+                                        <div class="container d-flex flex-row p-3 text-start border-bottom" th:each="f:${feedbacks}">
+                                            <img src="../img/aircut15.jpeg" width="40" height="40" class="rounded-circle mr-3">
                                             <div class="w-75">
                                                 <div class="d-flex justify-content-between align-items-center">
-                                                    <div class="d-flex flex-row align-items-center"> <span class="mx-3">Brian selter</span></div> <small>12h ago</small>
+                                                    <div class="d-flex flex-row align-items-center">
+                                                        <span class="mx-3" th:text="${f.getOrder.getUser.getFirstName + ' ' + f.getOrder.getUser.getLastName }">Brian selter</span>
+                                                    </div>
+                                                    <small th:text="'@ ' + ${f.getCreateDate}">time</small>
                                                 </div>
-                                                <p class="text-justify comment-text mb-0 mx-3"></p>
+                                                <p class="text-justify comment-text mt-3 mb-0 mx-3 text-black-50" th:text="${f.getComment()}">comment</p>
                                             </div>
                                         </div>
                                     </div>

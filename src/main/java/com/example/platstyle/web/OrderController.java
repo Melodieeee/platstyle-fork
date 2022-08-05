@@ -9,6 +9,9 @@ import org.springframework.util.MimeTypeUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.Date;
 import java.util.List;
 
@@ -20,6 +23,7 @@ public class OrderController {
     private StylistRepository stylistRepository;
     private OrderRepository orderRepository;
     private OrderServiceRepository orderServiceRepository;
+    private FeedbackRepository feedbackRepository;
 
     @GetMapping(path = "/user/orders")
     public String orders(Model model, Principal principal){
@@ -39,6 +43,7 @@ public class OrderController {
         List<Order_service> services = order.getServices();
         model.addAttribute("order", order);
         model.addAttribute("services", services);
+        model.addAttribute("feedback", new Feedback());
         return "user/orderDetail";
     }
 
@@ -68,8 +73,10 @@ public class OrderController {
         if(order == null) throw new RuntimeException("Can not find appointment!");
         if(order.getStylist().getSid() != user.getStylistId()) return "redirect:/user/shop";
         List<Order_service> services = order.getServices();
+        Feedback feedback = order.getFeedback();
         model.addAttribute("order", order);
         model.addAttribute("services", services);
+        model.addAttribute("feedback", feedback);
         return "stylist/manageAppointment";
     }
     @GetMapping("/user/cancelOrder")
@@ -196,4 +203,31 @@ public class OrderController {
         orderRepository.save(order);
         return "redirect:/user/orderDetail?order="+oid;
     }
+
+    @RequestMapping(value = "/user/feedback/{oid}", method = RequestMethod.POST)
+    public String submitFeedback(@PathVariable("oid") long oid,
+                                 @RequestParam("rate") double rateValue,
+                                 @RequestParam("comment") String comment,
+                                 Principal principal,
+                                 Feedback feedback) {
+        Order order = orderRepository.findById(oid).orElse(null);
+        if(order == null) throw new RuntimeException("Can not find appointment!");
+        User user = userRepository.findByEmail(principal.getName()).orElse(null);
+        if(user.getUid() != order.getUser().getUid()) return "redirect:/user/home";
+
+        feedback.setOrder(order);
+        feedback.setStylist(order.getStylist());
+        feedback.setRate(rateValue);
+        feedback.setComment(comment);
+        feedback.setCreateDate(new Date());
+
+        feedbackRepository.save(feedback);
+
+        order.setStatus(8);
+        orderRepository.save(order);
+        return "redirect:/user/orderDetail?order="+oid;
+    }
+
+
+
 }

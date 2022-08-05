@@ -35,7 +35,7 @@ public class Stylist {
     @Column(columnDefinition = "double default 0")
     private double balance;
     @OneToMany(mappedBy="stylist",cascade = CascadeType.ALL)
-    private List<Feedback>  feedbacks;
+    private List<Feedback> feedbacks;
 
     @OneToMany(mappedBy="stylist",cascade = CascadeType.ALL)
     private List<Order> orderList;

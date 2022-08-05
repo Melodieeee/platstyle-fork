@@ -101,7 +101,7 @@
                         <input type="range" class="form-range" id="customRange1" min="0" max="5">
                     </div>
                 </div>
-                <div class="rate p-2 mb-2">
+                <div class="rate p-2 mb-2" >
                     <div class="heading d-flex justify-content-between align-items-center">
                         <h5 class="text-uppercase">By Rate</h5>
                     </div>
@@ -130,12 +130,12 @@
                                     <img th:src="${stylist.getPhoto()}" width="200" height="200">
                                 </a>
                             </div>
-                            <div class="d-flex justify-content-between align-items-center">
+                            <div class="d-flex justify-content-between align-items-center pt-1">
                                 <div class="about text-start">
                                     <h5 th:text="${stylist.getName()}"></h5>
                                 </div>
                                 <!--Rating-->
-                                <span class="about-rating bg-primary">4.5</span>
+                                <span class="about-rating bg-primary" th:text="${#aggregates.sum(stylist.getFeedbacks.![rate]) / #lists.size(stylist.getFeedbacks)}">4.5</span>
                             </div>
                         </div>
                     </div>

@@ -4,13 +4,16 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Payment Release | PlatStyles</title>
-    <link rel="stylesheet" href="../css/orderstatus.css">
+
     <div th:replace="fragments/header :: header-css"/>
     <link rel="stylesheet" href="../css/font-awesome.min.css" />
-    <link rel="stylesheet" href="../css/style.css" th:href="@{../css/style.css}" />
     <link rel="stylesheet" href="../css/easy-sidebar.css" th:href="@{../css/easy-sidebar.css}">
     <link rel="stylesheet" href="../css/manageappointment.css">
+    <!--Rating-->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css">
+    <link href="../css/star-rating.css" media="all" rel="stylesheet" type="text/css"/>
     <script>document.getElementsByTagName("html")[0].className += " js";</script>
+
 
 </head>
 
@@ -235,7 +238,7 @@
                                         <div th:classappend="${order.getStatus == 5 ? 'show':''}" class="card2 ml-2">
                                             <div class="container">
                                                 <div class="row px-3 mr-2">
-                                                    <em class="h3">Total: $<span>90</span></em>
+                                                    <em class="h3">Total: $<span th:text="${order.getTotalPrice()}">90</span></em>
                                                     <p>The final price is confirmed. Please enjoy the service.</p>
                                                 </div>
 
@@ -261,7 +264,7 @@
                                                     </select>
                                                     <div class="container col pt-3">
                                                         <label for="inputTip" class="form-label">Tip your stylist:</label>
-                                                        <input id="inputTip" name = tip type="number" class="form-control" aria-describedby="tipHelpBlock" placeholder="$xx.xx">
+                                                        <input id="inputTip" name="tip" type="number" class="form-control" aria-describedby="tipHelpBlock" placeholder="$xx.xx">
                                                     </div>
                                                     <!-- next btn -->
                                                     <div class="container" style="text-align: end;" >
@@ -282,35 +285,30 @@
                                         <!-- Give Your Feedback -->
                                         <div th:classappend="${order.getStatus == 7 ? 'show':''}" class="card2 ml-2">
 
-                                            <div class="container">
+                                            <div class="container p-1">
                                                 <p>Thank you for using PlatStyle! Hope you like your new hairstyle! </p>
-                                                <!-- rating -->
-                                                <div class="rating-box">
-                                                    <label class="form-label">Rating:</label>
-                                                    <div class="rating">
-                                                        <span class="fa fa-star"></span>
-                                                        <span class="fa-regular fa-star"></span>
-                                                        <span class="fa-regular fa-star"></span>
-                                                        <span class="fa-regular fa-star"></span>
-                                                        <span class="fa-regular fa-star"></span>
+
+                                                <!--Rating-->
+                                                <form th:action="@{/user/feedback/{path}(path=${order.getOid})}" method="post" >
+                                                    <input id="input-21b" value="5" type="text" class="rating" data-theme="krajee-fas" data-min=0 data-max=5 data-step=0.2 data-size="sm"
+                                                           required name="rate">
+                                                    <div class="clearfix"></div>
+
+                                                    <!-- input feedback -->
+                                                    <div class="container p-0 mt-2">
+                                                        <label for="reviewsInput" class="form-label">Write your reviews:</label>
+                                                        <textarea class="form-control" id="reviewsInput" rows="3" placeholder="What you want to tell your stylist..." name="comment"></textarea>
                                                     </div>
 
-                                                    <h4 id="rating-value"></h4>
-                                                </div>
-                                                <script src="js/rating.js"></script>
+                                                    <!-- next btn -->
+                                                    <div class="container" style="text-align: end;" >
+                                                        <button type="submit" class="btn btn-primary mt-4 next-button">
+                                                            Submit
+                                                        </button>
+                                                    </div>
 
-                                                <!-- input feedback -->
-                                                <div class="container p-0">
-                                                    <label for="reviewsInput" class="form-label">Write your reviews:</label>
-                                                    <textarea class="form-control" id="reviewsInput" rows="3" placeholder="What you want to tell your stylist..."></textarea>
-                                                </div>
+                                                </form>
 
-                                                <!-- next btn -->
-                                                <div class="container" style="text-align: end;" >
-                                                    <button type="submit" class="btn btn-primary mt-4 next-button">
-                                                        Submit
-                                                    </button>
-                                                </div>
                                             </div>
                                         </div>
                                         <div th:classappend="${order.getStatus == 8 ? 'show':''}" class="card2 ml-2">
@@ -344,10 +342,13 @@
 <script src="../js/util.js"></script> <!-- util functions included in the CodyHouse framework -->
 <script src="../js/swipe-content.js"></script> <!-- A Vanilla JavaScript plugin to detect touch interactions -->
 <script src="../js/main.js"></script>
-<script src="../js/rating.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="../js/manage-appointment.js"></script>
+<!--Rating-->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="../js/star-rating.js" type="text/javascript"></script>
+<script src="../js/theme.min.js" type="text/javascript"></script>
 <script>
     //easy-sidebar-toggle-right
     $('.easy-sidebar-toggle').click(function(e) {

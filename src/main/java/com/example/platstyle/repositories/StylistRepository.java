@@ -25,4 +25,6 @@ public interface StylistRepository  extends JpaRepository<Stylist, Long>, Stylis
     @Transactional
     void deleteByUid(User user);
     Optional<Stylist> findBySid(long sid);
+    @Query(value = "select * from stylist  where name like %?1%",nativeQuery = true)
+    List<Stylist> findAllByName(String name);
 }

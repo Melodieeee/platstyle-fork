@@ -74,6 +74,7 @@ public class OrderController {
         if(order.getStylist().getSid() != user.getStylistId()) return "redirect:/user/shop";
         List<Order_service> services = order.getServices();
         Feedback feedback = order.getFeedback();
+        if(feedback == null) feedback = new Feedback(null,"",new Date(),0,null,null);
         model.addAttribute("order", order);
         model.addAttribute("services", services);
         model.addAttribute("feedback", feedback);

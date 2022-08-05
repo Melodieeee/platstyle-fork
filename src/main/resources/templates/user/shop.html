@@ -135,7 +135,8 @@
                                     <h5 th:text="${stylist.getName()}"></h5>
                                 </div>
                                 <!--Rating-->
-                                <span class="about-rating bg-primary" th:text="${#aggregates.sum(stylist.getFeedbacks.![rate]) / #lists.size(stylist.getFeedbacks)}">4.5</span>
+                                <!--span class="about-rating bg-primary" th:text="${#aggregates.sum(stylist.getFeedbacks.![rate]) / #lists.size(stylist.getFeedbacks)}">4.5</span-->
+                                <span class="about-rating bg-primary" th:text="${stylist.getRate()}">4.5</span>
                             </div>
                         </div>
                     </div>

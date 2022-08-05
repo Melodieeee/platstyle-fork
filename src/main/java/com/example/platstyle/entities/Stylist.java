@@ -39,4 +39,15 @@ public class Stylist {
 
     @OneToMany(mappedBy="stylist",cascade = CascadeType.ALL)
     private List<Order> orderList;
+
+    public double getRate() {
+        if(feedbacks!=null) {
+            if(feedbacks.size() == 0) return 0;
+            double sum = 0;
+            for (Feedback feedback: feedbacks) {
+                sum+=feedback.getRate();
+            }
+            return sum/feedbacks.size();
+        } else return 0;
+    }
 }

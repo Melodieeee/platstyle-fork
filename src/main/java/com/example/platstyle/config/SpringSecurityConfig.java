@@ -43,7 +43,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
         http.csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/", "/forgotpassword", "/signup", "/register", "/authentication").permitAll()
-                .antMatchers("/admin/**").hasAnyRole("ADMIN")
+                .antMatchers("/admin/**", "/uploads/*").hasAnyRole("ADMIN")
                 .antMatchers("/stylist/**").hasAnyRole("ADMIN","STYLIST")
                 .antMatchers("/user/**").hasAnyRole("ADMIN","STYLIST" ,"USER")
                 .antMatchers("/css/**", "/js/**", "/img/**").permitAll()

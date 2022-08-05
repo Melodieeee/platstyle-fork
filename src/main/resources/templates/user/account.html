@@ -49,7 +49,7 @@
                 <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                     <div class="form-group">
                         <label for="fName">First Name</label>
-                        <input type="text" class="form-control" th:field="*{user.firstName}"  id="fName" placeholder="Enter first name" >
+                        <input type="text" class="form-control" th:field="*{user.firstName}"  id="fName" placeholder="Enter first name" required >
                     </div>
                 </div>
                 <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
@@ -61,19 +61,19 @@
                 <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                     <div class="form-group">
                         <label for="phone">Phone</label>
-                        <input type="text" class="form-control" th:field="*{user.phone}" th:value="${user.getPhone}" id="phone" placeholder="Enter phone number">
+                        <input type="text" class="form-control" th:field="*{user.phone}" th:value="${user.getPhone}" id="phone" placeholder="Enter phone number" required>
                     </div>
                 </div>
                 <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                     <div class="form-group">
                         <label for="btd">Birthday</label>
-                        <input type="date" class="form-control" th:field="*{customer.birthday}" id="btd">
+                        <input type="date" class="form-control" th:field="*{customer.birthday}" id="btd" required>
                     </div>
                 </div>
                 <div class="col-12">
                     <div class="form-group">
                         <label for="eMail">Email</label>
-                        <input type="email" class="form-control" th:field="*{user.email}" th:value="*{user.email}" id="eMail" placeholder="Enter email ID">
+                        <input type="email" class="form-control" th:field="*{user.email}" th:value="*{user.email}" id="eMail" placeholder="Enter email ID" required>
                     </div>
                 </div>
                 <div class="d-grid gap-2 col-md-6 mx-auto pt-4">

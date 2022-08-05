@@ -19,13 +19,13 @@
     <div class="row m-3">
       <div class="col-6">
         <div class="form-floating">
-          <input class="form-control" th:field="*{user.firstName}" id="firstName" placeholder="first name">
+          <input class="form-control" th:field="*{user.firstName}" id="firstName" placeholder="first name" required>
           <label for="firstName">Your first name</label>
         </div>
       </div>
       <div class="col-6">
         <div class="form-floating">
-          <input class="form-control" th:field="*{user.lastName}" id="lastName" placeholder="last name">
+          <input class="form-control" th:field="*{user.lastName}" id="lastName" placeholder="last name" required>
           <label for="lastName">Your last name</label>
         </div>
       </div>
@@ -33,7 +33,7 @@
     <div class="row m-3">
       <div class="col-12">
         <div class="form-floating">
-          <input type="email" class="form-control" th:field="*{user.email}" id="email" placeholder="name@example.com">
+          <input type="email" class="form-control" th:field="*{user.email}" id="email" placeholder="name@example.com" required>
           <label for="email">Your email address</label>
         </div>
       </div>
@@ -41,7 +41,7 @@
     <div class="row m-3">
       <div class="col-12">
         <div class="form-floating">
-          <input type="password" class="form-control" th:field="*{user.password}" id="password" placeholder="Password">
+          <input type="password" class="form-control" th:field="*{user.password}" id="password" placeholder="Password" required>
           <label for="password">Pick a password</label>
         </div>
       </div>

@@ -13,19 +13,39 @@
 </head>
 
 <body onload="cartCount()">
+
+<style>
+
+    .carousel-inner .carousel-item {
+        max-height: 500px !important;
+    }
+
+    .carousel-inner > carousel-item > container > img {
+        position: absolute;
+        top: 80%;
+        left: 50%;
+        -webkit-transform: translate(-50%, -50%);
+        -ms-transform: translate(-50%, -50%);
+        transform: translate(-50%, -50%);
+        max-height: 500px !important;
+        width: auto;
+        object-fit: cover;
+    }
+
+</style>
 <main>
 
     <div th:replace="fragments/header :: header"/>
     <!--Content Start-->
-    <div class="container">
+    <div class="container w-100">
         <!--Left & Right content box-->
         <div class="row">
             <!--Left-->
-            <div class="container col-xl-5 col-md-6 col-sm-12">
-                <div class="text-center">
+            <div class="container col-xl-4 col-md-5 col-sm-12">
+                <div class="text-center w-100">
                     <div class="text-center mt-5 mb-5 py-3" >
                         <div class="circle-image">
-                            <img th:src="${stylist.getPhoto()}" width="100">
+                            <img class="img-circle m-t-xs img-responsive" th:src="${stylist.getPhoto()}" width="200">
                         </div>
                         <h2 class="name fw-500 mt-2 mb-2" th:text="*{stylist.name}"></h2>
                         <p class="text-black-50" ></p>
@@ -67,21 +87,22 @@
                             </div>
                         </div>
                         <div class="location mt-2 mb-2">
-                            <span><i class="fa fa-map-marker stop mt-2 text-danger"></i> <small class="text-truncate text-danger ml-2" th:utext="*{stylist.city}"></small> </span>
+                            <span><i class="fa fa-map-marker stop mt-2 text-danger"></i> <small class="text-truncate text-danger ml-2" th:text="*{stylist.city}"></small> </span>
                         </div>
                         <!--Rating-->
                         <form>
-                            <input id="input-21b" value="4" type="text" class="rating mb-3" disabled="disabled" data-theme="krajee-fas" data-min=0 data-max=5 data-step=0.2 data-size="sm" style="--clear-rating: hidden;">
+                            <input id="input-21b" value="4" type="text" disabled="disabled" class="rating" data-theme="krajee-fas" data-min=0 data-max=5 data-step=0.2 data-size="sm"
+                                   required title="">
                             <div class="clearfix"></div>
                         </form>
                         <!--Comments-->
                         <div class="container mt-5">
                             <div class="d-flex justify-content-center align-items-center">
                                 <div class="card">
-                                    <div class="comment-title p-1 border-bottom">
-                                        <h5>Recent Comments</h5>
+                                    <div class="comment-title m-2 border-bottom">
+                                        <h5>Customer Comments</h5>
                                     </div>
-                                    <div class="comment-card mt-2 ">
+                                    <div class="comment-card mt-2 w-75">
                                         <div class="d-flex flex-row p-3 text-start"> <img src="../img/aircut15.jpeg" width="40" height="40" class="rounded-circle mr-3">
                                             <div class="w-75">
                                                 <div class="d-flex justify-content-between align-items-center">
@@ -100,80 +121,83 @@
             </div>
 
             <!--Right-->
-            <div class="container col-xl-7 col-md-6 col-sm-12">
-                <div class="row gutters">
+            <div class="container col-xl-8 col-md-7 col-sm-12">
+                <div class="container coverflow">
                     <!--Carousel-->
-                    <div class="container">
-                        <div class="row gutters">
-                            <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel" >
-                                <div class="carousel-inner" id="portfolios" style=" width:100%; height: 400px !important;">
-                                    <div class="carousel-item active">
-                                        <img src="../img/haircut5.jpg" id="img-photo" class="d-block w-100" alt="">
+                    <div class="row">
+                        <div id="carousel" class="carousel slide" data-bs-ride="carousel" >
+                            <div class="carousel-inner" id="portfolios">
+                                <div class="carousel-item active">
+                                    <div class="container">
+                                        <img src="../img/default-portfolio.png" class="d-block w-100" alt="" >
                                     </div>
                                 </div>
-                                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
-                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                    <span class="visually-hidden">Previous</span>
-                                </button>
-                                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
-                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                    <span class="visually-hidden">Next</span>
-                                </button>
+                            </div>
+                            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Previous</span>
+                            </button>
+                            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Next</span>
+                            </button>
+                        </div>
+                        <div class="col-2"></div>
+                    </div>
+                </div>
+                <!--Form-->
+                <div class="row gutters">
+                    <form th:action="@{/user/addService}"  method="post">
+                        <div class="row gutters">
+                            <div class="col-4 mt-4 mb-2 mx-2">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" id="male" name="gender" value="M" onclick="getServicesByGender()" autocomplete="off">
+                                    <label class="form-check-label" for="male">
+                                        Male
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-4 mt-4 mb-2">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" id="female" name="gender" value="F" onclick="getServicesByGender()" autocomplete="off">
+                                    <label class="form-check-label" for="female">
+                                        Female
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-7 m-2">
+                                <label class="form-check-label">Service:</label>
+                                <div class="input-group mb-3">
+                                    <select th:onchange="getPrice()" class="form-select" aria-label="Default select example" name="serviceSelect" id="serviceSelect" required>
+                                        <option value="0" selected>Choose...</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-7 m-2">
+                                <label class="form-check-label">Hair Part:</label>
+                                <div class="btn-group w-100" role="group" aria-label="Basic radio toggle button group">
+                                    <input type="radio" class="btn-check" th:field="*{orderService.lengthOfHair}" id="btnradio1" value="short" autocomplete="off" onclick="setPrice(minPrice)">
+                                    <label class="btn btn-outline-secondary" for="btnradio1">Short</label>
+
+                                    <input type="radio" class="btn-check" th:field="*{orderService.lengthOfHair}" id="btnradio2" value="medium" autocomplete="off" onclick="setPrice(midPrice)">
+                                    <label class="btn btn-outline-secondary" for="btnradio2">Medium</label>
+
+                                    <input type="radio" class="btn-check" th:field="*{orderService.lengthOfHair}" id="btnradio3" value="long" autocomplete="off" onclick="setPrice(maxPrice)">
+                                    <label class="btn btn-outline-secondary" for="btnradio3">Long</label>
+                                </div>
+                            </div>
+
+                            <div class="col-7 m-2">
+                                <label class="form-check-label">Estimate Price:</label>
+                                <div class="h2 mx-auto" style="width: 200px;" id="price">$20</div>
+                            </div>
+                            <div class="col-10 m-2">
+                                <div class="d-grid gap-3 col-md-8">
+                                    <button class="btn btn-outline-secondary add-button" type="submit" onclick="cartCount()">Add Service</button>
+                                </div>
                             </div>
                         </div>
-
-                        <!--Form-->
-                        <form th:action="@{/user/addService}"  method="post">
-                            <div class="row gutters">
-                                <div class="col-4 mt-4 mb-2 mx-2">
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="radio" id="male" name="gender" value="M" onclick="getServicesByGender()" autocomplete="off">
-                                        <label class="form-check-label" for="male">
-                                            Male
-                                        </label>
-                                    </div>
-                                </div>
-                                <div class="col-4 mt-4 mb-2">
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="radio" id="female" name="gender" value="F" onclick="getServicesByGender()" autocomplete="off">
-                                        <label class="form-check-label" for="female">
-                                            Female
-                                        </label>
-                                    </div>
-                                </div>
-                                <div class="col-8 m-2">
-                                    <label class="form-check-label">Service:</label>
-                                    <div class="input-group mb-3">
-                                        <select th:onchange="getPrice()" class="form-select" aria-label="Default select example" name="serviceSelect" id="serviceSelect" required>
-                                            <option value="0" selected>Choose...</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-8 m-2">
-                                    <label class="form-check-label">Hair Part:</label>
-                                    <div class="btn-group w-100" role="group" aria-label="Basic radio toggle button group">
-                                        <input type="radio" class="btn-check" th:field="*{orderService.lengthOfHair}" id="btnradio1" value="short" autocomplete="off" onclick="setPrice(minPrice)">
-                                        <label class="btn btn-outline-secondary" for="btnradio1">Short</label>
-
-                                        <input type="radio" class="btn-check" th:field="*{orderService.lengthOfHair}" id="btnradio2" value="medium" autocomplete="off" onclick="setPrice(midPrice)">
-                                        <label class="btn btn-outline-secondary" for="btnradio2">Medium</label>
-
-                                        <input type="radio" class="btn-check" th:field="*{orderService.lengthOfHair}" id="btnradio3" value="long" autocomplete="off" onclick="setPrice(maxPrice)">
-                                        <label class="btn btn-outline-secondary" for="btnradio3">Long</label>
-                                    </div>
-                                </div>
-
-                                <div class="col-8 m-2">
-                                    <label class="form-check-label">Estimate Price:</label>
-                                    <div class="h2" id="price">$20</div>
-                                </div>
-                                <div class="col-8 m-2">
-                                    <div class="d-grid gap-2 col-md-8">
-                                        <button class="btn btn-outline-secondary add-button" type="submit" onclick="cartCount()">Add Service</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </form>
+                    </form>
                     </div>
                 </div>
             </div>
@@ -196,8 +220,6 @@
     var midPrice = 0;
     var maxPrice = 0;
     var hairPart;
-
-    //Hidden clean btn
 
 
     $('.easy-sidebar-toggle').click(function(e) {
@@ -240,11 +262,21 @@
                     if (hairPart[i].checked){
                         setPrice(i);
                     } else {
-                        $('#price').text("$"+minPrice + "-"+ "$"+maxPrice);
+                        $('#price').text("$"+minPrice + " - "+ "$"+maxPrice);
                     }
                 }
+
+                $('#portfolios').empty();
+                if(photos.length == 0)  $('#portfolios').append("<div class=\"carousel-item active\">\n" +
+                    "                                <div class=\"container\">\n"+
+                    "                                   <img src=\"../img/default-portfolio.png\" id=\"img-photo\" class=\"d-block w-100\" alt=\"\">\n" +
+                    "                                 </div>\n"+
+                    "                                   </div>");
                 for(var i = 0; i < photos.length; i++) {
-                    $('#img-photo').attr('src', photos);
+                    if(i==0) var items = '<div class="carousel-item active"><div class="container"><img src="'+photos[i]+'" class="d-block w-100" alt=""  ></div></div>';
+                    else var items = '<div class="carousel-item"><div class="container"><img src="'+photos[i]+'" class="d-block w-100" alt=""></div></div>';
+                    $('#portfolios').append(items);
+
                 }
             }
         })
@@ -264,6 +296,7 @@
     function cartCount() {
         var count = [[${count}]];
         localStorage.setItem("count", count);
+        if(count==0) $('#badge').text(localStorage.removeItem("count"))
         if(count != 0) $('#badge').text(localStorage.getItem("count"));
         var cleanBtn = document.getElementsByClassName('clear-rating');
         cleanBtn[0].hidden=true;

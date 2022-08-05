@@ -63,6 +63,7 @@
         var amount = document.getElementById("badge");
         var count = localStorage.getItem("count");
         if(count != 0 ) amount.innerText = count;
+        if(count==0) amount.innerText = "0";
     </script>
 
     <!--Sidebar -->

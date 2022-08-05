@@ -31,7 +31,7 @@
                 <div class="col"></div>
                 <div class="col align-self-center">
                     <form method="post" th:action="@{/user/account}" enctype="multipart/form-data">
-                        <div class="user-img">
+                        <div class="user-img" style="width: 200px">
                             <img th:src="${customer.getPhoto}" class="img-thumbnail mx-auto d-block" onerror="this.src='../img/avatar7.png'">
                             <input class="form-control" type="file" name="photoFile" id="photoFile" style="display: none;" multiple >
                             <label for="photoFile" class="form-label uploadBtn">Click to select</label>

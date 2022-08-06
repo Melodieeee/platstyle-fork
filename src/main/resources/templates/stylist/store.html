@@ -99,10 +99,10 @@
                         <div class="container mt-5">
                             <div class="d-flex justify-content-center align-items-center">
                                 <div class="card">
-                                    <div class="comment-title pt-2 border-bottom">
+                                    <div class="comment-title m-4 border-bottom">
                                         <h5>Recent Comments</h5>
                                     </div>
-                                    <div class="comment-card mt-2 w-75">
+                                    <div class="comment-card m-2 w-100">
                                         <div class="container d-flex flex-row p-3 text-start border-bottom" th:each="f:${feedbacks}">
                                             <img src="../img/avatar7.png" width="40" height="40" class="rounded-circle mr-3">
                                             <div class="w-75">
@@ -129,11 +129,11 @@
                 <div class="container coverflow">
                     <!--Carousel-->
                     <div class="row">
-                        <div id="carousel" class="carousel slide" data-bs-ride="carousel" >
+                        <div id="carousel" class="carousel slide" data-bs-ride="carousel" width="200" height="400">
                             <div class="carousel-inner" id="portfolios">
                                 <div class="carousel-item active">
-                                    <div class="container">
-                                        <img src="../img/default-portfolio.png" class="d-block w-100" alt="" >
+                                    <div class="container text-center">
+                                        <img src="../img/default-portfolio.png" class="d-block w-100" alt="" width="300" height="600">
                                     </div>
                                 </div>
                             </div>
@@ -211,8 +211,8 @@
     <!--Footer-->
     <div th:replace="fragments/footer :: footer"/>
 </main>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.0/jquery.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.0/jquery.js"></script>
 <script src="../js/star-rating.js" type="text/javascript"></script>
 <script src="../js/theme.min.js" type="text/javascript"></script>
 <script src="../js/silder.js"></script>
@@ -272,13 +272,13 @@
 
                 $('#portfolios').empty();
                 if(photos.length == 0)  $('#portfolios').append("<div class=\"carousel-item active\">\n" +
-                    "                                <div class=\"container\">\n"+
-                    "                                   <img src=\"../img/default-portfolio.png\" id=\"img-photo\" class=\"d-block w-100\" alt=\"\">\n" +
+                    "                                <div class=\"container text-center\">\n"+
+                    "                                   <img src=\"../img/default-portfolio.png\" id=\"img-photo\" class=\"d-block w-100\" alt=\"\" width=\"300\" height=\"600\">\n" +
                     "                                 </div>\n"+
                     "                                   </div>");
                 for(var i = 0; i < photos.length; i++) {
-                    if(i==0) var items = '<div class="carousel-item active"><div class="container"><img src="'+photos[i]+'" class="d-block w-100" alt=""  ></div></div>';
-                    else var items = '<div class="carousel-item"><div class="container"><img src="'+photos[i]+'" class="d-block w-100" alt=""></div></div>';
+                    if(i==0) var items = '<div class="carousel-item active"><div class="container"><img src="'+photos[i]+'" class="d-block w-100" alt="" width="300" height="600" ></div></div>';
+                    else var items = '<div class="carousel-item"><div class="container"><img src="'+photos[i]+'" class="d-block w-100" alt="" width="300" height="600"></div></div>';
                     $('#portfolios').append(items);
 
                 }

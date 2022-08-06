@@ -27,7 +27,7 @@
             <div class="container col-8 px-2 my-5">
                 <div class="container row">
                     <!-- photo -->
-                    <div class="container col-3 pt-2"><img src="../img/customerImg.jpg" alt="customer's photo"
+                    <div class="container col-3 pt-2"><img th:src="../img/customerImg.jpg" alt="customer's photo"
                                                            style="width: 100%;"></div>
                     <!-- order details -->
                     <div class="container col-8">
@@ -158,8 +158,8 @@
                                         <!-- Appointment accepted -->
                                         <div th:classappend="${order.getStatus == 2 ? 'show':''}" class="card2 ml-2">
                                             <div class="row px-3 mr-2">
-                                                <p>Please arrive at <span>New Westminster, BC V3L 5B2</span></p>
-                                                <p>on <span>May 30</span> at <span>06:00 p.m.</span>.</p>
+                                                <p>Please arrive at <span th:text="${order.getAddress()}">New Westminster, BC V3L 5B2</span></p>
+                                                <p th:text="'on ' + ${order.getScheduleDate()}"></p>
                                             </div>
                                         </div>
 

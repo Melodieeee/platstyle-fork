@@ -28,47 +28,6 @@ import static org.springframework.test.web.servlet.setup.MockMvcBuilders.standal
 
 class StylistControllerTest {
 
-    Stylist stylist;
 
-    @Autowired
-    private MockMvc mockMvc;
-
-    @Mock
-    StylistRepository stylistRepository;
-
-    @Mock
-    View mockView;
-
-    @InjectMocks
-    UserController userController;
-
-    @InjectMocks
-    StylistController stylistController;
-
-    @BeforeEach
-    void setUp() {
-        stylist = new Stylist();
-        stylist.setSid(Long.valueOf(1));
-        stylist.setEmail("stylist@email.com");
-        stylist.setName("Tom TheCat");
-        stylist.setVerify(true);
-        MockitoAnnotations.openMocks(this);
-        mockMvc = standaloneSetup(userController).setSingleView(mockView).build();
-    }
-
-    @Test
-    public void findAllVerifiedStylist() throws Exception {
-        List<Stylist> list = new ArrayList<Stylist>();
-        list.add(stylist);
-        list.add(stylist);
-        when(stylistRepository.findAllVerifiedStylist()).thenReturn(list);
-        mockMvc.perform(get("/user/shop"))
-                .andExpect(status().isOk())
-                .andExpect(model().attribute("stylistList", list))
-                // .andExpect(view().name(""))
-                .andExpect(model().attribute("stylistList", hasSize(2)));
-        verify(stylistRepository, times(1)).findAllVerifiedStylist();
-        verifyNoMoreInteractions(stylistRepository);
-    }
 
 }

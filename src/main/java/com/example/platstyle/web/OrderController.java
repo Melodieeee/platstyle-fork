@@ -44,6 +44,8 @@ public class OrderController {
         model.addAttribute("order", order);
         model.addAttribute("services", services);
         model.addAttribute("feedback", new Feedback());
+        System.out.println(order.getUser());
+        System.out.println(order.getAddress());
         return "user/orderDetail";
     }
 

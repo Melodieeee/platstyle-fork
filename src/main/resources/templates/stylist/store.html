@@ -98,14 +98,14 @@
                         <!--Comments-->
                         <div class="container mt-5">
                             <div class="d-flex justify-content-center align-items-center">
-                                <div class="card">
-                                    <div class="comment-title m-4 border-bottom">
+                                <div class="card w-75">
+                                    <div class="comment-title m-1 border-bottom">
                                         <h5>Recent Comments</h5>
                                     </div>
-                                    <div class="comment-card m-2 w-100">
-                                        <div class="container d-flex flex-row p-3 text-start border-bottom" th:each="f:${feedbacks}">
-                                            <img src="../img/avatar7.png" width="40" height="40" class="rounded-circle mr-3">
-                                            <div class="w-75">
+                                    <div class="comment-card">
+                                        <div class="container d-flex flex-row p-1 text-start border-bottom" th:each="f:${feedbacks}">
+                                            <img src="../img/avatar7.png" width="30" height="30" class="rounded-circle mr-3">
+                                            <div class="w-50">
                                                 <div class="d-flex justify-content-between align-items-center">
                                                     <div class="d-flex flex-row align-items-center">
                                                         <span class="mx-3" th:text="${f.getOrder.getUser.getFirstName + ' ' + f.getOrder.getUser.getLastName }">Brian selter</span>

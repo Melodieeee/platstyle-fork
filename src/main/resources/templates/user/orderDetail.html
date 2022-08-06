@@ -133,8 +133,8 @@
                                         <!-- Order Accepted by Stylist -->
                                         <div th:classappend="${order.getStatus == 2 ? 'show':''}" class="card2 ml-2">
                                             <div class="row px-3 mr-2">
-                                                <p>We have received your advanced payment. Please waht for your stlist's arrival </p>
-                                                <p>at <span th:text="${order.getAddress()}">New Westminster, BC V3L 5B2</span></p>
+                                                <p>We have received your advanced payment. Please what for your stylist's arrival </p>
+                                                <p th:text="'at ' + ${order.getAddress()}">New Westminster, BC V3L 5B2/p>
                                                 <p th:text="'on ' + ${order.getScheduleDate()}"></p>
                                             </div>
                                             <div class="row px-3 mr-2">

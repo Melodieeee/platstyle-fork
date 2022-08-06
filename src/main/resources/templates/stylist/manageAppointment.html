@@ -158,7 +158,7 @@
                                         <!-- Appointment accepted -->
                                         <div th:classappend="${order.getStatus == 2 ? 'show':''}" class="card2 ml-2">
                                             <div class="row px-3 mr-2">
-                                                <p>Please arrive at <span th:text="${order.getAddress()}">New Westminster, BC V3L 5B2</span></p>
+                                                <p th:text="'Please arrive at ' + ${order.getAddress()}"></p>
                                                 <p th:text="'on ' + ${order.getScheduleDate()}"></p>
                                             </div>
                                         </div>

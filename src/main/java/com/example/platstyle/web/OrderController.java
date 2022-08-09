@@ -105,7 +105,7 @@ public class OrderController {
         }
         order.setStatus(99);
         orderRepository.save(order);
-        return "redirect:/stylist/appointments";
+        return "redirect:/stylist/ongoingAppointments";
     }
 
     @RequestMapping(value = "/stylist/acceptAppointment/{oid}", method = RequestMethod.POST)

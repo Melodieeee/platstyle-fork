@@ -270,7 +270,7 @@ public class AjaxController {
         //String sql = "SELECT * FROM `stylist` WHERE city LIKE \"%vancouver%\" AND sid IN ( SELECT DISTINCT uid FROM `service` WHERE gender = \"F\");";
         String sql = "SELECT * FROM `stylist`";
         boolean first = true;
-        if(citys.length != 0 || gender.length == 2 ) sql += " WHERE ";
+        if(citys.length != 0 || gender.length >= 2 ) sql += " WHERE ";
         if(citys.length != 0) sql += "city LIKE ";
         for(String city: citys) {
             if(!city.isEmpty()) {
@@ -279,18 +279,27 @@ public class AjaxController {
                 first = false;
             }
         }
-        if(citys.length != 0 && gender.length == 2 ) sql += " AND";
-        if(gender.length == 2 ) {
+        if(citys.length != 0 && gender.length >= 2 ) sql += " AND";
+        if(gender.length >= 2 ) {
+            first = true;
             for(String gen: gender) {
-                if(!gen.isEmpty()) {
-                    sql += " uid IN ( SELECT DISTINCT uid FROM `service` WHERE gender = \"" + gender[1] + "\");";
+                if(first) {
+                    if(!gen.isEmpty() ) {
+                        sql += " uid IN ( SELECT DISTINCT uid FROM `service` WHERE gender = \"" + gen +"\"";
+                        first = false;
+                    }
+                } else {
+                    if(!gen.isEmpty() ) {
+                        sql += " OR gender = \"" + gen + "\"";
+                        first = false;
+                    }
                 }
             }
+            sql += ");";
         }
         String response = "";
         List<Object[]> stylists = stylistRepository.findByFilter(sql);
         for(Object[] stylist: stylists) {
-            System.out.println(stylist[0]);
             response += "<div class=\"col-md-3\">\n" +
                     "        <div class=\"product\">\n" +
                     "              <div class=\"cart-button mt-3 px-2 d-flex justify-content-end align-items-center\">\n" +

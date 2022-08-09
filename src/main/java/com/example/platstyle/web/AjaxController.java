@@ -271,6 +271,9 @@ public class AjaxController {
         String sql = "SELECT * FROM `stylist`";
         boolean first = true;
         if(citys.length != 0 || gender.length >= 2 ) sql += " WHERE ";
+        else {
+            sql += " WHERE verify = true";
+        }
         if(citys.length != 0) sql += "city LIKE ";
         for(String city: citys) {
             if(!city.isEmpty()) {

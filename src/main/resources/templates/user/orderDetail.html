@@ -30,7 +30,7 @@
             <div class="container col-8 px-2 my-5">
                 <div class="container row">
                     <!-- photo -->
-                    <div class="container col-3 pt-2"><img src="../img/avatar7.png" alt="stylist's photo" style="width: 100%;"></div>
+                    <div class="container col-3 pt-2"><img th:src="${order.getStylist().getPhoto()}" alt="stylist's photo" style="width: 100%;"></div>
                     <!-- order details -->
                     <div class="container col-8">
                         <div class="h3" th:text="${order.getStylistName()}"></div>

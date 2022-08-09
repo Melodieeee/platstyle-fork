@@ -22,8 +22,8 @@ public class OrderController {
     private UserRepository userRepository;
     private StylistRepository stylistRepository;
     private OrderRepository orderRepository;
-    private OrderServiceRepository orderServiceRepository;
     private FeedbackRepository feedbackRepository;
+    private  CustomerRepository customerRepository;
 
     @GetMapping(path = "/user/orders")
     public String orders(Model model, Principal principal){
@@ -74,10 +74,12 @@ public class OrderController {
         if(order.getStylist().getSid() != user.getStylistId()) return "redirect:/user/shop";
         List<Order_service> services = order.getServices();
         Feedback feedback = order.getFeedback();
+        Customer customer = customerRepository.findById(order.getUser().getUid()).orElse(null);
         if(feedback == null) feedback = new Feedback(null,"",new Date(),0,null,null);
         model.addAttribute("order", order);
         model.addAttribute("services", services);
         model.addAttribute("feedback", feedback);
+        model.addAttribute("customer", customer);
         return "stylist/manageAppointment";
     }
     @GetMapping("/user/cancelOrder")

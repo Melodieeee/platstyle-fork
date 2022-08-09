@@ -58,7 +58,7 @@
                     <!-- input area -->
 
                         <fieldset class="col-9">
-                            <input type="text" class="form-control" id="addressInput" th:field="${order.address}" th:placeholder="${customer.getAddress()}" aria-label="Address" required disabled>
+                            <input type="text" class="form-control" id="addressInput" th:field="${order.address}" th:placeholder="${customer.getAddress()}" aria-label="Address" required readonly>
                         </fieldset>
 
 
@@ -74,12 +74,12 @@
                         function changeDisableAddress(){
                             if(filterStatus == 0){
                                 filterStatus = 1;
-                                document.getElementById("addressInput").disabled = false;
+                                document.getElementById("addressInput").readOnly  = false;
                                 document.getElementById("addressBtn").innerHTML = "OK";
 
                             } else {
                                 filterStatus = 0;
-                                document.getElementById("addressInput").disabled = true;
+                                document.getElementById("addressInput").readOnly  = true;
                                 document.getElementById("addressBtn").innerHTML = "Edit";
                             }
                         };
@@ -162,7 +162,7 @@
                     <fieldset id="order-address" class="container col-9">
 
                         <div class="form-floating">
-                            <textarea rows="3" class="form-control" placeholder="Leave a comment here" id="noteInput" disabled th:field="${order.note}"></textarea>
+                            <textarea rows="3" class="form-control" placeholder="Leave a comment here" id="noteInput" readonly th:field="${order.note}"></textarea>
                             <label for="noteInput">write down what you want to tell your stylist before he/she arrives...</label>
                         </div>
 
@@ -180,12 +180,12 @@
                         function changeDisable(){
                             if(filterStatus == 0){
                                 filterStatus = 1;
-                                document.getElementById("noteInput").disabled = false;
+                                document.getElementById("noteInput").readOnly = false;
                                 document.getElementById("noteBtn").innerHTML = "OK";
 
                             } else {
                                 filterStatus = 0;
-                                document.getElementById("noteInput").disabled = true;
+                                document.getElementById("noteInput").readOnly = true;
                                 document.getElementById("noteBtn").innerHTML = "Edit";
                             }
                         };

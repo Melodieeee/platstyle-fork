@@ -168,24 +168,35 @@ public class UserController {
                               @RequestParam("workPermitFile") MultipartFile workPermitFile,
                               Principal principal,
                               RedirectAttributes attributes){
-        if(idFile.isEmpty() || workPermitFile.isEmpty()) {
+        if(idFile.isEmpty() && workPermitFile.isEmpty()) {
             attributes.addFlashAttribute("message", "Please select a file to upload.");
             return "redirect:/user/upload";
         }
         String idFileName = StringUtils.cleanPath(idFile.getOriginalFilename());
         String workPermitFileName = StringUtils.cleanPath(workPermitFile.getOriginalFilename());
         try {
-            Path path = Paths.get(UPLOAD_DIR + idFileName);
-            Files.copy(idFile.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
-            path = Paths.get(UPLOAD_DIR + workPermitFileName);
-            Files.copy(workPermitFile.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
+            Path path;
+            if(!idFile.isEmpty()) {
+                path = Paths.get(UPLOAD_DIR + idFileName);
+                Files.copy(idFile.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
+            }
+            if(!workPermitFile.isEmpty()) {
+                path = Paths.get(UPLOAD_DIR + workPermitFileName);
+                Files.copy(workPermitFile.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
         User user = userRepository.findByEmail(principal.getName()).orElse(null);
-        Stylist stylist = new Stylist(null, user, user.getFirstName()+" "+user.getLastName(),user.getPhone(),user.getEmail(), "", idFileName, workPermitFileName, "", false,0,null, null);
+
+        Stylist stylist = user.getStylist();
+        if(stylist == null) stylist = new Stylist(null, user, user.getFirstName()+" "+user.getLastName(),user.getPhone(),user.getEmail(), "", idFileName, workPermitFileName, "", false,0,null, null);
+        else {
+            stylist.setIdentityDocument(idFileName);
+            stylist.setWorkPermit(workPermitFileName);
+        }
         stylistRepository.save(stylist);
-        attributes.addFlashAttribute("message", "You successfully uploaded " + idFileName + " and "+ workPermitFileName +'!');
+        attributes.addFlashAttribute("message", "You successfully uploaded " + idFileName + ", "+ workPermitFileName +'!');
         return "redirect:/user/upload";
     }
 

@@ -14,7 +14,7 @@
     <name>platStyle</name>
     <description>platStyle</description>
     <properties>
-        <java.version>11</java.version>
+        <java.version>17</java.version>
     </properties>
     <!-- Add Spring Cloud GCP Dependency BOM -->
     <dependencyManagement>
@@ -102,6 +102,15 @@
                 <groupId>com.heroku.sdk</groupId>
                 <artifactId>heroku-maven-plugin</artifactId>
                 <version>2.0.16</version>
+            </plugin>
+            <plugin>
+                <groupId>com.google.cloud.tools</groupId>
+                <artifactId>appengine-maven-plugin</artifactId>
+                <version>2.4.4</version>
+                <configuration>
+                    <version>1</version>
+                    <projectId>GCLOUD_CONFIG</projectId>
+                </configuration>
             </plugin>
         </plugins>
     </build>

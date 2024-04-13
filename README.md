@@ -19,7 +19,7 @@ https://platstyle.melodieeee.com/
 
 [See the presentation here](https://drive.google.com/file/d/1IwFl_pzz91TRSMje6nYe5vPOb6s-oW2g/view?usp=drive_link)
 
-[See the development process here](https://docs.google.com/document/d/1NW3I_uTVUvVYHweWK1qLsq0sMlJq7mpT/edit?usp=drive_link&ouid=117495462796375031004&rtpof=true&sd=true)
+[See the development process here](https://drive.google.com/file/d/1oFFzJpvxwpr-1g9H8S6yAxyiCOR_fKdW/view?usp=drive_link)
 
 ## Project Structure
 
